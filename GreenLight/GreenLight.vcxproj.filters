@@ -13,5 +13,19 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\Model">
+      <UniqueIdentifier>{9343b6b1-ecc0-421f-b1bc-b538281b4c08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Control">
+      <UniqueIdentifier>{00270335-0522-46f3-b838-d44d9fd11d4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\View">
+      <UniqueIdentifier>{39ab27d4-10f5-42ea-9d76-433da14a7f2d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
