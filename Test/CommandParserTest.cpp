@@ -37,4 +37,10 @@ TEST_F(CommandPerserTest, ParseLine)
 {
 	auto result = parser_.ParseLine(parser_.ParseFile(fileName_));
 	EXPECT_EQ(result.size(), inputCount_);
+	for (auto command : result)
+	{
+		EXPECT_EQ(command.type, CommandType::ADD);
+		EXPECT_EQ(command.printOptino, PrintOption::PrintCount);
+		EXPECT_EQ(command.filterOption, FilterOption::None);
+	}
 }
