@@ -20,15 +20,15 @@ vector<Command> CommandParser::ParseLine(vector<string>& lines) {
     vector<Command> result;
 
     for (auto line : lines) {
-        auto strs = _Split(line, ',');
-        auto command = _MakeCommand(strs);
+        auto strs = Split_(line, ',');
+        auto command = MakeCommand_(strs);
         result.push_back(command);
     }
 
     return result;
 }
 
-vector<string> CommandParser::_Split(string str, const char separator) {
+vector<string> CommandParser::Split_(string str, const char separator) {
     istringstream iss(str);
     string buffer;
     vector<string> result;
@@ -40,7 +40,7 @@ vector<string> CommandParser::_Split(string str, const char separator) {
     return result;
 }
 
-Command CommandParser::_MakeCommand(vector<string>& str) {
+Command CommandParser::MakeCommand_(vector<string>& str) {
     Command result;
 
     return result;

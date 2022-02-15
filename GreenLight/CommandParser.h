@@ -30,6 +30,6 @@ public:
 	vector<Command> ParseLine(vector<string>& lines);
 
 private:
-	vector<string> _Split(string str, const char separator);
-	Command _MakeCommand(vector<string>& str);
+	vector<string> Split_(string str, const char separator);
+	Command MakeCommand_(vector<string>& str);
 };
