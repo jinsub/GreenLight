@@ -4,28 +4,24 @@
 class CommandPerserTest : public testing::Test
 {
 protected:
-	void SetUp(void) override
-	{
+	void SetUp(void) override {
 	}
-	void TearDown(void) override
-	{
+	void TearDown(void) override {
 	}
 
 	CommandParser parser_;
 };
 
-TEST_F(CommandPerserTest, Construct)
-{
+TEST_F(CommandPerserTest, Construct) {
 }
 
-TEST_F(CommandPerserTest, ParseFile)
-{
+TEST_F(CommandPerserTest, ParseFile) {
 	constexpr char* fileName = "test.txt";
 	constexpr int inputCount = 10;
 	auto file = fopen(fileName, "w");
 	for (int sampleNum = 0; sampleNum < inputCount; sampleNum++)
 	{
-		fprintf(file, "{CommandType},{Opt1},{Opt2}, ,{Args...}\n");
+		fprintf(file, "ADD, , , ,12345678,JINSEOB YANG,CL2,010-1234-5678,20220215,PRO\n");
 	}
 	fclose(file);
 
@@ -65,8 +61,7 @@ TEST_F(CommandPerserTest, ParseLine_PrintLineCheck) {
 	}
 }
 
-TEST_F(CommandPerserTest, ParseLine_FilterOptionCheck)
-{
+TEST_F(CommandPerserTest, ParseLine_FilterOptionCheck) {
 	vector<string> lines;
 	lines.push_back("DEL, , , ,employeeNum,12345678");
 	lines.push_back("SCH, , , ,name,JINSEOB YANG");
