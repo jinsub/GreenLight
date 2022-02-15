@@ -14,7 +14,8 @@ enum class FilterOption {
 	BirthdayYear,
 	BirthdayMonth,
 	BirthdayDay,
-	None
+	None,
+	Invalid
 };
 struct Parameter {
 	// TODO

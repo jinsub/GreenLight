@@ -5,7 +5,8 @@
 enum class PrintOption
 {
 	PrintLines,
-	PrintCount
+	PrintCount,
+	Invalid
 };
 
 class IPrinter
