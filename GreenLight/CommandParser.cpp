@@ -44,8 +44,14 @@ Command CommandParser::MakeCommand_(vector<string>& str) {
     Command result;
     result.type = GetCommandType_(str[0]);
     result.printOptino = GetPrintOption_(str[1]);
-    result.filterOption = GetFilterOption_(str[2], str[4]);
 
+    if (result.type == CommandType::ADD) {
+        result.filterOption = FilterOption::None;
+    }
+    else {
+        result.filterOption = GetFilterOption_(str[2], str[4]);
+    }
+    
     for (int index = 4; index < str.size(); index++) {
         result.arguments.push_back(str[index]);
     }
@@ -58,6 +64,8 @@ CommandType CommandParser::GetCommandType_(const string& commandType) {
     if (commandType == "DEL") { return CommandType::DEL; }
     if (commandType == "SCH") { return CommandType::SCH; }
     if (commandType == "MOD") { return CommandType::MOD; }
+
+    // TODO : logging code here
     return CommandType::INVALID;
 }
 
@@ -70,7 +78,14 @@ PrintOption CommandParser::GetPrintOption_(const string& printOption) {
 }
 
 FilterOption CommandParser::GetFilterOption_(const string& filterOption, const string& filterField) {
+    if (filterOption == " " && filterField == "employeeNum") { return FilterOption::EmployeeNum; }
+    if (filterOption == " " && filterField == "name") { return FilterOption::Name; }
+    if (filterOption == " " && filterField == "cl") { return FilterOption::CareerLevel; }
+    if (filterOption == " " && filterField == "phoneNum") { return FilterOption::PhoneNumber; }
+    if (filterOption == " " && filterField == "birthday") { return FilterOption::Birthday; }
+    if (filterOption == " " && filterField == "certi") { return FilterOption::Certi; }
     if (filterOption == " ") { return FilterOption::None; }
+
     if (filterOption == "-f" && filterField == "name") { return FilterOption::FirstName; }
     if (filterOption == "-l" && filterField == "name") { return FilterOption::LastName; }
     if (filterOption == "-m" && filterField == "phoneNum") { return FilterOption::MiddlePhoneNum; }
