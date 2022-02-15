@@ -11,7 +11,8 @@ enum class CommandType
 	ADD,
 	DEL,
 	SCH,
-	MOD
+	MOD,
+	INVALID
 };
 
 struct Command
@@ -26,8 +27,9 @@ class CommandParser
 {
 public:
 	vector<string> ParseFile(const string inputFile);
-	vector<Command> ParseLine(vector<string> lines);
+	vector<Command> ParseLine(vector<string>& lines);
 
 private:
-	vector<string> _Split(string str, char separator);
+	vector<string> _Split(string str, const char separator);
+	Command _MakeCommand(vector<string>& str);
 };

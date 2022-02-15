@@ -16,12 +16,19 @@ vector<string> CommandParser::ParseFile(const string inputFile) {
     return result;
 }
 
-vector<Command> CommandParser::ParseLine(vector<string> lines) {
+vector<Command> CommandParser::ParseLine(vector<string>& lines) {
     vector<Command> result;
+
+    for (auto line : lines) {
+        auto strs = _Split(line, ',');
+        auto command = _MakeCommand(strs);
+        result.push_back(command);
+    }
+
     return result;
 }
 
-vector<string> CommandParser::_Split(string str, char separator) {
+vector<string> CommandParser::_Split(string str, const char separator) {
     istringstream iss(str);
     string buffer;
     vector<string> result;
@@ -32,3 +39,10 @@ vector<string> CommandParser::_Split(string str, char separator) {
 
     return result;
 }
+
+Command CommandParser::_MakeCommand(vector<string>& str) {
+    Command result;
+
+    return result;
+}
+
