@@ -21,7 +21,7 @@ protected:
 		fclose(file);
 	}
 
-	CommandParser m_parser;
+	CommandParser parser_;
 };
 
 TEST_F(CommandPerserTest, Construct)
@@ -34,7 +34,7 @@ TEST_F(CommandPerserTest, ParseFile)
 	auto fileName = "input.text";
 	_MakeSampleInput(fileName, InputCount);
 
-	auto result = m_parser.ParseFile(fileName);
+	auto result = parser_.ParseFile(fileName);
 	EXPECT_EQ(result.size(), InputCount);
 }
 
@@ -44,6 +44,6 @@ TEST_F(CommandPerserTest, ParseLine)
 	auto fileName = "input.text";
 	_MakeSampleInput(fileName, InputCount);
 
-	auto result = m_parser.ParseLine(m_parser.ParseFile(fileName));
+	auto result = parser_.ParseLine(parser_.ParseFile(fileName));
 	EXPECT_EQ(result.size(), InputCount);
 }
