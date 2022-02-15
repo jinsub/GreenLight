@@ -17,7 +17,7 @@ enum class FilterOptionType {
 	None
 };
 struct Parameter {
-
+	// TODO
 };
 
 struct IDatabase {
