@@ -32,4 +32,8 @@ public:
 private:
 	vector<string> Split_(string str, const char separator);
 	Command MakeCommand_(vector<string>& str);
+
+	CommandType GetCommandType_(const string& commandType);
+	PrintOption GetPrintOption_(const string& printOption);
+	FilterOption GetFilterOption_(const string& filterOption, const string& filterField);
 };
