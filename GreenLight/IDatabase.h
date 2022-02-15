@@ -7,6 +7,12 @@
 using namespace std;
 
 enum class FilterOption {
+	EmployeeNum,
+	Name,
+	CareerLevel,
+	PhoneNumber,
+	Birthday,
+	Certi,
 	FirstName,
 	LastName,
 	MiddlePhoneNum,
@@ -17,6 +23,7 @@ enum class FilterOption {
 	None,
 	Invalid
 };
+
 struct Parameter {
 	// TODO
 };
