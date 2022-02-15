@@ -6,7 +6,7 @@
 
 using namespace std;
 
-enum class FilterOptionType {
+enum class FilterOption {
 	FirstName,
 	LastName,
 	MiddlePhoneNum,
@@ -22,7 +22,7 @@ struct Parameter {
 
 struct IDatabase {
 	virtual vector<EmployeeInfo> createDB() = 0;
-	virtual vector<EmployeeInfo> readDB(FilterOptionType opt, Parameter param) = 0;
-	virtual vector<EmployeeInfo> updateDB(FilterOptionType opt, Parameter paramOld, Parameter paramNew) = 0;
-	virtual vector<EmployeeInfo> deleteDB(FilterOptionType opt, Parameter param) = 0;
+	virtual vector<EmployeeInfo> readDB(FilterOption opt, Parameter param) = 0;
+	virtual vector<EmployeeInfo> updateDB(FilterOption opt, Parameter paramOld, Parameter paramNew) = 0;
+	virtual vector<EmployeeInfo> deleteDB(FilterOption opt, Parameter param) = 0;
 };

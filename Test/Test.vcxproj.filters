@@ -3,6 +3,9 @@
   <ItemGroup>
     <ClCompile Include="test.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="CommandParserTest.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -17,5 +20,8 @@
     <Filter Include="View">
       <UniqueIdentifier>{5d37c7b9-3434-4aa4-8943-9f9322a59130}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
