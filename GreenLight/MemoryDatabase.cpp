@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-vector<EmployeeInfo> MemoryDatabase::CreateDB() {
+vector<EmployeeInfo> MemoryDatabase::CreateDB(EmployeeInfo info) {
 	vector<EmployeeInfo> result;
 
 	return result;

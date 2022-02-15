@@ -9,7 +9,7 @@ using namespace std;
 
 class MemoryDatabase : IDatabase {
 public:
-	vector<EmployeeInfo> CreateDB() override;
+	vector<EmployeeInfo> CreateDB(EmployeeInfo info) override;
 	vector<EmployeeInfo> ReadDB(FilterOption opt, Parameter param) override;
 	vector<EmployeeInfo> UpdateDB(FilterOption opt, Parameter paramOld, Parameter paramNew) override;
 	vector<EmployeeInfo> DeleteDB(FilterOption opt, Parameter param) override;
