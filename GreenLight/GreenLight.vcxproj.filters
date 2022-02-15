@@ -28,4 +28,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IDatabase.h">
+      <Filter>소스 파일\Model</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
