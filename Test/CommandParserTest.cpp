@@ -40,7 +40,10 @@ TEST_F(CommandPerserTest, ParseFile)
 
 TEST_F(CommandPerserTest, ParseLine)
 {
-	vector<string> lines;
-	auto result = m_parser.ParseLine(lines);
-	EXPECT_TRUE(result.empty());
+	constexpr int InputCount = 10;
+	auto fileName = "input.text";
+	_MakeSampleInput(fileName, InputCount);
+
+	auto result = m_parser.ParseLine(m_parser.ParseFile(fileName));
+	EXPECT_FALSE(result.empty());
 }

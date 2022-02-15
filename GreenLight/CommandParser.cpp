@@ -7,10 +7,10 @@ using namespace std;
 vector<string> CommandParser::ParseFile(const string inputFile) {
     vector<string> result;
 
-    string str;
+    string buf;
     ifstream file(inputFile);
-    while (getline(file, str)) {
-        result.push_back(str);
+    while (getline(file, buf)) {
+        result.push_back(buf);
     }
 
     return result;
