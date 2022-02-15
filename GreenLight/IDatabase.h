@@ -1,20 +1,11 @@
 #pragma once
 #include <iostream>
-#include <string>
 #include <vector>
 
+#include "Types.h"
+
 using namespace std;
-enum class CareerLevel {
-	CL1,
-	CL2,
-	CL3,
-	CL4,
-};
-enum class CertLevel {
-	ADV,
-	PRO,
-	EX,
-};
+
 enum class FilterOptionType {
 	FirstName,
 	LastName,
@@ -27,21 +18,6 @@ enum class FilterOptionType {
 };
 struct Parameter {
 
-};
-struct EmployeeInfo {
-	string toString() {
-
-	};
-	unsigned int num;
-	string firstName;
-	string lasttName;
-	CareerLevel cl;
-	string midPhoneNum;
-	string lastPhoneNum;
-	unsigned int birthYear;
-	unsigned int birthMonth;
-	unsigned int birthDay;
-	CertLevel certi;
 };
 
 struct IDatabase {
