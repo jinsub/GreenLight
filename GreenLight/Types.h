@@ -15,9 +15,6 @@ enum class CertLevel {
 };
 
 struct EmployeeInfo {
-	string toString() {
-
-	};
 	unsigned int num;
 	string firstName;
 	string lasttName;
