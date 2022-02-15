@@ -15,6 +15,16 @@ enum class CommandType
 	INVALID
 };
 
+enum class CmdIndex
+{
+	CmdType = 0,
+	Opt1,
+	Opt2,
+	Opt3,
+	ArgStart,
+	Filter = ArgStart
+};
+
 struct Command
 {
 	CommandType type;
