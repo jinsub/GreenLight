@@ -30,6 +30,9 @@
     <ClCompile Include="CommandParser.cpp">
       <Filter>소스 파일\Control</Filter>
     </ClCompile>
+    <ClCompile Include="MemoryDatabase.cpp">
+      <Filter>소스 파일\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Types.h">
@@ -45,12 +48,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MemoryDatabase.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MemoryDatabase.h">
       <Filter>소스 파일\Model</Filter>
     </ClInclude>
     <ClInclude Include="Types.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryDatabase.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
