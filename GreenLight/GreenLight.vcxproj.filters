@@ -27,10 +27,25 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="CommandParser.cpp">
+      <Filter>소스 파일\Control</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Types.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandParser.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="IDatabase.h">
-      <Filter>소스 파일\Model</Filter>
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="IPrinter.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryDatabase.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MemoryDatabase.h">
       <Filter>소스 파일\Model</Filter>
