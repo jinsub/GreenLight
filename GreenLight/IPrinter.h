@@ -11,5 +11,5 @@ enum class PrintOption
 class IPrinter
 {
 public:
-	virtual void Print(PrintOption printOption, std::vector<EmployeeInfo> info) = 0;
+	virtual void Print(const PrintOption printOption, const std::vector<EmployeeInfo>& info) = 0;
 };
