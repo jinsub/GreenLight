@@ -21,8 +21,8 @@ struct Parameter {
 };
 
 struct IDatabase {
-	virtual vector<EmployeeInfo> createDB() = 0;
-	virtual vector<EmployeeInfo> readDB(FilterOption opt, Parameter param) = 0;
-	virtual vector<EmployeeInfo> updateDB(FilterOption opt, Parameter paramOld, Parameter paramNew) = 0;
-	virtual vector<EmployeeInfo> deleteDB(FilterOption opt, Parameter param) = 0;
+	virtual vector<EmployeeInfo> CreateDB() = 0;
+	virtual vector<EmployeeInfo> ReadDB(FilterOption opt, Parameter param) = 0;
+	virtual vector<EmployeeInfo> UpdateDB(FilterOption opt, Parameter paramOld, Parameter paramNew) = 0;
+	virtual vector<EmployeeInfo> DeleteDB(FilterOption opt, Parameter param) = 0;
 };
