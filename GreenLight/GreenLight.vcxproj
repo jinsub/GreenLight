@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="CommandParser.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MemoryDatabase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandParser.h" />

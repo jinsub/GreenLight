@@ -10,9 +10,9 @@ using namespace std;
 class MemoryDatabase : IDatabase {
 public:
 	vector<EmployeeInfo> CreateDB() override;
-	vector<EmployeeInfo> ReadDB(FilterOptionType opt, Parameter param) override;
-	vector<EmployeeInfo> UpdateDB(FilterOptionType opt, Parameter paramOld, Parameter paramNew) override;
-	vector<EmployeeInfo> DeleteDB(FilterOptionType opt, Parameter param) override;
+	vector<EmployeeInfo> ReadDB(FilterOption opt, Parameter param) override;
+	vector<EmployeeInfo> UpdateDB(FilterOption opt, Parameter paramOld, Parameter paramNew) override;
+	vector<EmployeeInfo> DeleteDB(FilterOption opt, Parameter param) override;
 
 private:
 	map<unsigned int, EmployeeInfo> mainDB_;
