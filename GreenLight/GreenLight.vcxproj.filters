@@ -56,5 +56,11 @@
     <ClInclude Include="MemoryDatabase.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="ISorter.h">
+      <Filter>소스 파일\View</Filter>
+    </ClInclude>
+    <ClInclude Include="IOutput.h">
+      <Filter>소스 파일\View</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
