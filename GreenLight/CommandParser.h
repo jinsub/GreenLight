@@ -25,5 +25,9 @@ struct Command
 class CommandParser
 {
 public:
-	vector<Command> Parse(string inputFile);
+	vector<string> ParseFile(const string inputFile);
+	vector<Command> ParseLine(vector<string> lines);
+
+private:
+	vector<string> _Split(string str, char separator);
 };
