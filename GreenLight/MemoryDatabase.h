@@ -9,21 +9,23 @@
 using namespace std;
 
 
-struct MemoryDatabase : IDatabase {
-
+class MemoryDatabase_ : IDatabase {
+public:
 	vector<EmployeeInfo> createDB() override;
 	vector<EmployeeInfo> readDB(FilterOptionType opt, Parameter param) override;
 	vector<EmployeeInfo> updateDB(FilterOptionType opt, Parameter paramOld, Parameter paramNew) override;
 	vector<EmployeeInfo> deleteDB(FilterOptionType opt, Parameter param) override;
 
-	map<unsigned int, EmployeeInfo> MainDB;
-	multimap<string, unsigned int> FirstName_Map;
-	multimap<string, unsigned int> LastName_Map;
-	multimap<string, unsigned int> MidPhone_Map;
-	multimap<string, unsigned int> LastPhone_Map;
-	multimap<string, unsigned int> BirthYear_Map;
-	multimap<string, unsigned int> BirthMonth_Map;
-	multimap<string, unsigned int> BirthDay_Map;
-	multimap<CareerLevel, unsigned int> Carrer_Map;
-	multimap<CertLevel, unsigned int> Cert_Map;
+private:
+	map<unsigned int, EmployeeInfo> mainDB_;
+	multimap<string, unsigned int> firstName_Map_;
+	multimap<string, unsigned int> lastName_Map_;
+	multimap<string, unsigned int> midPhone_Map_;
+	multimap<string, unsigned int> lastPhone_Map_;
+	multimap<string, unsigned int> birthYear_Map_;
+	multimap<string, unsigned int> birthMonth_Map_;
+	multimap<string, unsigned int> birthDay_Map_;
+	multimap<CareerLevel, unsigned int> carrer_Map_;
+	multimap<CertLevel, unsigned int> cert_Map_;
+
 };
