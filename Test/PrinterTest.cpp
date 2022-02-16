@@ -14,7 +14,8 @@ public:
 class MockOutput : public IOutput
 {
 public:
-	MOCK_METHOD(void, Show, (const PrintOption printOption, const vector<EmployeeInfo>& info), (override));
+	MOCK_METHOD(void, Show, (const vector<EmployeeInfo>& info), (override));
+	MOCK_METHOD(void, Show, (const int infoCount), (override));
 };
 
 class PrinterTest : public testing::Test {
@@ -37,15 +38,30 @@ protected:
 	MockOutput* mockOutput;
 };
 
-TEST_F(PrinterTest, printTest)
+TEST_F(PrinterTest, printTestOptionLines)
 {
 	const vector<EmployeeInfo> info;
 	vector<EmployeeInfo> result;
 
 	ON_CALL(*mockSorter, Sort(info)).WillByDefault(Return(result));
 
+	EXPECT_CALL(*mockSorter, Sort(info));
+	EXPECT_CALL(*mockOutput, Show(info));
+
 	printer_->Print(PrintOption::PrintLines, info);
 
+}
+
+TEST_F(PrinterTest, printTestOptionCount)
+{
+	const vector<EmployeeInfo> info;
+	vector<EmployeeInfo> result;
+
+	ON_CALL(*mockSorter, Sort(info)).WillByDefault(Return(result));
+
 	EXPECT_CALL(*mockSorter, Sort(info));
-	EXPECT_CALL(*mockOutput, Show(PrintOption::PrintLines, info));
+	EXPECT_CALL(*mockOutput, Show(result.size()));
+
+	printer_->Print(PrintOption::PrintCount, info);
+
 }

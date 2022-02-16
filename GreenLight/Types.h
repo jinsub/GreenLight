@@ -36,10 +36,3 @@ struct EmployeeInfo {
 		return false;
 	}
 };
-
-enum class PrintOption
-{
-	PrintLines,
-	PrintCount,
-	Invalid
-};
