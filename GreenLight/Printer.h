@@ -5,7 +5,11 @@
 
 class Printer : public IPrinter {
 public:
-	Printer(ISorter* sorter, IOutput* output);
+	Printer(ISorter* sorter, IOutput* output) :
+		sorter_(sorter),
+		output_(output)
+	{}
+
 	void Print(const PrintOption printOption, const std::vector<EmployeeInfo>& info) override;
 
 private:
