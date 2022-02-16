@@ -64,7 +64,6 @@ TEST_F(CommandProcessorTest, ProcessDel) {
 	processor_->Process(command);
 }
 
-
 TEST_F(CommandProcessorTest, ProcessSch) {
 	Command command;
 	command.type_ = CommandType::SCH;
@@ -82,4 +81,21 @@ TEST_F(CommandProcessorTest, ProcessSch) {
 	processor_->Process(command);
 }
 
+TEST_F(CommandProcessorTest, ProcessMod) {
+	Command command;
+	command.type_ = CommandType::MOD;
+	command.printOption_ = PrintOption::PrintLines;
+	command.filterOption_ = FilterOption::None;
+	command.arguments_.push_back("cl");
+	command.arguments_.push_back("CL2");
+	command.arguments_.push_back("cl");
+	command.arguments_.push_back("CL3");
 
+	EmployeeInfo info;
+	vector<EmployeeInfo> result;
+	ON_CALL(*databaseMock_, UpdateDB(_, _)).WillByDefault(Return(result));
+	EXPECT_CALL(*databaseMock_, UpdateDB(_, _));
+	EXPECT_CALL(*printerMock_, Print(_, _));
+
+	processor_->Process(command);
+}
