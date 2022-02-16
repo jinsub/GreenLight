@@ -47,6 +47,16 @@ protected:
 		MemoryDatabase db(map);
 		return db;
 	}
+	MemoryDatabase SetUpForDeleteTest() {
+		DataBaseMap map;
+
+		Add(map, person01);
+		Add(map, person02);
+		Add(map, person03);
+
+		MemoryDatabase db(map);
+		return db;
+	}
 
 	void Add(DataBaseMap& map, const EmployeeInfo person) {
 		map.mainDB_.insert({ person.num_, person });
@@ -75,6 +85,11 @@ TEST_F(DatabaseTest, test_read_num) {
 	vector<EmployeeInfo> result = db.ReadDB({ Column::EmployeeNum, to_string(person01.num_) });
 	EXPECT_EQ(result.size(), 1);
 }
+TEST_F(DatabaseTest, test_read_num_invalid) {
+	MemoryDatabase db = SetUpForReadTest();
+	vector<EmployeeInfo> result = db.ReadDB({ Column::EmployeeNum, to_string(0) });
+	EXPECT_EQ(result.size(), 0);
+}
 TEST_F(DatabaseTest, test_read_fullName) {
 	MemoryDatabase db = SetUpForReadTest();
 	vector<EmployeeInfo> result = db.ReadDB({ Column::Name, person01.GetFullName()});
@@ -90,7 +105,6 @@ TEST_F(DatabaseTest, test_read_lastName) {
 	vector<EmployeeInfo> result = db.ReadDB({ Column::LastName, person01.lastName_ });
 	EXPECT_EQ(result.size(), 1);
 }
-
 TEST_F(DatabaseTest, test_read_birth) {
 	MemoryDatabase db = SetUpForReadTest();
 	vector<EmployeeInfo> result = db.ReadDB({ Column::Birthday, person01.GetFullBirthday()});
@@ -131,7 +145,6 @@ TEST_F(DatabaseTest, test_read_certi) {
 	vector<EmployeeInfo> result = db.ReadDB({ Column::Certi, person01.certi_ });
 	EXPECT_EQ(result.size(), 1);
 }
-
 TEST_F(DatabaseTest, test_read_career) {
 	MemoryDatabase db = SetUpForReadTest();
 	vector<EmployeeInfo> result = db.ReadDB({ Column::CareerLevel, person01.cl_ });
@@ -144,6 +157,119 @@ TEST_F(DatabaseTest, test_update_01){
 }
 
 //=======================================================
-TEST_F(DatabaseTest, test_delete_01){
-	
+TEST_F(DatabaseTest, test_delete_num){
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::EmployeeNum, to_string(person01.num_) });
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::EmployeeNum, to_string(person01.num_) });
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_delete_num_invalid) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::EmployeeNum, to_string(0) });
+	EXPECT_EQ(result.size(), 0);	
+}
+TEST_F(DatabaseTest, test_delete_fullName) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::Name, person01.GetFullName()});
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::Name, person01.GetFullName() });
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_delete_fullName_invalid) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::Name, string("invlaid")});
+	EXPECT_EQ(result.size(), 0);	
+}
+TEST_F(DatabaseTest, test_delete_firstName) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::FirstName, person01.firstName_ });
+	EXPECT_EQ(result.size(), 2);
+	result = db.DeleteDB({ Column::FirstName, person01.firstName_ });
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_delete_lastName) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::LastName, person01.lastName_ });
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::LastName, person01.lastName_ });
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_delete_birth) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::Birthday, person01.GetFullBirthday()});
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::Birthday, person01.GetFullBirthday()});
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_delete_birthYear) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::BirthdayYear, person01.birthYear_ });
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::BirthdayYear, person01.birthYear_ });
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_delete_birthMonth) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::BirthdayMonth, person01.birthMonth_ });
+	EXPECT_EQ(result.size(), 2);
+	result = db.DeleteDB({ Column::BirthdayMonth, person01.birthMonth_ });
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_delete_birthDay) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::BirthdayDay, person01.birthDay_ });
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::BirthdayDay, person01.birthDay_ });
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_delete_phone) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::PhoneNumber, person01.GetFullPhoneNum()});
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::PhoneNumber, person01.GetFullPhoneNum()});
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_delete_phoneMiddle) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::MiddlePhoneNum, person01.midPhoneNum_ });
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::MiddlePhoneNum, person01.midPhoneNum_ });
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_delete_phoneLast) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::LastPhoneNum, person01.lastPhoneNum_ });
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::LastPhoneNum, person01.lastPhoneNum_ });
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_delete_certi) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::Certi, person01.certi_ });
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::Certi, person01.certi_ });
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_delete_career) {
+	MemoryDatabase db = SetUpForDeleteTest();
+	vector<EmployeeInfo> result;
+	result = db.DeleteDB({ Column::CareerLevel, person01.cl_ });
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::CareerLevel, person01.cl_ });
+	EXPECT_EQ(result.size(), 0);
 }
