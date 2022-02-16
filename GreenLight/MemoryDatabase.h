@@ -15,12 +15,12 @@ struct DataBaseMap {
 	multimap<string, unsigned int> fullPhone_Map_;
 	multimap<string, unsigned int> midPhone_Map_;
 	multimap<string, unsigned int> lastPhone_Map_;
-	multimap<unsigned int, unsigned int> birth_Map_;
-	multimap<unsigned int, unsigned int> birthYear_Map_;
-	multimap<unsigned int, unsigned int> birthMonth_Map_;
-	multimap<unsigned int, unsigned int> birthDay_Map_;
-	multimap<CareerLevel, unsigned int> career_Map_;
-	multimap<CertLevel, unsigned int> cert_Map_;
+	multimap<string, unsigned int> birth_Map_;
+	multimap<string, unsigned int> birthYear_Map_;
+	multimap<string, unsigned int> birthMonth_Map_;
+	multimap<string, unsigned int> birthDay_Map_;
+	multimap<string, unsigned int> career_Map_;
+	multimap<string, unsigned int> cert_Map_;
 };
 
 class MemoryDatabase : IDatabase {
