@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AscendingEmployeeNumber.cpp" />
     <ClCompile Include="CommandParser.cpp" />
     <ClCompile Include="CommandProcessor.cpp" />
     <ClCompile Include="main.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="Printer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AscendingEmployeeNumber.h" />
     <ClInclude Include="CommandParser.h" />
     <ClInclude Include="CommandProcessor.h" />
     <ClInclude Include="ControlTypes.h" />
