@@ -12,6 +12,7 @@ void CommandProcessor::Process(Command& command) {
 		ProcessAdd_(command.arguments_);
 		break;
 	case CommandType::DEL:
+		ProcessDel_(command.filterOption_, command.printOption_, command.arguments_);
 		break;
 	case CommandType::SCH:
 		break;
@@ -21,7 +22,23 @@ void CommandProcessor::Process(Command& command) {
 	return;
 }
 
-void CommandProcessor::ProcessAdd_(vector<string> args) {
+void CommandProcessor::ProcessAdd_(const vector<string>& args) {
+	auto result = database_->CreateDB(MakeEmployeeInfo_(args));
+	return;
+}
+
+void CommandProcessor::ProcessDel_(const FilterOption filterOption, const PrintOption printOption, const vector<string>& args) {
+	TargetParam filter;
+	filter.column = GetFilterColumn_(filterOption, args[0]);
+	filter.value = args[1];
+
+	auto result = database_->DeleteDB(filter);
+	printer_->Print(printOption, result);
+
+	return;
+}
+
+EmployeeInfo CommandProcessor::MakeEmployeeInfo_(const vector<string>& args) {
 	EmployeeInfo info;
 	info.num_ = atoi(args[0].c_str());
 	info.firstName_ = Split_(args[1], ' ')[0];
@@ -34,9 +51,33 @@ void CommandProcessor::ProcessAdd_(vector<string> args) {
 	info.birthDay_ = args[4].substr(6, 2);
 	info.certi_ = args[5];
 
-	auto result = database_->CreateDB(info);
+	return info;
+}
 
-	return;
+Column CommandProcessor::GetColumn_(string columnName) {
+	if (columnName == "employeeNum") { return Column::EmployeeNum; }
+	if (columnName == "name") { return Column::Name; }
+	if (columnName == "cl") { return Column::CareerLevel; }
+	if (columnName == "phoneNum") { return Column::PhoneNumber; }
+	if (columnName == "birthday") { return Column::Birthday; }
+	if (columnName == "certi") { return Column::Certi; }
+
+	return Column::Invalid;
+}
+
+Column CommandProcessor::GetFilterColumn_(FilterOption filterOption, string columnName) {
+	if (filterOption == FilterOption::None) {
+		return GetColumn_(columnName);
+	}
+	if (filterOption == FilterOption::FirstName && columnName == "name") { return Column::FirstName; }
+	if (filterOption == FilterOption::LastName && columnName == "name") { return Column::LastName; }
+	if (filterOption == FilterOption::MiddlePhoneNum && columnName == "phoneNum") { return Column::MiddlePhoneNum; }
+	if (filterOption == FilterOption::LastPhoneNum && columnName == "phoneNum") { return Column::LastPhoneNum; }
+	if (filterOption == FilterOption::BirthdayYear && columnName == "birthday") { return Column::BirthdayYear; }
+	if (filterOption == FilterOption::BirthdayMonth && columnName == "birthday") { return Column::BirthdayMonth; }
+	if (filterOption == FilterOption::BirthdayDay && columnName == "birthday") { return Column::BirthdayDay; }
+
+	return Column::Invalid;
 }
 
 vector<string> CommandProcessor::Split_(string str, const char separator) {

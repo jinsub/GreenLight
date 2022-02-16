@@ -10,7 +10,12 @@ public:
 	void Process(Command& command);
 
 private:
-	void ProcessAdd_(vector<string> args);
+	void ProcessAdd_(const vector<string>& args);
+	void ProcessDel_(const FilterOption filterOption, const PrintOption printOption, const vector<string>& args);
+
+	EmployeeInfo MakeEmployeeInfo_(const vector<string>& args);
+	Column GetFilterColumn_(FilterOption filterOption, string columnName);
+	Column GetColumn_(string columnName);
 	vector<string> Split_(string str, const char separator);
 
 	IDatabase* const database_;
