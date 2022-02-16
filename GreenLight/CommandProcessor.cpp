@@ -18,6 +18,7 @@ void CommandProcessor::Process(Command& command) {
 		ProcessSch_(command.filterOption_, command.printOption_, command.arguments_);
 		break;
 	case CommandType::MOD:
+		ProcessMod_(command.filterOption_, command.printOption_, command.arguments_);
 		break;
 	}
 	return;
@@ -45,6 +46,20 @@ void CommandProcessor::ProcessSch_(const FilterOption filterOption, const PrintO
 	filter.value = args[1];
 
 	auto result = database_->ReadDB(filter);
+	printer_->Print(printOption, result);
+
+	return;
+}
+
+void CommandProcessor::ProcessMod_(const FilterOption filterOption, const PrintOption printOption, const vector<string>& args) {
+	TargetParam filter;
+	filter.column = GetFilterColumn_(filterOption, args[0]);
+	filter.value = args[1];
+	TargetParam update;
+	update.column = GetColumn_(args[2]);
+	update.value = args[3];
+
+	auto result = database_->UpdateDB(filter, update);
 	printer_->Print(printOption, result);
 
 	return;
