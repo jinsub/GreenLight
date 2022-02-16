@@ -15,7 +15,7 @@ vector<EmployeeInfo> MemoryDatabase::UpdateDB(TargetParam filter, TargetParam up
 	return result;
 }
 
-vector<unsigned int> MemoryDatabase::GetEmployeeNums(const multimap<string, unsigned int>& map, const string key) {
+vector<unsigned int> MemoryDatabase::GetEmployeeNums_(const multimap<string, unsigned int>& map, const string key) {
 	vector<unsigned int> result;
 	for (auto it = map.lower_bound(key); it != map.upper_bound(key); it++)
 	{
@@ -37,40 +37,40 @@ vector<EmployeeInfo> MemoryDatabase::ReadDB(TargetParam filter) {
 		break;
 	}
 	case Column::Name:
-		nums = GetEmployeeNums(map_.fullName_Map_, filter.value);
+		nums = GetEmployeeNums_(map_.fullName_Map_, filter.value);
 		break;
 	case Column::CareerLevel:
-		nums = GetEmployeeNums(map_.career_Map_, filter.value);
+		nums = GetEmployeeNums_(map_.career_Map_, filter.value);
 		break;
 	case Column::PhoneNumber:
-		nums = GetEmployeeNums(map_.fullPhone_Map_, filter.value);
+		nums = GetEmployeeNums_(map_.fullPhone_Map_, filter.value);
 		break;
 	case Column::Birthday:
-		nums = GetEmployeeNums(map_.birth_Map_, filter.value);
+		nums = GetEmployeeNums_(map_.birth_Map_, filter.value);
 		break;
 	case Column::Certi:
-		nums = GetEmployeeNums(map_.cert_Map_, filter.value);
+		nums = GetEmployeeNums_(map_.cert_Map_, filter.value);
 		break;
 	case Column::FirstName:
-		nums =  GetEmployeeNums(map_.firstName_Map_, filter.value);		
+		nums =  GetEmployeeNums_(map_.firstName_Map_, filter.value);		
 		break;
 	case Column::LastName:
-		nums = GetEmployeeNums(map_.lastName_Map_, filter.value);
+		nums = GetEmployeeNums_(map_.lastName_Map_, filter.value);
 		break;
 	case Column::MiddlePhoneNum:
-		nums = GetEmployeeNums(map_.midPhone_Map_, filter.value);
+		nums = GetEmployeeNums_(map_.midPhone_Map_, filter.value);
 		break;
 	case Column::LastPhoneNum:
-		nums = GetEmployeeNums(map_.lastPhone_Map_, filter.value);
+		nums = GetEmployeeNums_(map_.lastPhone_Map_, filter.value);
 		break;
 	case Column::BirthdayYear:
-		nums = GetEmployeeNums(map_.birthYear_Map_, filter.value);
+		nums = GetEmployeeNums_(map_.birthYear_Map_, filter.value);
 		break;
 	case Column::BirthdayMonth:
-		nums = GetEmployeeNums(map_.birthMonth_Map_, filter.value);
+		nums = GetEmployeeNums_(map_.birthMonth_Map_, filter.value);
 		break;
 	case Column::BirthdayDay:
-		nums = GetEmployeeNums(map_.birthDay_Map_, filter.value);
+		nums = GetEmployeeNums_(map_.birthDay_Map_, filter.value);
 		break;
 	default:
 		break;
@@ -82,7 +82,7 @@ vector<EmployeeInfo> MemoryDatabase::ReadDB(TargetParam filter) {
 	return result;
 }
 
-void MemoryDatabase::EraseEmployee(multimap<string, unsigned int>& map, const string key) {
+void MemoryDatabase::EraseEmployee_(multimap<string, unsigned int>& map, const string key) {
 	for (auto itr = map.lower_bound(key); itr != map.upper_bound(key);) {
 		map.erase(itr++);
 	}
@@ -96,21 +96,21 @@ vector<EmployeeInfo> MemoryDatabase::DeleteDB(TargetParam filter) {
 	for (auto person : target) {
 		map_.mainDB_.erase(person.num_);		
 
-		EraseEmployee(map_.fullName_Map_, person.GetFullName());
-		EraseEmployee(map_.firstName_Map_, person.firstName_);
-		EraseEmployee(map_.lastName_Map_, person.lastName_);
+		EraseEmployee_(map_.fullName_Map_, person.GetFullName());
+		EraseEmployee_(map_.firstName_Map_, person.firstName_);
+		EraseEmployee_(map_.lastName_Map_, person.lastName_);
 
-		EraseEmployee(map_.birth_Map_, person.GetFullBirthday());
-		EraseEmployee(map_.birthYear_Map_, person.birthYear_);
-		EraseEmployee(map_.birthMonth_Map_, person.birthMonth_);
-		EraseEmployee(map_.birthDay_Map_, person.birthDay_);
+		EraseEmployee_(map_.birth_Map_, person.GetFullBirthday());
+		EraseEmployee_(map_.birthYear_Map_, person.birthYear_);
+		EraseEmployee_(map_.birthMonth_Map_, person.birthMonth_);
+		EraseEmployee_(map_.birthDay_Map_, person.birthDay_);
 
-		EraseEmployee(map_.fullPhone_Map_, person.GetFullPhoneNum());
-		EraseEmployee(map_.midPhone_Map_, person.midPhoneNum_);
-		EraseEmployee(map_.lastPhone_Map_, person.lastPhoneNum_);
+		EraseEmployee_(map_.fullPhone_Map_, person.GetFullPhoneNum());
+		EraseEmployee_(map_.midPhone_Map_, person.midPhoneNum_);
+		EraseEmployee_(map_.lastPhone_Map_, person.lastPhoneNum_);
 
-		EraseEmployee(map_.cert_Map_, person.certi_);
-		EraseEmployee(map_.career_Map_, person.cl_);
+		EraseEmployee_(map_.cert_Map_, person.certi_);
+		EraseEmployee_(map_.career_Map_, person.cl_);
 	}
 	return target;
 }
