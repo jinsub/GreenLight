@@ -28,4 +28,18 @@ struct EmployeeInfo {
 	unsigned int birthMonth_;
 	unsigned int birthDay_;
 	CertLevel certi_;
+
+	bool operator==(const EmployeeInfo& a) const
+	{
+		if (this->num_ == a.num_)
+			return true;
+		return false;
+	}
+};
+
+enum class PrintOption
+{
+	PrintLines,
+	PrintCount,
+	Invalid
 };

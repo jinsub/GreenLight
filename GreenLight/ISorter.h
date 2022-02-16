@@ -2,8 +2,7 @@
 #include <vector>
 #include "Types.h"
 
-class ISorter
-{
+class ISorter {
 public:
-	virtual vector<EmployeeInfo> sort(const vector<EmployeeInfo>& info) = 0;
+	virtual vector<EmployeeInfo> Sort(const vector<EmployeeInfo>& info) = 0;
 };

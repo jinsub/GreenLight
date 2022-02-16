@@ -5,5 +5,5 @@
 class IOutput
 {
 public:
-	virtual void show(const vector<EmployeeInfo>& info) = 0;
+	virtual void Show(const PrintOption printOption, const vector<EmployeeInfo>& info) = 0;
 };
