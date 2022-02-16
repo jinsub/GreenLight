@@ -42,10 +42,7 @@ vector<EmployeeInfo> MemoryDatabase::ReadDB(TargetParam filter) {
 	case Column::Certi:
 		break;
 	case Column::FirstName:
-		nums =  getEmployeeNums(map_.firstName_Map_, filter.value);
-		for (auto num : nums) {
-			result.push_back(map_.mainDB_[num]);
-		}
+		nums =  getEmployeeNums(map_.firstName_Map_, filter.value);		
 		break;
 	case Column::LastName:
 		break;
@@ -58,9 +55,14 @@ vector<EmployeeInfo> MemoryDatabase::ReadDB(TargetParam filter) {
 	case Column::BirthdayMonth:
 		break;
 	case Column::BirthdayDay:
+		nums = getEmployeeNums(map_.birthDay_Map_, filter.value);
 		break;
 	default:
 		break;
+	}
+
+	for (auto num : nums) {
+		result.push_back(map_.mainDB_[num]);
 	}
 	return result;
 }
