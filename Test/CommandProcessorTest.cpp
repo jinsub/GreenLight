@@ -46,3 +46,20 @@ TEST_F(CommandProcessorTest, ProcessAdd) {
 
 	processor_->Process(command);
 }
+
+TEST_F(CommandProcessorTest, ProcessDel) {
+	Command command;
+	command.type_ = CommandType::DEL;
+	command.printOption_ = PrintOption::PrintCount;
+	command.filterOption_ = FilterOption::None;
+	command.arguments_.push_back("name");
+	command.arguments_.push_back("JINSEOB YANG");
+
+	EmployeeInfo info;
+	vector<EmployeeInfo> result;
+	ON_CALL(*databaseMock_, DeleteDB(_)).WillByDefault(Return(result));
+	EXPECT_CALL(*databaseMock_, DeleteDB(_));
+	EXPECT_CALL(*printerMock_, Print(_, _));
+
+	processor_->Process(command);
+}
