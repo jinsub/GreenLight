@@ -5,27 +5,27 @@ using namespace std;
 
 EmployeeInfo person01 = {
 		2015123099,
-		string("VXIHXOTH JHOP"), string("VXIHXOTH"), string("JHOP"),
-		CareerLevel::CL3,
-		string("3112 2609"), string("3112"), string("2609"),
-		19771211, 1977, 12, 11,
-		CertLevel::ADV
+		string("VXIHXOTH"), string("JHOP"),
+		"CL3",
+		string("3112"), string("2609"),
+		"1977", "12", "11",
+		"ADV"
 };
 EmployeeInfo person02 = {
 		2017112609,
-		string("VXIHXOTH NTAWR"), string("VXIHXOTH"), string("NTAWR"),
-		CareerLevel::CL4,
-		string("5645 6122"), string("5645"), string("6122"),
-		19861203, 1986, 12, 03,
-		CertLevel::PRO
+		string("VXIHXOTH"), string("NTAWR"),
+		"CL4",
+		string("5645"), string("6122"),
+		"1986", "12", "03",
+		"PRO"
 };
 EmployeeInfo person03 = {
 		1988114052,
-		string("NQ LVARW"), string("NQ"), string("LVARW"),
-		CareerLevel::CL4,
-		string("4528 3059"), string("4528"), string("3059"),
-		19911021, 1991, 10, 21,
-		CertLevel::PRO
+		string("NQ"), string("LVARW"),
+		"CL4",
+		string("4528"), string("3059"),
+		"1991", "10", "21",
+		"PRO"
 };
 class DatabaseTest : public testing::Test
 {
@@ -50,18 +50,18 @@ protected:
 
 	void Add(DataBaseMap& map, const EmployeeInfo person) {
 		map.mainDB_.insert({ person.num_, person });
-		map.fullName_Map_.insert({ person.fullName_, person.num_ });
+		map.fullName_Map_.insert({ person.GetFullName(), person.num_});
 		map.firstName_Map_.insert({person.firstName_, person.num_ });
 		map.lastName_Map_.insert({ person.lastName_, person.num_ });
-		map.fullPhone_Map_.insert({ person.fullPhoneNum_, person.num_ });
+		map.fullPhone_Map_.insert({ person.GetFullPhoneNum(), person.num_});
 		map.midPhone_Map_.insert({ person.midPhoneNum_, person.num_ });
 		map.lastPhone_Map_.insert({ person.lastPhoneNum_, person.num_ });
-		map.birth_Map_.insert({ to_string(person.birth_), person.num_ });
-		map.birthYear_Map_.insert({ to_string(person.birthYear_), person.num_ });
-		map.birthMonth_Map_.insert({ to_string(person.birthMonth_), person.num_ });
-		map.birthDay_Map_.insert({ to_string(person.birthDay_), person.num_ });
-		map.career_Map_.insert({ to_string(static_cast<int>(person.cl_)), person.num_ });
-		map.cert_Map_.insert({ to_string(static_cast<int>(person.certi_)), person.num_ });
+		map.birth_Map_.insert({ person.GetFullBirthday(), person.num_});
+		map.birthYear_Map_.insert({ person.birthYear_, person.num_ });
+		map.birthMonth_Map_.insert({ person.birthMonth_, person.num_ });
+		map.birthDay_Map_.insert({ person.birthDay_, person.num_ });
+		map.career_Map_.insert({ person.cl_, person.num_ });
+		map.cert_Map_.insert({ person.certi_, person.num_ });
 	}
 };
 
@@ -77,7 +77,7 @@ TEST_F(DatabaseTest, test_read_num) {
 }
 TEST_F(DatabaseTest, test_read_fullName) {
 	MemoryDatabase db = SetUpForReadTest();
-	vector<EmployeeInfo> result = db.ReadDB({ Column::Name, person01.fullName_ });
+	vector<EmployeeInfo> result = db.ReadDB({ Column::Name, person01.GetFullName()});
 	EXPECT_EQ(result.size(), 1);
 }
 TEST_F(DatabaseTest, test_read_firstName){
@@ -93,27 +93,27 @@ TEST_F(DatabaseTest, test_read_lastName) {
 
 TEST_F(DatabaseTest, test_read_birth) {
 	MemoryDatabase db = SetUpForReadTest();
-	vector<EmployeeInfo> result = db.ReadDB({ Column::Birthday, to_string(person01.birth_) });
+	vector<EmployeeInfo> result = db.ReadDB({ Column::Birthday, person01.GetFullBirthday()});
 	EXPECT_EQ(result.size(), 1);
 }
 TEST_F(DatabaseTest, test_read_birthYear) {
 	MemoryDatabase db = SetUpForReadTest();
-	vector<EmployeeInfo> result = db.ReadDB({ Column::BirthdayYear, to_string(person01.birthYear_) });
+	vector<EmployeeInfo> result = db.ReadDB({ Column::BirthdayYear, person01.birthYear_ });
 	EXPECT_EQ(result.size(), 1);
 }
 TEST_F(DatabaseTest, test_read_birthMonth) {
 	MemoryDatabase db = SetUpForReadTest();
-	vector<EmployeeInfo> result = db.ReadDB({ Column::BirthdayMonth, to_string(person01.birthMonth_) });
+	vector<EmployeeInfo> result = db.ReadDB({ Column::BirthdayMonth, person01.birthMonth_ });
 	EXPECT_EQ(result.size(), 2);
 }
 TEST_F(DatabaseTest, test_read_birthDay) {
 	MemoryDatabase db = SetUpForReadTest();
-	vector<EmployeeInfo> result = db.ReadDB({ Column::BirthdayDay, to_string(person01.birthDay_)});
+	vector<EmployeeInfo> result = db.ReadDB({ Column::BirthdayDay, person01.birthDay_});
 	EXPECT_EQ(result.size(), 1);
 }
 TEST_F(DatabaseTest, test_read_phone) {
 	MemoryDatabase db = SetUpForReadTest();
-	vector<EmployeeInfo> result = db.ReadDB({ Column::PhoneNumber, person01.fullPhoneNum_ });
+	vector<EmployeeInfo> result = db.ReadDB({ Column::PhoneNumber, person01.GetFullPhoneNum()});
 	EXPECT_EQ(result.size(), 1);
 }
 TEST_F(DatabaseTest, test_read_phoneMiddle) {
@@ -128,13 +128,13 @@ TEST_F(DatabaseTest, test_read_phoneLast) {
 }
 TEST_F(DatabaseTest, test_read_certi) {
 	MemoryDatabase db = SetUpForReadTest();
-	vector<EmployeeInfo> result = db.ReadDB({ Column::Certi, to_string(static_cast<int>(person01.certi_)) });
+	vector<EmployeeInfo> result = db.ReadDB({ Column::Certi, person01.certi_ });
 	EXPECT_EQ(result.size(), 1);
 }
 
 TEST_F(DatabaseTest, test_read_career) {
 	MemoryDatabase db = SetUpForReadTest();
-	vector<EmployeeInfo> result = db.ReadDB({ Column::CareerLevel, to_string(static_cast<int>(person01.cl_)) });
+	vector<EmployeeInfo> result = db.ReadDB({ Column::CareerLevel, person01.cl_ });
 	EXPECT_EQ(result.size(), 1);
 }
 

@@ -2,37 +2,32 @@
 #include <string>
 using namespace std;
 
-enum class CareerLevel {
-	CL1,
-	CL2,
-	CL3,
-	CL4,
-};
-enum class CertLevel {
-	ADV,
-	PRO,
-	EX,
-};
-
 struct EmployeeInfo {
 	unsigned int num_;
-	string fullName_;
 	string firstName_;
 	string lastName_;
-	CareerLevel cl_;
-	string fullPhoneNum_;
+	string cl_;
 	string midPhoneNum_;
 	string lastPhoneNum_;
-	unsigned int birth_;
-	unsigned int birthYear_;
-	unsigned int birthMonth_;
-	unsigned int birthDay_;
-	CertLevel certi_;
+	string birthYear_;
+	string birthMonth_;
+	string birthDay_;
+	string certi_;
 
 	bool operator==(const EmployeeInfo& a) const
 	{
 		if (this->num_ == a.num_)
 			return true;
 		return false;
+	}
+
+	string GetFullName(void) const {
+		return firstName_ + " " + lastName_;
+	}
+	string GetFullPhoneNum(void) const {
+		return "010-" + midPhoneNum_ + "-" + lastPhoneNum_;
+	}
+	string GetFullBirthday(void) const {
+		return birthYear_ + birthMonth_ + birthDay_;
 	}
 };
