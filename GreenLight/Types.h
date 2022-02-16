@@ -25,7 +25,7 @@ struct EmployeeInfo {
 		return firstName_ + " " + lastName_;
 	}
 	string GetFullPhoneNum(void) const {
-		return midPhoneNum_ + "-" + lastPhoneNum_;
+		return "010-" + midPhoneNum_ + "-" + lastPhoneNum_;
 	}
 	string GetFullBirthday(void) const {
 		return birthYear_ + birthMonth_ + birthDay_;
