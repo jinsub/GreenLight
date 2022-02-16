@@ -1,6 +1,6 @@
 #include "Printer.h"
 
-void Printer::Print(const PrintOption printOption, const std::vector<EmployeeInfo>& info)
+void Printer::Print(const CommandType commandType, const PrintOption printOption, const std::vector<EmployeeInfo>& info)
 {
 	vector<EmployeeInfo> result = sorter_->Sort(info);
 

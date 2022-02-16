@@ -59,7 +59,7 @@ TEST_F(CommandProcessorTest, ProcessDel) {
 	vector<EmployeeInfo> result;
 	ON_CALL(*databaseMock_, DeleteDB(_)).WillByDefault(Return(result));
 	EXPECT_CALL(*databaseMock_, DeleteDB(_));
-	EXPECT_CALL(*printerMock_, Print(_, _));
+	EXPECT_CALL(*printerMock_, Print(_, _, _));
 
 	processor_->Process(command);
 }
@@ -76,7 +76,7 @@ TEST_F(CommandProcessorTest, ProcessSch) {
 	vector<EmployeeInfo> result;
 	ON_CALL(*databaseMock_, ReadDB(_)).WillByDefault(Return(result));
 	EXPECT_CALL(*databaseMock_, ReadDB(_));
-	EXPECT_CALL(*printerMock_, Print(_, _));
+	EXPECT_CALL(*printerMock_, Print(_, _, _));
 
 	processor_->Process(command);
 }
@@ -95,7 +95,7 @@ TEST_F(CommandProcessorTest, ProcessMod) {
 	vector<EmployeeInfo> result;
 	ON_CALL(*databaseMock_, UpdateDB(_, _)).WillByDefault(Return(result));
 	EXPECT_CALL(*databaseMock_, UpdateDB(_, _));
-	EXPECT_CALL(*printerMock_, Print(_, _));
+	EXPECT_CALL(*printerMock_, Print(_, _, _));
 
 	processor_->Process(command);
 }

@@ -4,5 +4,5 @@
 
 class PrinterMock : public IPrinter {
 public:
-	MOCK_METHOD(void, Print, (const PrintOption printOption, const std::vector<EmployeeInfo>& info), (override));
+	MOCK_METHOD(void, Print, (const CommandType commandType, const PrintOption printOption, const std::vector<EmployeeInfo>& info), (override));
 };

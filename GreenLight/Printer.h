@@ -10,7 +10,7 @@ public:
 		output_(output)
 	{}
 
-	void Print(const PrintOption printOption, const std::vector<EmployeeInfo>& info) override;
+	void Print(const CommandType commandType, const PrintOption printOption, const std::vector<EmployeeInfo>& info) override;
 
 private:
 	ISorter* sorter_;
