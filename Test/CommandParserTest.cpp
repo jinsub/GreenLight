@@ -42,7 +42,7 @@ TEST_F(CommandPerserTest, ParseLine_PrintCountCheck) {
 	EXPECT_EQ(result.size(), lines.size());
 
 	for (auto command : result) {
-		EXPECT_EQ(command.printOptino_, PrintOption::PrintCount);
+		EXPECT_EQ(command.printOption_, PrintOption::PrintCount);
 	}
 }
 
@@ -57,7 +57,7 @@ TEST_F(CommandPerserTest, ParseLine_PrintLineCheck) {
 	EXPECT_EQ(result.size(), lines.size());
 
 	for (auto command : result) {
-		EXPECT_EQ(command.printOptino_, PrintOption::PrintLines);
+		EXPECT_EQ(command.printOption_, PrintOption::PrintLines);
 	}
 }
 

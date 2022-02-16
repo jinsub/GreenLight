@@ -33,6 +33,9 @@
     <ClCompile Include="MemoryDatabase.cpp">
       <Filter>소스 파일\Model</Filter>
     </ClCompile>
+    <ClCompile Include="CommandProcessor.cpp">
+      <Filter>소스 파일\Control</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Types.h">
@@ -61,6 +64,12 @@
     </ClInclude>
     <ClInclude Include="IOutput.h">
       <Filter>소스 파일\View</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandProcessor.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlTypes.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
