@@ -16,11 +16,14 @@ enum class CertLevel {
 
 struct EmployeeInfo {
 	unsigned int num;
+	string fullName;
 	string firstName;
-	string lasttName;
+	string lastName;
 	CareerLevel cl;
+	string fullPhoneNum;
 	string midPhoneNum;
 	string lastPhoneNum;
+	unsigned int birth;
 	unsigned int birthYear;
 	unsigned int birthMonth;
 	unsigned int birthDay;
