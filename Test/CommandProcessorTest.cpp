@@ -8,6 +8,7 @@ protected:
 		processor_ = new CommandProcessor(nullptr, nullptr);
 	}
 	void TearDown(void) override {
+		delete processor_;
 	}
 
 	CommandProcessor* processor_;
