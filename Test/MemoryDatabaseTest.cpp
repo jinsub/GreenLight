@@ -66,7 +66,12 @@ protected:
 };
 
 //=======================================================
-TEST_F(DatabaseTest, test_create_01){	
+TEST_F(DatabaseTest, test_create_01){
+	DataBaseMap map;
+	MemoryDatabase db(map);
+	vector<EmployeeInfo> result;
+	result = db.CreateDB(person01);
+	EXPECT_EQ(result.size(), 1);
 }
 
 //=======================================================
@@ -140,6 +145,28 @@ TEST_F(DatabaseTest, test_read_career) {
 
 //=======================================================
 TEST_F(DatabaseTest, test_update_01){
+	DataBaseMap map;
+	EmployeeInfo person04 = {
+		2011263288,
+		string("KYUNGSOO"), string("OH"),
+		"CL3",
+		 string("9263"),	string("8644"),
+		"1985", "03", "29",
+		"PRO"
+	};
+	MemoryDatabase db(map);
+	vector<EmployeeInfo> result;
+	db.CreateDB(person01);
+	db.CreateDB(person02);
+	db.CreateDB(person03);
+	db.CreateDB(person04);
+
+	TargetParam oldParam, newParam;
+	oldParam.column = Column::Name;
+	oldParam.value = "KYUNGSOO OH";
+	newParam.column = Column::Name;
+	newParam.value = "KYUNGJOO KIM";
+	result = db.UpdateDB(oldParam, newParam);
 	
 }
 
