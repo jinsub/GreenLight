@@ -42,20 +42,20 @@ vector<string> CommandParser::Split_(string str, const char separator) {
 
 Command CommandParser::MakeCommand_(const vector<string>& str) {
     Command result;
-    result.type = GetCommandType_(str[static_cast<int>(CmdIndex::CmdType)]);
-    result.printOptino = GetPrintOption_(str[static_cast<int>(CmdIndex::Opt1)]);
+    result.type_ = GetCommandType_(str[static_cast<int>(CmdIndex::CmdType)]);
+    result.printOptino_ = GetPrintOption_(str[static_cast<int>(CmdIndex::Opt1)]);
 
-    if (result.type == CommandType::ADD) {
-        result.filterOption = FilterOption::None;
+    if (result.type_ == CommandType::ADD) {
+        result.filterOption_ = FilterOption::None;
     }
     else {
         auto filterOption = str[static_cast<int>(CmdIndex::Opt2)];
         auto filterField = str[static_cast<int>(CmdIndex::Filter)];
-        result.filterOption = GetFilterOption_(filterOption, filterField);
+        result.filterOption_ = GetFilterOption_(filterOption, filterField);
     }
 
     for (int index = static_cast<int>(CmdIndex::ArgStart); index < str.size(); index++) {
-        result.arguments.push_back(str[index]);
+        result.arguments_.push_back(str[index]);
     }
 
     return result;

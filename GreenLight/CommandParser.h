@@ -36,10 +36,10 @@ enum class FilterOption {
 };
 
 struct Command {
-	CommandType type;
-	PrintOption printOptino;
-	FilterOption filterOption;
-	std::vector<std::string> arguments;
+	CommandType type_;
+	PrintOption printOptino_;
+	FilterOption filterOption_;
+	std::vector<std::string> arguments_;
 };
 
 class CommandParser
