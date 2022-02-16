@@ -1,18 +1,11 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include "ControlTypes.h"
 #include "IDatabase.h"
 #include "IPrinter.h"
 
 using namespace std;
-
-enum class CommandType {
-	ADD,
-	DEL,
-	SCH,
-	MOD,
-	INVALID
-};
 
 enum class CmdIndex {
 	CmdType = 0,
@@ -21,25 +14,6 @@ enum class CmdIndex {
 	Opt3,
 	ArgStart,
 	Filter = ArgStart
-};
-
-enum class FilterOption {
-	FirstName,
-	LastName,
-	MiddlePhoneNum,
-	LastPhoneNum,
-	BirthdayYear,
-	BirthdayMonth,
-	BirthdayDay,
-	None,
-	Invalid
-};
-
-struct Command {
-	CommandType type_;
-	PrintOption printOptino_;
-	FilterOption filterOption_;
-	std::vector<std::string> arguments_;
 };
 
 class CommandParser

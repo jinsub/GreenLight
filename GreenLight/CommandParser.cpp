@@ -43,7 +43,7 @@ vector<string> CommandParser::Split_(string str, const char separator) {
 Command CommandParser::MakeCommand_(const vector<string>& str) {
     Command result;
     result.type_ = GetCommandType_(str[static_cast<int>(CmdIndex::CmdType)]);
-    result.printOptino_ = GetPrintOption_(str[static_cast<int>(CmdIndex::Opt1)]);
+    result.printOption_ = GetPrintOption_(str[static_cast<int>(CmdIndex::Opt1)]);
 
     if (result.type_ == CommandType::ADD) {
         result.filterOption_ = FilterOption::None;
