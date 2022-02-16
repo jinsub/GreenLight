@@ -21,6 +21,11 @@ struct EmployeeInfo {
 		return false;
 	}
 
+	bool operator<(const EmployeeInfo& a) const
+	{
+		return this->num_ > a.num_;
+	}
+
 	string GetFullName(void) const {
 		return firstName_ + " " + lastName_;
 	}
