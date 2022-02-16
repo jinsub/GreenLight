@@ -33,7 +33,9 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClInclude Include="DatabaseMock.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PrinterMock.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommandParserTest.cpp" />
