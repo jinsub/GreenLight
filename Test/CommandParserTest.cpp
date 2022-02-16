@@ -42,7 +42,7 @@ TEST_F(CommandPerserTest, ParseLine_PrintCountCheck) {
 	EXPECT_EQ(result.size(), lines.size());
 
 	for (auto command : result) {
-		EXPECT_EQ(command.printOptino, PrintOption::PrintCount);
+		EXPECT_EQ(command.printOptino_, PrintOption::PrintCount);
 	}
 }
 
@@ -57,7 +57,7 @@ TEST_F(CommandPerserTest, ParseLine_PrintLineCheck) {
 	EXPECT_EQ(result.size(), lines.size());
 
 	for (auto command : result) {
-		EXPECT_EQ(command.printOptino, PrintOption::PrintLines);
+		EXPECT_EQ(command.printOptino_, PrintOption::PrintLines);
 	}
 }
 
@@ -83,6 +83,6 @@ TEST_F(CommandPerserTest, ParseLine_FilterOptionCheck) {
 	for (int index = 0; index < result.size(); index++) {
 		auto command = result.at(index);
 		auto option = static_cast<FilterOption>(index);
-		EXPECT_EQ(command.filterOption, option);
+		EXPECT_EQ(command.filterOption_, option);
 	}
 }
