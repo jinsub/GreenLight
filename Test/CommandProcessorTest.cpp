@@ -63,3 +63,23 @@ TEST_F(CommandProcessorTest, ProcessDel) {
 
 	processor_->Process(command);
 }
+
+
+TEST_F(CommandProcessorTest, ProcessSch) {
+	Command command;
+	command.type_ = CommandType::SCH;
+	command.printOption_ = PrintOption::PrintCount;
+	command.filterOption_ = FilterOption::FirstName;
+	command.arguments_.push_back("name");
+	command.arguments_.push_back("JINSEOB YANG");
+
+	EmployeeInfo info;
+	vector<EmployeeInfo> result;
+	ON_CALL(*databaseMock_, ReadDB(_)).WillByDefault(Return(result));
+	EXPECT_CALL(*databaseMock_, ReadDB(_));
+	EXPECT_CALL(*printerMock_, Print(_, _));
+
+	processor_->Process(command);
+}
+
+
