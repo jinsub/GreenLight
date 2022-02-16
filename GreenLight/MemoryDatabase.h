@@ -35,7 +35,8 @@ public:
 	vector<EmployeeInfo> DeleteDB(TargetParam filter) override;
 
 private:
-	vector<unsigned int> getEmployeeNums(multimap<string, unsigned int> map, string key);
+	vector<unsigned int> GetEmployeeNums(const multimap<string, unsigned int> map, const string key);
+	void EraseEmployee(multimap<string, unsigned int>& map, const string key);
 
 	DataBaseMap map_;	
 };
