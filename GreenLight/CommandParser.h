@@ -6,8 +6,7 @@
 
 using namespace std;
 
-enum class CommandType
-{
+enum class CommandType {
 	ADD,
 	DEL,
 	SCH,
@@ -15,8 +14,7 @@ enum class CommandType
 	INVALID
 };
 
-enum class CmdIndex
-{
+enum class CmdIndex {
 	CmdType = 0,
 	Opt1,
 	Opt2,
@@ -25,8 +23,19 @@ enum class CmdIndex
 	Filter = ArgStart
 };
 
-struct Command
-{
+enum class FilterOption {
+	FirstName,
+	LastName,
+	MiddlePhoneNum,
+	LastPhoneNum,
+	BirthdayYear,
+	BirthdayMonth,
+	BirthdayDay,
+	None,
+	Invalid
+};
+
+struct Command {
 	CommandType type_;
 	PrintOption printOptino_;
 	FilterOption filterOption_;

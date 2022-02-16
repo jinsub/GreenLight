@@ -80,12 +80,6 @@ PrintOption CommandParser::GetPrintOption_(const string& printOption) {
 }
 
 FilterOption CommandParser::GetFilterOption_(const string& filterOption, const string& filterField) {
-    if (filterOption == " " && filterField == "employeeNum") { return FilterOption::EmployeeNum; }
-    if (filterOption == " " && filterField == "name") { return FilterOption::Name; }
-    if (filterOption == " " && filterField == "cl") { return FilterOption::CareerLevel; }
-    if (filterOption == " " && filterField == "phoneNum") { return FilterOption::PhoneNumber; }
-    if (filterOption == " " && filterField == "birthday") { return FilterOption::Birthday; }
-    if (filterOption == " " && filterField == "certi") { return FilterOption::Certi; }
     if (filterOption == " ") { return FilterOption::None; }
 
     if (filterOption == "-f" && filterField == "name") { return FilterOption::FirstName; }

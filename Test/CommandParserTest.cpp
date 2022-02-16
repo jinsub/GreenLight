@@ -63,12 +63,6 @@ TEST_F(CommandPerserTest, ParseLine_PrintLineCheck) {
 
 TEST_F(CommandPerserTest, ParseLine_FilterOptionCheck) {
 	vector<string> lines;
-	lines.push_back("DEL, , , ,employeeNum,12345678");
-	lines.push_back("SCH, , , ,name,JINSEOB YANG");
-	lines.push_back("MOD, , , ,cl,CL2,phoneNum,010-1234-5678");
-	lines.push_back("DEL, , , ,phoneNum,010-1234-5678");
-	lines.push_back("SCH, , , ,birthday,010-1234-5678");
-	lines.push_back("MOD, , , ,certi,12345678,phoneNum,010-1234-5678");
 	lines.push_back("DEL, ,-f, ,name,JINSEOB");
 	lines.push_back("SCH, ,-l, ,name,YANG");
 	lines.push_back("MOD, ,-m, ,phoneNum,1234,phoneNum,010-1234-5678");
@@ -76,6 +70,7 @@ TEST_F(CommandPerserTest, ParseLine_FilterOptionCheck) {
 	lines.push_back("SCH, ,-y, ,birthday,2022");
 	lines.push_back("MOD, ,-m, ,birthday,02,phoneNum,010-1234-5678");
 	lines.push_back("DEL, ,-d, ,birthday,15");
+	lines.push_back("MOD, , , ,certi,12345678,phoneNum,010-1234-5678");
 
 	auto result = parser_.ParseLine(lines);
 	EXPECT_EQ(result.size(), lines.size());

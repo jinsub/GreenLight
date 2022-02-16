@@ -22,6 +22,7 @@ struct DataBaseMap {
 	multimap<CareerLevel, unsigned int> career_Map_;
 	multimap<CertLevel, unsigned int> cert_Map_;
 };
+
 class MemoryDatabase : IDatabase {
 public:
 	MemoryDatabase() {}
@@ -29,9 +30,9 @@ public:
 
 	}
 	vector<EmployeeInfo> CreateDB(EmployeeInfo info) override;
-	vector<EmployeeInfo> ReadDB(FilterOption opt, Parameter param) override;
-	vector<EmployeeInfo> UpdateDB(FilterOption opt, Parameter paramOld, Parameter paramNew) override;
-	vector<EmployeeInfo> DeleteDB(FilterOption opt, Parameter param) override;
+	vector<EmployeeInfo> ReadDB(TargetParam filter) override;
+	vector<EmployeeInfo> UpdateDB(TargetParam filter, TargetParam update) override;
+	vector<EmployeeInfo> DeleteDB(TargetParam filter) override;
 
 private:
 	DataBaseMap map_;	
