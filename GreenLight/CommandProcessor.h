@@ -12,6 +12,7 @@ public:
 private:
 	void ProcessAdd_(const vector<string>& args);
 	void ProcessDel_(const FilterOption filterOption, const PrintOption printOption, const vector<string>& args);
+	void ProcessSch_(const FilterOption filterOption, const PrintOption printOption, const vector<string>& args);
 
 	EmployeeInfo MakeEmployeeInfo_(const vector<string>& args);
 	Column GetFilterColumn_(FilterOption filterOption, string columnName);

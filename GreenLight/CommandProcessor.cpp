@@ -15,6 +15,7 @@ void CommandProcessor::Process(Command& command) {
 		ProcessDel_(command.filterOption_, command.printOption_, command.arguments_);
 		break;
 	case CommandType::SCH:
+		ProcessSch_(command.filterOption_, command.printOption_, command.arguments_);
 		break;
 	case CommandType::MOD:
 		break;
@@ -33,6 +34,17 @@ void CommandProcessor::ProcessDel_(const FilterOption filterOption, const PrintO
 	filter.value = args[1];
 
 	auto result = database_->DeleteDB(filter);
+	printer_->Print(printOption, result);
+
+	return;
+}
+
+void CommandProcessor::ProcessSch_(const FilterOption filterOption, const PrintOption printOption, const vector<string>& args) {
+	TargetParam filter;
+	filter.column = GetFilterColumn_(filterOption, args[0]);
+	filter.value = args[1];
+
+	auto result = database_->ReadDB(filter);
 	printer_->Print(printOption, result);
 
 	return;
