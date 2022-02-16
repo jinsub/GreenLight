@@ -6,7 +6,7 @@
 
 using namespace std;
 
-enum class FilterOption {
+enum class Column {
 	EmployeeNum,
 	Name,
 	CareerLevel,
@@ -24,13 +24,14 @@ enum class FilterOption {
 	Invalid
 };
 
-struct Parameter {
-	// TODO
+struct TargetParam {
+	Column column;
+	string value;
 };
 
 struct IDatabase {
 	virtual vector<EmployeeInfo> CreateDB(EmployeeInfo info) = 0;
-	virtual vector<EmployeeInfo> ReadDB(FilterOption opt, Parameter param) = 0;
-	virtual vector<EmployeeInfo> UpdateDB(FilterOption opt, Parameter paramOld, Parameter paramNew) = 0;
-	virtual vector<EmployeeInfo> DeleteDB(FilterOption opt, Parameter param) = 0;
+	virtual vector<EmployeeInfo> ReadDB(TargetParam filter) = 0;
+	virtual vector<EmployeeInfo> UpdateDB(TargetParam filter, TargetParam update) = 0;
+	virtual vector<EmployeeInfo> DeleteDB(TargetParam filter) = 0;
 };
