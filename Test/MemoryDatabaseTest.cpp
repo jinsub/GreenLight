@@ -35,7 +35,18 @@ protected:
 	}
 	void TearDown(void) override {
 
-	}	
+	}
+
+	MemoryDatabase SetUpForReadTest() {
+		DataBaseMap map;
+
+		Add(map, person01);
+		Add(map, person02);
+		Add(map, person03);
+
+		MemoryDatabase db(map);
+		return db;
+	}
 
 	void Add(DataBaseMap& map, const EmployeeInfo person) {
 		map.mainDB_.insert({ person.num_, person });
@@ -59,29 +70,71 @@ TEST_F(DatabaseTest, test_create_01){
 }
 
 //=======================================================
+TEST_F(DatabaseTest, test_read_num) {
+	MemoryDatabase db = SetUpForReadTest();
+	vector<EmployeeInfo> result = db.ReadDB({ Column::EmployeeNum, to_string(person01.num_) });
+	EXPECT_EQ(result.size(), 1);
+}
+TEST_F(DatabaseTest, test_read_fullName) {
+	MemoryDatabase db = SetUpForReadTest();
+	vector<EmployeeInfo> result = db.ReadDB({ Column::Name, person01.fullName_ });
+	EXPECT_EQ(result.size(), 1);
+}
 TEST_F(DatabaseTest, test_read_firstName){
-	DataBaseMap map;
-	
-	Add(map, person01);
-	Add(map, person02);
-	Add(map, person03);
-
-	MemoryDatabase db(map);
-
+	MemoryDatabase db = SetUpForReadTest(); 
 	vector<EmployeeInfo> result = db.ReadDB({ Column::FirstName, person01.firstName_ });
 	EXPECT_EQ(result.size(), 2);
 }
+TEST_F(DatabaseTest, test_read_lastName) {
+	MemoryDatabase db = SetUpForReadTest();
+	vector<EmployeeInfo> result = db.ReadDB({ Column::LastName, person01.lastName_ });
+	EXPECT_EQ(result.size(), 1);
+}
 
+TEST_F(DatabaseTest, test_read_birth) {
+	MemoryDatabase db = SetUpForReadTest();
+	vector<EmployeeInfo> result = db.ReadDB({ Column::Birthday, to_string(person01.birth_) });
+	EXPECT_EQ(result.size(), 1);
+}
+TEST_F(DatabaseTest, test_read_birthYear) {
+	MemoryDatabase db = SetUpForReadTest();
+	vector<EmployeeInfo> result = db.ReadDB({ Column::BirthdayYear, to_string(person01.birthYear_) });
+	EXPECT_EQ(result.size(), 1);
+}
+TEST_F(DatabaseTest, test_read_birthMonth) {
+	MemoryDatabase db = SetUpForReadTest();
+	vector<EmployeeInfo> result = db.ReadDB({ Column::BirthdayMonth, to_string(person01.birthMonth_) });
+	EXPECT_EQ(result.size(), 2);
+}
 TEST_F(DatabaseTest, test_read_birthDay) {
-	DataBaseMap map;
-
-	Add(map, person01);
-	Add(map, person02);
-	Add(map, person03);
-
-	MemoryDatabase db(map);
-
+	MemoryDatabase db = SetUpForReadTest();
 	vector<EmployeeInfo> result = db.ReadDB({ Column::BirthdayDay, to_string(person01.birthDay_)});
+	EXPECT_EQ(result.size(), 1);
+}
+TEST_F(DatabaseTest, test_read_phone) {
+	MemoryDatabase db = SetUpForReadTest();
+	vector<EmployeeInfo> result = db.ReadDB({ Column::PhoneNumber, person01.fullPhoneNum_ });
+	EXPECT_EQ(result.size(), 1);
+}
+TEST_F(DatabaseTest, test_read_phoneMiddle) {
+	MemoryDatabase db = SetUpForReadTest();
+	vector<EmployeeInfo> result = db.ReadDB({ Column::MiddlePhoneNum, person01.midPhoneNum_ });
+	EXPECT_EQ(result.size(), 1);
+}
+TEST_F(DatabaseTest, test_read_phoneLast) {
+	MemoryDatabase db = SetUpForReadTest();
+	vector<EmployeeInfo> result = db.ReadDB({ Column::LastPhoneNum, person01.lastPhoneNum_ });
+	EXPECT_EQ(result.size(), 1);
+}
+TEST_F(DatabaseTest, test_read_certi) {
+	MemoryDatabase db = SetUpForReadTest();
+	vector<EmployeeInfo> result = db.ReadDB({ Column::Certi, to_string(static_cast<int>(person01.certi_)) });
+	EXPECT_EQ(result.size(), 1);
+}
+
+TEST_F(DatabaseTest, test_read_career) {
+	MemoryDatabase db = SetUpForReadTest();
+	vector<EmployeeInfo> result = db.ReadDB({ Column::CareerLevel, to_string(static_cast<int>(person01.cl_)) });
 	EXPECT_EQ(result.size(), 1);
 }
 
