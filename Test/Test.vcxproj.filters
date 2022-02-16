@@ -12,6 +12,11 @@
     <ClCompile Include="CommandProcessorTest.cpp">
       <Filter>Control</Filter>
     </ClCompile>
+    <ClCompile Include="PrinterTest.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gtest\gtest-all.cc" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gmock\gmock-all.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
