@@ -15,7 +15,7 @@ vector<EmployeeInfo> MemoryDatabase::UpdateDB(TargetParam filter, TargetParam up
 	return result;
 }
 
-vector<unsigned int> MemoryDatabase::GetEmployeeNums(const multimap<string, unsigned int> map, const string key) {
+vector<unsigned int> MemoryDatabase::GetEmployeeNums(const multimap<string, unsigned int>& map, const string key) {
 	vector<unsigned int> result;
 	for (auto it = map.lower_bound(key); it != map.upper_bound(key); it++)
 	{
