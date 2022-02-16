@@ -15,17 +15,17 @@ enum class CertLevel {
 };
 
 struct EmployeeInfo {
-	unsigned int num;
-	string fullName;
-	string firstName;
-	string lastName;
-	CareerLevel cl;
-	string fullPhoneNum;
-	string midPhoneNum;
-	string lastPhoneNum;
-	unsigned int birth;
-	unsigned int birthYear;
-	unsigned int birthMonth;
-	unsigned int birthDay;
-	CertLevel certi;
+	unsigned int num_;
+	string fullName_;
+	string firstName_;
+	string lastName_;
+	CareerLevel cl_;
+	string fullPhoneNum_;
+	string midPhoneNum_;
+	string lastPhoneNum_;
+	unsigned int birth_;
+	unsigned int birthYear_;
+	unsigned int birthMonth_;
+	unsigned int birthDay_;
+	CertLevel certi_;
 };
