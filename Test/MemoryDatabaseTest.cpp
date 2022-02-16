@@ -13,7 +13,7 @@ EmployeeInfo person01 = {
 };
 EmployeeInfo person02 = {
 		2017112609,
-		string("FB NTAWR"), string("FB"), string("NTAWR"),
+		string("VXIHXOTH NTAWR"), string("VXIHXOTH"), string("NTAWR"),
 		CareerLevel::CL4,
 		string("5645 6122"), string("5645"), string("6122"),
 		19861203, 1986, 12, 03,
@@ -37,7 +37,7 @@ protected:
 
 	}	
 
-	void Add(DataBaseMap map, const EmployeeInfo person) {
+	void Add(DataBaseMap& map, const EmployeeInfo person) {
 		map.mainDB_.insert({ person.num_, person });
 		map.fullName_Map_.insert({ person.fullName_, person.num_ });
 		map.firstName_Map_.insert({person.firstName_, person.num_ });
@@ -63,11 +63,13 @@ TEST_F(DatabaseTest, test_read_firstName){
 	DataBaseMap map;
 	
 	Add(map, person01);
+	Add(map, person02);
+	Add(map, person03);
 
 	MemoryDatabase db(map);
 
 	vector<EmployeeInfo> result = db.ReadDB({ Column::FirstName, string("VXIHXOTH") });
-	EXPECT_EQ(result.size(), 1);
+	EXPECT_EQ(result.size(), 2);
 }
 
 //=======================================================
