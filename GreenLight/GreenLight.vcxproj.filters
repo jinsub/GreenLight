@@ -1,81 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="소스 파일\Model">
-      <UniqueIdentifier>{9343b6b1-ecc0-421f-b1bc-b538281b4c08}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Control">
-      <UniqueIdentifier>{00270335-0522-46f3-b838-d44d9fd11d4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\View">
-      <UniqueIdentifier>{39ab27d4-10f5-42ea-9d76-433da14a7f2d}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="CommandProcessor.cpp">
+      <Filter>Sources\Control</Filter>
     </ClCompile>
     <ClCompile Include="CommandParser.cpp">
-      <Filter>소스 파일\Control</Filter>
+      <Filter>Sources\Control</Filter>
     </ClCompile>
     <ClCompile Include="MemoryDatabase.cpp">
-      <Filter>소스 파일\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="CommandProcessor.cpp">
-      <Filter>소스 파일\Control</Filter>
+      <Filter>Sources\Model</Filter>
     </ClCompile>
     <ClCompile Include="Printer.cpp">
-      <Filter>소스 파일\View</Filter>
+      <Filter>Sources\View</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Types.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="CommandParser.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="IDatabase.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="IPrinter.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MemoryDatabase.h">
-      <Filter>소스 파일\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Types.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MemoryDatabase.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ISorter.h">
-      <Filter>소스 파일\View</Filter>
-    </ClInclude>
-    <ClInclude Include="IOutput.h">
-      <Filter>소스 파일\View</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="CommandProcessor.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="IDatabase.h">
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="ControlTypes.h">
-      <Filter>헤더 파일</Filter>
-    </ClCompile>
-    <ClInclude Include="Printer.h">
-      <Filter>소스 파일\View</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="IOutput.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="IPrinter.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ISorter.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Printer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryDatabase.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{a3186ebb-97f1-448d-b9e6-c6a151d20328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{5698c0f8-5c98-4002-86cb-e6d9377d6802}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Model">
+      <UniqueIdentifier>{fecdc48b-79f0-4597-acf4-aba854fb4519}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\View">
+      <UniqueIdentifier>{10b71de8-ab3b-4132-86f1-c73ccba60651}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Control">
+      <UniqueIdentifier>{d49b41cc-5c78-4362-86f8-9c2013bc1aed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
