@@ -10,12 +10,10 @@ vector<EmployeeInfo> AscendingEmployeeNumber::Sort(const vector<EmployeeInfo>& i
 		pq.push(iter);
 	}
 
-	int pqSize = pq.size();
-
-	for (auto iter = 0; iter < pqSize; ++iter)
+	while(!pq.empty())
 	{
 		result.push_back(pq.top()); pq.pop();
 	}
-
+	
 	return result;
 }
