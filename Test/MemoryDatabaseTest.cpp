@@ -3,6 +3,30 @@
 
 using namespace std;
 
+EmployeeInfo person01 = {
+		2015123099,
+		string("VXIHXOTH JHOP"), string("VXIHXOTH"), string("JHOP"),
+		CareerLevel::CL3,
+		string("3112 2609"), string("3112"), string("2609"),
+		19771211, 1977, 12, 11,
+		CertLevel::ADV
+};
+EmployeeInfo person02 = {
+		2017112609,
+		string("FB NTAWR"), string("FB"), string("NTAWR"),
+		CareerLevel::CL4,
+		string("5645 6122"), string("5645"), string("6122"),
+		19861203, 1986, 12, 03,
+		CertLevel::PRO
+};
+EmployeeInfo person03 = {
+		1988114052,
+		string("NQ LVARW"), string("NQ"), string("LVARW"),
+		CareerLevel::CL4,
+		string("4528 3059"), string("4528"), string("3059"),
+		19911021, 1991, 10, 21,
+		CertLevel::PRO
+};
 class DatabaseTest : public testing::Test
 {
 protected:
@@ -35,21 +59,15 @@ TEST_F(DatabaseTest, test_create_01){
 }
 
 //=======================================================
-TEST_F(DatabaseTest, test_read_01){
+TEST_F(DatabaseTest, test_read_firstName){
 	DataBaseMap map;
-	EmployeeInfo person01 = {
-		2015123099,
-		string("VXIHXOTH JHOP"), string("VXIHXOTH"), string("JHOP"),
-		CareerLevel::CL3,
-		string("3112 2609"), string("3112"),	string("2609"),
-		19771211, 1977, 12, 11,
-		CertLevel::ADV
-	};
+	
 	Add(map, person01);
 
 	MemoryDatabase db(map);
 
-	// TODO
+	vector<EmployeeInfo> result = db.ReadDB({ Column::FirstName, string("VXIHXOTH") });
+	EXPECT_EQ(result.size(), 1);
 }
 
 //=======================================================
