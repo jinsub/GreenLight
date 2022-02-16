@@ -41,8 +41,8 @@ TEST_F(CommandProcessorTest, ProcessAdd) {
 
 	EmployeeInfo info;
 	vector<EmployeeInfo> result;
-	ON_CALL(*databaseMock_, CreateDB(info)).WillByDefault(Return(result));
-	EXPECT_CALL(*databaseMock_, CreateDB(info));
+	ON_CALL(*databaseMock_, CreateDB(_)).WillByDefault(Return(result));
+	EXPECT_CALL(*databaseMock_, CreateDB(_));
 
 	processor_->Process(command);
 }

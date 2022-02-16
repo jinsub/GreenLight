@@ -10,6 +10,9 @@ public:
 	void Process(Command& command);
 
 private:
+	void ProcessAdd_(vector<string> args);
+	vector<string> Split_(string str, const char separator);
+
 	IDatabase* const database_;
 	IPrinter* const printer_;
 };
