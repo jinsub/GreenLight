@@ -21,9 +21,6 @@ class DummyPrinter : public IPrinter {
 
 int main(int argc, char* argv[])
 {
-	cout << argv[1] << endl;
-	cout << argv[2] << endl;
-
 	auto database = new MemoryDatabase();
 	auto printer = new Printer(new AscendingEmployeeNumber(), new FileOutput(argv[2]));
 	auto parser = CommandParser();
