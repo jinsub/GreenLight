@@ -79,6 +79,15 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const ve
 	}
 
 	switch (update.column) {
+	case Column::EmployeeNum:
+		for (auto num : nums) {
+			if (num == stoi(filter.value)) {
+				map.mainDB_[num].num_ = stoi(update.value);
+				map.mainDB_.insert({ stoi(update.value), map.mainDB_[num] });
+				map.mainDB_.erase(num);
+			}
+		}
+		break;
 	case Column::Name:
 		split_filter = Split_(filter.value, ' ');
 		split_update = Split_(update.value, ' ');
@@ -214,6 +223,8 @@ vector<EmployeeInfo> MemoryDatabase::UpdateDB(TargetParam filter, TargetParam up
 
 	switch (filter.column) {
 	case Column::EmployeeNum:
+		nums.push_back(stoi(filter.value));
+		result = GetUpdateMainDB_(map_, nums, filter, update);
 		break;
 	case Column::Name:
 		nums = GetEmployeeNums_(map_.fullName_Map_, filter.value);
