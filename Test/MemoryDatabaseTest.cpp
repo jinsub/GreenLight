@@ -831,3 +831,25 @@ TEST_F(DatabaseTest, test_create_update_delete_01) {
 	result = db.UpdateDB(oldParam, newParam);
 	EXPECT_EQ(result.size(), 0);
 }
+TEST_F(DatabaseTest, test_create_update_delete_02) {
+	DataBaseMap map;
+
+	Add(map, person01);
+
+	MemoryDatabase db(map);
+	TargetParam oldParam, newParam;
+	vector<EmployeeInfo> result;
+
+	oldParam.column = Column::EmployeeNum;
+	oldParam.value = to_string(person01.num_);
+	newParam.column = Column::EmployeeNum;
+	newParam.value = to_string(person01.num_);
+	result = db.UpdateDB(oldParam, newParam);
+	EXPECT_EQ(result.size(), 1);
+	EXPECT_EQ(result[0].num_, person01.num_);
+
+	result = db.DeleteDB({ Column::EmployeeNum, to_string(person01.num_) });
+	EXPECT_EQ(result.size(), 1);
+
+	EXPECT_EQ(GetDBSizeTotal(db), 0);
+}
