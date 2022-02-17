@@ -79,6 +79,15 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const ve
 	}
 
 	switch (update.column) {
+	case Column::EmployeeNum:
+		for (auto num : nums) {
+			if (num == stoi(filter.value)) {
+				map.mainDB_[num].num_ = stoi(update.value);
+				map.mainDB_.insert({ stoi(update.value), map.mainDB_[num] });
+				map.mainDB_.erase(num);
+			}
+		}
+		break;
 	case Column::Name:
 		split_filter = Split_(filter.value, ' ');
 		split_update = Split_(update.value, ' ');
@@ -214,6 +223,8 @@ vector<EmployeeInfo> MemoryDatabase::UpdateDB(TargetParam filter, TargetParam up
 
 	switch (filter.column) {
 	case Column::EmployeeNum:
+		nums.push_back(stoi(filter.value));
+		result = GetUpdateMainDB_(map_, nums, filter, update);
 		break;
 	case Column::Name:
 		nums = GetEmployeeNums_(map_.fullName_Map_, filter.value);
@@ -328,11 +339,15 @@ vector<EmployeeInfo> MemoryDatabase::ReadDB(TargetParam filter) {
 	return result;
 }
 
-void MemoryDatabase::EraseEmployee_(multimap<string, unsigned int>& map, const string key) {
-	for (auto itr = map.lower_bound(key); itr != map.upper_bound(key);) {
-		map.erase(itr++);
+void MemoryDatabase::EraseEmployee_(multimap<string, unsigned int>& map, const string key, const unsigned int num) {
+	for (auto itr = map.lower_bound(key); itr != map.upper_bound(key); itr++) {
+		if (itr->second == num) {
+			map.erase(itr);
+			return;
+		}
 	}
 }
+
 vector<EmployeeInfo> MemoryDatabase::DeleteDB(TargetParam filter) {
 	vector<EmployeeInfo> target = ReadDB(filter);
 	if (target.size() == 0) {
@@ -342,21 +357,21 @@ vector<EmployeeInfo> MemoryDatabase::DeleteDB(TargetParam filter) {
 	for (auto person : target) {
 		map_.mainDB_.erase(person.num_);		
 
-		EraseEmployee_(map_.fullName_Map_, person.GetFullName());
-		EraseEmployee_(map_.firstName_Map_, person.firstName_);
-		EraseEmployee_(map_.lastName_Map_, person.lastName_);
+		EraseEmployee_(map_.fullName_Map_, person.GetFullName(), person.num_);
+		EraseEmployee_(map_.firstName_Map_, person.firstName_, person.num_);
+		EraseEmployee_(map_.lastName_Map_, person.lastName_, person.num_);
 
-		EraseEmployee_(map_.birth_Map_, person.GetFullBirthday());
-		EraseEmployee_(map_.birthYear_Map_, person.birthYear_);
-		EraseEmployee_(map_.birthMonth_Map_, person.birthMonth_);
-		EraseEmployee_(map_.birthDay_Map_, person.birthDay_);
+		EraseEmployee_(map_.birth_Map_, person.GetFullBirthday(), person.num_);
+		EraseEmployee_(map_.birthYear_Map_, person.birthYear_, person.num_);
+		EraseEmployee_(map_.birthMonth_Map_, person.birthMonth_, person.num_);
+		EraseEmployee_(map_.birthDay_Map_, person.birthDay_, person.num_);
 
-		EraseEmployee_(map_.fullPhone_Map_, person.GetFullPhoneNum());
-		EraseEmployee_(map_.midPhone_Map_, person.midPhoneNum_);
-		EraseEmployee_(map_.lastPhone_Map_, person.lastPhoneNum_);
+		EraseEmployee_(map_.fullPhone_Map_, person.GetFullPhoneNum(), person.num_);
+		EraseEmployee_(map_.midPhone_Map_, person.midPhoneNum_, person.num_);
+		EraseEmployee_(map_.lastPhone_Map_, person.lastPhoneNum_, person.num_);
 
-		EraseEmployee_(map_.cert_Map_, person.certi_);
-		EraseEmployee_(map_.career_Map_, person.cl_);
+		EraseEmployee_(map_.cert_Map_, person.certi_, person.num_);
+		EraseEmployee_(map_.career_Map_, person.cl_, person.num_);
 	}
 	return target;
 }
