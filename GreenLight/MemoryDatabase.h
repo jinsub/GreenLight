@@ -35,6 +35,58 @@ public:
 	vector<EmployeeInfo> UpdateDB(TargetParam filter, TargetParam update) override;
 	vector<EmployeeInfo> DeleteDB(TargetParam filter) override;
 
+	int GetDBSize(Column column) {
+		switch (column)
+		{
+		case Column::EmployeeNum:
+			return map_.mainDB_.size();
+			break;
+		case Column::Name:
+			return map_.fullName_Map_.size();
+			break;
+		case Column::CareerLevel:
+			return map_.career_Map_.size();
+			break;
+		case Column::PhoneNumber:
+			return map_.fullPhone_Map_.size();
+			break;
+		case Column::Birthday:
+			return map_.birth_Map_.size();
+			break;
+		case Column::Certi:
+			return map_.cert_Map_.size();
+			break;
+		case Column::FirstName:
+			return map_.firstName_Map_.size();
+			break;
+		case Column::LastName:
+			return map_.lastName_Map_.size();
+			break;
+		case Column::MiddlePhoneNum:
+			return map_.midPhone_Map_.size();
+			break;
+		case Column::LastPhoneNum:
+			return map_.lastPhone_Map_.size();
+			break;
+		case Column::BirthdayYear:
+			return map_.birthYear_Map_.size();
+			break;
+		case Column::BirthdayMonth:
+			return map_.birthMonth_Map_.size();
+			break;
+		case Column::BirthdayDay:
+			return map_.birthDay_Map_.size();
+			break;
+		case Column::None:			
+			break;
+		case Column::Invalid:
+			break;
+		default:
+			break;
+		}
+		return 0;
+	}
+
 private:
 	vector<unsigned int> GetEmployeeNums_(const multimap<string, unsigned int>& map, const string key);
 	void EraseEmployee_(multimap<string, unsigned int>& map, const string key, const unsigned int num);

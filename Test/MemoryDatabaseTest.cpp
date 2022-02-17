@@ -647,5 +647,117 @@ TEST_F(DatabaseTest, test_20input) {
 	EXPECT_EQ(result.size(), 1);
 	EXPECT_EQ(result[0].cl_, "CL4");
 
+	//MOD, -p, , , employeeNum, 08123556, birthday, 20110706
+	//MOD,08123556,WN XV,CL1,010-7986-5047,20100614,PRO
+	oldParam.column = Column::EmployeeNum;
+	oldParam.value = "2008123556";
+	newParam.column = Column::Birthday;
+	newParam.value = "20110706";
+	result = db.UpdateDB(oldParam, newParam);
+	EXPECT_EQ(result.size(), 1);
+	EXPECT_EQ(result[0].GetFullBirthday(), "20100614");
 
+	//SCH, -p, -y, , birthday, 2003
+	/*
+	SCH,05101762,VCUHLE HMU,CL4,010-3988-9289,20030819,PRO
+	SCH,18117906,TWU QSOLT,CL4,010-6672-7186,20030413,PRO
+	*/
+	result = db.ReadDB({ Column::BirthdayYear, string("2003") });
+	EXPECT_EQ(result.size(), 2);
+
+	//SCH, -p, , , employeeNum, 05101762
+	//SCH,05101762,VCUHLE HMU,CL4,010-3988-9289,20030819,PRO
+	result = db.ReadDB({ Column::EmployeeNum, string("2005101762") });
+	EXPECT_EQ(result.size(), 1);
+
+	//SCH, -p, -m, , phoneNum, 3112
+	//SCH,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV
+	result = db.ReadDB({ Column::MiddlePhoneNum, string("3112") });
+	EXPECT_EQ(result.size(), 1);
+
+	//SCH, -p, -l, , phoneNum, 4605
+	//SCH,NONE
+	result = db.ReadDB({ Column::LastPhoneNum, string("4605") });
+	EXPECT_EQ(result.size(), 0);
+		
+	//SCH, -p, , , employeeNum, 10127115
+	//SCH,10127115,KBU MHU,CL3,010-3284-4054,19660814,ADV
+	result = db.ReadDB({ Column::EmployeeNum, string("2010127115") });
+	EXPECT_EQ(result.size(), 1);
+
+	//MOD, -p, , , phoneNum, 010 - 8900 - 1478, certi, PRO
+	//MOD,85125741,FBAH RTIJ,CL1,010-8900-1478,19780228,ADV
+	oldParam.column = Column::PhoneNumber;
+	oldParam.value = "010-8900-1478";
+	newParam.column = Column::Certi;
+	newParam.value = "PRO";
+	result = db.UpdateDB(oldParam, newParam);
+	EXPECT_EQ(result.size(), 1);
+	EXPECT_EQ(result[0].certi_, "ADV");
+
+	//SCH, , -f, , name, LDEXRI
+	//SCH,NONE
+	result = db.ReadDB({ Column::FirstName, string("LDEXRI") });
+	EXPECT_EQ(result.size(), 0);
+	
+	//MOD, , , , name, VCUHLE HMU, birthday, 19910808
+	//MOD, 1
+	oldParam.column = Column::Name;
+	oldParam.value = "VCUHLE HMU";
+	newParam.column = Column::Birthday;
+	newParam.value = "19910808";
+	result = db.UpdateDB(oldParam, newParam);
+	EXPECT_EQ(result.size(), 1);
+	EXPECT_EQ(result[0].GetFullBirthday(), "20030819");
+	
+	//SCH, , , , name, FB NTAWR
+	//SCH, 1
+	result = db.ReadDB({ Column::Name, string("FB NTAWR") });
+	EXPECT_EQ(result.size(), 1);
+
+	//DEL, , , ,,certi,PRO
+	//DEL, 13
+	result = db.DeleteDB({ Column::Certi, string("PRO") });
+	EXPECT_EQ(result.size(), 12);
+}
+
+//=======================================================
+TEST_F(DatabaseTest, test_create_update_delete_00) {
+	DataBaseMap map;
+
+	Add(map, person01);
+	Add(map, person02);
+	Add(map, person03);
+
+	MemoryDatabase db(map);
+	TargetParam oldParam, newParam;
+	vector<EmployeeInfo> result;
+
+	oldParam.column = Column::Name;
+	oldParam.value = person01.GetFullName();
+	newParam.column = Column::Birthday;
+	newParam.value = person02.GetFullBirthday();
+	result = db.UpdateDB(oldParam, newParam);
+	EXPECT_EQ(result.size(), 1);
+	EXPECT_EQ(result[0].GetFullBirthday(), person01.GetFullBirthday());
+
+	result = db.DeleteDB({ Column::EmployeeNum, to_string(person01.num_) });
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::EmployeeNum, to_string(person02.num_) });
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::EmployeeNum, to_string(person03.num_) });
+	EXPECT_EQ(result.size(), 1);
+
+	EXPECT_EQ(db.GetDBSize(Column::Name), 0);
+	EXPECT_EQ(db.GetDBSize(Column::CareerLevel), 0);
+	EXPECT_EQ(db.GetDBSize(Column::PhoneNumber), 0);
+	EXPECT_EQ(db.GetDBSize(Column::Birthday), 0);
+	EXPECT_EQ(db.GetDBSize(Column::Certi), 0);
+	EXPECT_EQ(db.GetDBSize(Column::FirstName), 0);
+	EXPECT_EQ(db.GetDBSize(Column::LastName), 0);
+	EXPECT_EQ(db.GetDBSize(Column::MiddlePhoneNum), 0);
+	EXPECT_EQ(db.GetDBSize(Column::LastPhoneNum), 0);
+	EXPECT_EQ(db.GetDBSize(Column::BirthdayYear), 0);
+	EXPECT_EQ(db.GetDBSize(Column::BirthdayMonth), 0);
+	EXPECT_EQ(db.GetDBSize(Column::BirthdayDay), 0);
 }
