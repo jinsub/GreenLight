@@ -18,7 +18,7 @@ public:
 private:
 	string MergeString_(EmployeeInfo info);
 	string ConvertCmdTypeToString_(CommandType commandType);
-	int GetShrinkEmplyeeNum_(const int employeeNum);
+	int GetShrinkEmployeeNum_(const int employeeNum);
 
 	ofstream fout_;
 	string outputFile_;

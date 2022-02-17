@@ -59,7 +59,7 @@ protected:
 		}
 	}
 
-	int GetShrinkEmplyeeNum(const int employeeNum) {
+	int GetShrinkEmployeeNum(const int employeeNum) {
 		constexpr int TwentyCentry = 1900000000;
 		constexpr int TwentyOneCentry = 2000000000;
 
@@ -76,7 +76,7 @@ protected:
 		string result = "";
 
 		result += (ConvertCmdTypeToString(commandType));
-		result += (std::to_string(GetShrinkEmplyeeNum(info.num_)) + ",");
+		result += (std::to_string(GetShrinkEmployeeNum(info.num_)) + ",");
 		result += (info.GetFullName() + ",");
 		result += (info.cl_ + ",");
 		result += (info.GetFullPhoneNum() + ",");
