@@ -4,9 +4,65 @@
 #include <string>
 using namespace std;
 
-vector<unsigned int> MemoryDatabase::GetEmployeeNums_(const multimap<string, unsigned int>& map, const string key) {
+vector<unsigned int> MemoryDatabase::GetEmployeeNums_(const Column column, const string key) {
 	vector<unsigned int> result;
-	for (auto it = map.lower_bound(key); it != map.upper_bound(key); it++) {
+	if (column >= Column::None) {
+		return result;
+	}
+
+	if (column == Column::EmployeeNum) {
+		auto it = map_.mainDB_.find(stoul(key, nullptr, 0));
+		if (it != map_.mainDB_.end()) {
+			result.push_back(it->first);			
+		}
+		return result;
+	}
+
+	multimap<string, unsigned int>* map = nullptr;
+	switch (column) {
+	case Column::Name:
+		map = &map_.fullName_Map_;
+		break;
+	case Column::FirstName:
+		map = &map_.firstName_Map_;
+		break;
+	case Column::LastName:
+		map = &map_.lastName_Map_;
+		break;
+	case Column::PhoneNumber:
+		map = &map_.fullPhone_Map_;
+		break;
+	case Column::MiddlePhoneNum:
+		map = &map_.midPhone_Map_;
+		break;
+	case Column::LastPhoneNum:
+		map = &map_.lastPhone_Map_;
+		break;
+	case Column::Birthday:
+		map = &map_.birth_Map_;
+		break;
+	case Column::BirthdayYear:
+		map = &map_.birthYear_Map_;
+		break;
+	case Column::BirthdayMonth:
+		map = &map_.birthMonth_Map_;
+		break;
+	case Column::BirthdayDay:
+		map = &map_.birthDay_Map_;
+		break;
+	case Column::CareerLevel:
+		map = &map_.career_Map_;
+		break;
+	case Column::Certi:
+		map = &map_.cert_Map_;
+		break;
+	}
+
+	if (map == nullptr) {
+		return result;
+	}
+		
+	for (auto it = map->lower_bound(key); it != map->upper_bound(key); it++) {
 		result.push_back(it->second);
 	}
 	return result;
@@ -49,7 +105,7 @@ vector<EmployeeInfo> MemoryDatabase::CreateDB(EmployeeInfo info) {
 	return result;
 }
 
-vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const vector<unsigned int> nums, TargetParam update) {
+vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(const vector<unsigned int> nums, TargetParam update) {
 
 	vector<EmployeeInfo> result;
 	vector<string> split_update;
@@ -61,48 +117,48 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const ve
 	EmployeeInfo info;
 
 	for (auto num : nums) {
-		if (map.mainDB_.count(num) == 1) {
-			result.push_back(map.mainDB_[num]);
+		if (map_.mainDB_.count(num) == 1) {
+			result.push_back(map_.mainDB_[num]);
 		}
 	}
 
 	switch (update.column) {
 	case Column::EmployeeNum:
 		for (auto num : nums) {
-			if (map.mainDB_.count(num) == 1) {
-				map.mainDB_[num].num_ = stoi(update.value);
+			if (map_.mainDB_.count(num) == 1) {
+				map_.mainDB_[num].num_ = stoi(update.value);
 
-				info.num_ = map.mainDB_[num].num_;
-				info.firstName_ = map.mainDB_[num].firstName_;
-				info.lastName_ = map.mainDB_[num].lastName_;
-				info.midPhoneNum_ = map.mainDB_[num].midPhoneNum_;
-				info.lastPhoneNum_ = map.mainDB_[num].lastPhoneNum_;
-				info.birthYear_ = map.mainDB_[num].birthYear_;
-				info.birthMonth_ = map.mainDB_[num].birthMonth_;
-				info.birthDay_ = map.mainDB_[num].birthDay_;
-				info.cl_ = map.mainDB_[num].cl_;
-				info.certi_ = map.mainDB_[num].certi_;
+				info.num_ = map_.mainDB_[num].num_;
+				info.firstName_ = map_.mainDB_[num].firstName_;
+				info.lastName_ = map_.mainDB_[num].lastName_;
+				info.midPhoneNum_ = map_.mainDB_[num].midPhoneNum_;
+				info.lastPhoneNum_ = map_.mainDB_[num].lastPhoneNum_;
+				info.birthYear_ = map_.mainDB_[num].birthYear_;
+				info.birthMonth_ = map_.mainDB_[num].birthMonth_;
+				info.birthDay_ = map_.mainDB_[num].birthDay_;
+				info.cl_ = map_.mainDB_[num].cl_;
+				info.certi_ = map_.mainDB_[num].certi_;
 
-				map.mainDB_.insert({ stoi(update.value), info });
-				map.mainDB_.erase(num);
+				map_.mainDB_.insert({ stoi(update.value), info });
+				map_.mainDB_.erase(num);
 			}
 		}
 		break;
 	case Column::Name:
 		split_update = StrSplitter::Split(update.value, ' ');
 		for (auto num : nums) {
-			if (map.mainDB_.count(num) == 1) {
-				map.mainDB_[num].firstName_ = split_update[0];
-				map.mainDB_[num].lastName_ = split_update[1];
+			if (map_.mainDB_.count(num) == 1) {
+				map_.mainDB_[num].firstName_ = split_update[0];
+				map_.mainDB_[num].lastName_ = split_update[1];
 			}
 		}
-		map.firstName_Map_.clear();
-		map.lastName_Map_.clear();
-		map.fullName_Map_.clear();
-		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
-			map.firstName_Map_.insert({ iter->second.firstName_,iter->second.num_ });
-			map.lastName_Map_.insert({ iter->second.lastName_,iter->second.num_ });
-			map.fullName_Map_.insert({ iter->second.GetFullName(), iter->second.num_ });
+		map_.firstName_Map_.clear();
+		map_.lastName_Map_.clear();
+		map_.fullName_Map_.clear();
+		for (auto iter = map_.mainDB_.begin(); iter != map_.mainDB_.end(); iter++) {
+			map_.firstName_Map_.insert({ iter->second.firstName_,iter->second.num_ });
+			map_.lastName_Map_.insert({ iter->second.lastName_,iter->second.num_ });
+			map_.fullName_Map_.insert({ iter->second.GetFullName(), iter->second.num_ });
 		}
 		break;
 	case Column::Birthday:
@@ -110,151 +166,151 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const ve
 		update_month = update.value.substr(4, 2);
 		update_day = update.value.substr(6, 2);
 		for (auto num : nums) {
-			if (map.mainDB_.count(num) == 1) {
-				map.mainDB_[num].birthYear_ = update_year;
-				map.mainDB_[num].birthMonth_ = update_month;
-				map.mainDB_[num].birthDay_ = update_day;
+			if (map_.mainDB_.count(num) == 1) {
+				map_.mainDB_[num].birthYear_ = update_year;
+				map_.mainDB_[num].birthMonth_ = update_month;
+				map_.mainDB_[num].birthDay_ = update_day;
 			}
 		}
-		map.birthYear_Map_.clear();
-		map.birthMonth_Map_.clear();
-		map.birthDay_Map_.clear();
-		map.birth_Map_.clear();
-		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
-			map.birthYear_Map_.insert({ iter->second.birthYear_,iter->second.num_ });
-			map.birthMonth_Map_.insert({ iter->second.birthMonth_,iter->second.num_ });
-			map.birthDay_Map_.insert({ iter->second.birthDay_, iter->second.num_ });
-			map.birth_Map_.insert({ iter->second.GetFullBirthday(), iter->second.num_ });
+		map_.birthYear_Map_.clear();
+		map_.birthMonth_Map_.clear();
+		map_.birthDay_Map_.clear();
+		map_.birth_Map_.clear();
+		for (auto iter = map_.mainDB_.begin(); iter != map_.mainDB_.end(); iter++) {
+			map_.birthYear_Map_.insert({ iter->second.birthYear_,iter->second.num_ });
+			map_.birthMonth_Map_.insert({ iter->second.birthMonth_,iter->second.num_ });
+			map_.birthDay_Map_.insert({ iter->second.birthDay_, iter->second.num_ });
+			map_.birth_Map_.insert({ iter->second.GetFullBirthday(), iter->second.num_ });
 		}
 		break;
 	case Column::PhoneNumber:
 		split_update = StrSplitter::Split(update.value, '-');
 		for (auto num : nums) {
-			if (map.mainDB_.count(num) == 1) {
-				map.mainDB_[num].midPhoneNum_ = split_update[1];
-				map.mainDB_[num].lastPhoneNum_ = split_update[2];
+			if (map_.mainDB_.count(num) == 1) {
+				map_.mainDB_[num].midPhoneNum_ = split_update[1];
+				map_.mainDB_[num].lastPhoneNum_ = split_update[2];
 			}
 		}
-		map.midPhone_Map_.clear();
-		map.lastPhone_Map_.clear();
-		map.fullPhone_Map_.clear();
-		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
-			map.midPhone_Map_.insert({ iter->second.midPhoneNum_,iter->second.num_ });
-			map.lastPhone_Map_.insert({ iter->second.lastPhoneNum_,iter->second.num_ });
-			map.fullPhone_Map_.insert({ iter->second.GetFullPhoneNum(), iter->second.num_});
+		map_.midPhone_Map_.clear();
+		map_.lastPhone_Map_.clear();
+		map_.fullPhone_Map_.clear();
+		for (auto iter = map_.mainDB_.begin(); iter != map_.mainDB_.end(); iter++) {
+			map_.midPhone_Map_.insert({ iter->second.midPhoneNum_,iter->second.num_ });
+			map_.lastPhone_Map_.insert({ iter->second.lastPhoneNum_,iter->second.num_ });
+			map_.fullPhone_Map_.insert({ iter->second.GetFullPhoneNum(), iter->second.num_});
 		}
 		break;
 	case Column::CareerLevel:
 		for (auto num : nums) {
-			if (map.mainDB_.count(num) == 1) {
-				map.mainDB_[num].cl_ = update.value;
+			if (map_.mainDB_.count(num) == 1) {
+				map_.mainDB_[num].cl_ = update.value;
 			}
 		}
-		map.career_Map_.clear();
-		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
-			map.career_Map_.insert({ iter->second.cl_,iter->second.num_ });
+		map_.career_Map_.clear();
+		for (auto iter = map_.mainDB_.begin(); iter != map_.mainDB_.end(); iter++) {
+			map_.career_Map_.insert({ iter->second.cl_,iter->second.num_ });
 		}
 		break;
 	case Column::Certi:
 		for (auto num : nums) {
-			if (map.mainDB_.count(num) == 1) {
-				map.mainDB_[num].certi_ = update.value;
+			if (map_.mainDB_.count(num) == 1) {
+				map_.mainDB_[num].certi_ = update.value;
 			}
 		}
-		map.cert_Map_.clear();
-		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
-			map.cert_Map_.insert({ iter->second.certi_,iter->second.num_ });
+		map_.cert_Map_.clear();
+		for (auto iter = map_.mainDB_.begin(); iter != map_.mainDB_.end(); iter++) {
+			map_.cert_Map_.insert({ iter->second.certi_,iter->second.num_ });
 		}
 		break;
 	case Column::FirstName:
 		for (auto num : nums) {
-			if (map.mainDB_.count(num) == 1) {
-				map.mainDB_[num].firstName_ = update.value;
+			if (map_.mainDB_.count(num) == 1) {
+				map_.mainDB_[num].firstName_ = update.value;
 			}
 		}
-		map.firstName_Map_.clear();
-		map.fullName_Map_.clear();
-		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
-			map.firstName_Map_.insert({ iter->second.firstName_, iter->second.num_ });
-			map.fullName_Map_.insert({ iter->second.GetFullName(), iter->second.num_ });
+		map_.firstName_Map_.clear();
+		map_.fullName_Map_.clear();
+		for (auto iter = map_.mainDB_.begin(); iter != map_.mainDB_.end(); iter++) {
+			map_.firstName_Map_.insert({ iter->second.firstName_, iter->second.num_ });
+			map_.fullName_Map_.insert({ iter->second.GetFullName(), iter->second.num_ });
 		}
 		break;
 	case Column::LastName:
 		for (auto num : nums) {
-			if (map.mainDB_.count(num) == 1) {
-				map.mainDB_[num].lastName_ = update.value;
+			if (map_.mainDB_.count(num) == 1) {
+				map_.mainDB_[num].lastName_ = update.value;
 			}
 		}
-		map.lastName_Map_.clear();
-		map.fullName_Map_.clear();
-		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
-			map.lastName_Map_.insert({ iter->second.lastName_, iter->second.num_ });//
-			map.fullName_Map_.insert({ iter->second.GetFullName(), iter->second.num_ });
+		map_.lastName_Map_.clear();
+		map_.fullName_Map_.clear();
+		for (auto iter = map_.mainDB_.begin(); iter != map_.mainDB_.end(); iter++) {
+			map_.lastName_Map_.insert({ iter->second.lastName_, iter->second.num_ });//
+			map_.fullName_Map_.insert({ iter->second.GetFullName(), iter->second.num_ });
 		}
 		break;
 	case Column::MiddlePhoneNum:
 		for (auto num : nums) {
-			if (map.mainDB_.count(num) == 1) {
-				map.mainDB_[num].midPhoneNum_ = update.value;
+			if (map_.mainDB_.count(num) == 1) {
+				map_.mainDB_[num].midPhoneNum_ = update.value;
 			}
 		}
-		map.midPhone_Map_.clear();
-		map.fullPhone_Map_.clear();
-		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
-			map.midPhone_Map_.insert({ iter->second.midPhoneNum_, iter->second.num_ });
-			map.fullPhone_Map_.insert({ iter->second.GetFullPhoneNum(), iter->second.num_ });
+		map_.midPhone_Map_.clear();
+		map_.fullPhone_Map_.clear();
+		for (auto iter = map_.mainDB_.begin(); iter != map_.mainDB_.end(); iter++) {
+			map_.midPhone_Map_.insert({ iter->second.midPhoneNum_, iter->second.num_ });
+			map_.fullPhone_Map_.insert({ iter->second.GetFullPhoneNum(), iter->second.num_ });
 		}
 		break;
 	case Column::LastPhoneNum:
 		for (auto num : nums) {
-			if (map.mainDB_.count(num) == 1) {
-				map.mainDB_[num].lastPhoneNum_ = update.value;
+			if (map_.mainDB_.count(num) == 1) {
+				map_.mainDB_[num].lastPhoneNum_ = update.value;
 			}
 		}
-		map.lastPhone_Map_.clear();//
-		map.fullPhone_Map_.clear();
-		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
-			map.lastPhone_Map_.insert({ iter->second.lastPhoneNum_, iter->second.num_ });
-			map.fullPhone_Map_.insert({ iter->second.GetFullPhoneNum(), iter->second.num_ });
+		map_.lastPhone_Map_.clear();//
+		map_.fullPhone_Map_.clear();
+		for (auto iter = map_.mainDB_.begin(); iter != map_.mainDB_.end(); iter++) {
+			map_.lastPhone_Map_.insert({ iter->second.lastPhoneNum_, iter->second.num_ });
+			map_.fullPhone_Map_.insert({ iter->second.GetFullPhoneNum(), iter->second.num_ });
 		}
 		break;
 	case Column::BirthdayYear:
 		for (auto num : nums) {
-			if (map.mainDB_.count(num) == 1) {
-				map.mainDB_[num].birthYear_ = update.value;
+			if (map_.mainDB_.count(num) == 1) {
+				map_.mainDB_[num].birthYear_ = update.value;
 			}
 		}
-		map.birthYear_Map_.clear();
-		map.birth_Map_.clear();
-		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
-			map.birthYear_Map_.insert({ iter->second.birthYear_, iter->second.num_ });
-			map.birth_Map_.insert({ iter->second.GetFullBirthday(), iter->second.num_ });
+		map_.birthYear_Map_.clear();
+		map_.birth_Map_.clear();
+		for (auto iter = map_.mainDB_.begin(); iter != map_.mainDB_.end(); iter++) {
+			map_.birthYear_Map_.insert({ iter->second.birthYear_, iter->second.num_ });
+			map_.birth_Map_.insert({ iter->second.GetFullBirthday(), iter->second.num_ });
 		}
 		break;
 	case Column::BirthdayMonth:
 		for (auto num : nums) {
-			if (map.mainDB_.count(num) == 1) {
-				map.mainDB_[num].birthMonth_ = update.value;
+			if (map_.mainDB_.count(num) == 1) {
+				map_.mainDB_[num].birthMonth_ = update.value;
 			}
 		}
-		map.birthMonth_Map_.clear();
-		map.birth_Map_.clear();
-		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
-			map.birthMonth_Map_.insert({ iter->second.birthMonth_, iter->second.num_ });
-			map.birth_Map_.insert({ iter->second.GetFullBirthday(), iter->second.num_ });
+		map_.birthMonth_Map_.clear();
+		map_.birth_Map_.clear();
+		for (auto iter = map_.mainDB_.begin(); iter != map_.mainDB_.end(); iter++) {
+			map_.birthMonth_Map_.insert({ iter->second.birthMonth_, iter->second.num_ });
+			map_.birth_Map_.insert({ iter->second.GetFullBirthday(), iter->second.num_ });
 		}
 		break;
 	case Column::BirthdayDay:
 		for (auto num : nums) {
-			if (map.mainDB_.count(num) == 1) {
-				map.mainDB_[num].birthDay_ = update.value;
+			if (map_.mainDB_.count(num) == 1) {
+				map_.mainDB_[num].birthDay_ = update.value;
 			}
 		}
-		map.birthDay_Map_.clear();
-		map.birth_Map_.clear();
-		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
-			map.birthDay_Map_.insert({ iter->second.birthDay_, iter->second.num_ });
-			map.birth_Map_.insert({ iter->second.GetFullBirthday(), iter->second.num_ });
+		map_.birthDay_Map_.clear();
+		map_.birth_Map_.clear();
+		for (auto iter = map_.mainDB_.begin(); iter != map_.mainDB_.end(); iter++) {
+			map_.birthDay_Map_.insert({ iter->second.birthDay_, iter->second.num_ });
+			map_.birth_Map_.insert({ iter->second.GetFullBirthday(), iter->second.num_ });
 		}
 		break;
 	default:
@@ -265,65 +321,15 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const ve
 }
 
 vector<EmployeeInfo> MemoryDatabase::UpdateDB(TargetParam filter, TargetParam update) {
-	vector<EmployeeInfo> result;
-	vector<unsigned int> nums;
+	vector<EmployeeInfo> result;	
 
+	if (filter.column >= Column::None) {
+		return result;
+	}
 
-	switch (filter.column) {
-	case Column::EmployeeNum:
-		nums.push_back(stoi(filter.value));
-		result = GetUpdateMainDB_(map_, nums, update);
-		break;
-	case Column::Name:
-		nums = GetEmployeeNums_(map_.fullName_Map_, filter.value);
-		result = GetUpdateMainDB_(map_, nums, update);
-		break;
-	case Column::CareerLevel:
-		nums = GetEmployeeNums_(map_.career_Map_, filter.value);
-		result = GetUpdateMainDB_(map_, nums, update);
-		break;
-	case Column::PhoneNumber:
-		nums = GetEmployeeNums_(map_.fullPhone_Map_, filter.value);
-		result = GetUpdateMainDB_(map_, nums, update);
-		break;
-	case Column::Birthday:
-		nums = GetEmployeeNums_(map_.birth_Map_, filter.value);
-		result = GetUpdateMainDB_(map_, nums, update);
-		break;
-	case Column::Certi:
-		nums = GetEmployeeNums_(map_.cert_Map_, filter.value);
-		result = GetUpdateMainDB_(map_, nums, update);
-		break;
-	case Column::FirstName:
-		nums = GetEmployeeNums_(map_.firstName_Map_, filter.value);
-		result = GetUpdateMainDB_(map_, nums, update);
-		break;
-	case Column::LastName:
-		nums = GetEmployeeNums_(map_.lastName_Map_, filter.value);
-		result = GetUpdateMainDB_(map_, nums, update);
-		break;
-	case Column::MiddlePhoneNum:
-		nums = GetEmployeeNums_(map_.midPhone_Map_, filter.value);
-		result = GetUpdateMainDB_(map_, nums, update);
-		break;
-	case Column::LastPhoneNum:
-		nums = GetEmployeeNums_(map_.lastPhone_Map_, filter.value);
-		result = GetUpdateMainDB_(map_, nums, update);
-		break;
-	case Column::BirthdayYear:
-		nums = GetEmployeeNums_(map_.birthYear_Map_, filter.value);
-		result = GetUpdateMainDB_(map_, nums, update);
-		break;
-	case Column::BirthdayMonth:
-		nums = GetEmployeeNums_(map_.birthMonth_Map_, filter.value);
-		result = GetUpdateMainDB_(map_, nums, update);
-		break;
-	case Column::BirthdayDay:
-		nums = GetEmployeeNums_(map_.birthDay_Map_, filter.value);
-		result = GetUpdateMainDB_(map_, nums, update);
-		break;
-	default:
-		break;
+	vector<unsigned int> nums = GetEmployeeNums_(filter.column, filter.value);
+	if (nums.size()) {
+		return GetUpdateMainDB_(nums, update);
 	}
 
 	return result;
@@ -331,57 +337,21 @@ vector<EmployeeInfo> MemoryDatabase::UpdateDB(TargetParam filter, TargetParam up
 
 vector<EmployeeInfo> MemoryDatabase::ReadDB(TargetParam filter) {
 	vector<EmployeeInfo> result;
-	vector<unsigned int> nums;
+	
 
-	switch (filter.column) {
-	case Column::EmployeeNum: {
+	if (filter.column >= Column::None) {
+		return result;
+	}
+
+	if (filter.column == Column::EmployeeNum) {
 		map<unsigned int, EmployeeInfo>::iterator employee = map_.mainDB_.find(stoul(filter.value, nullptr, 0));
 		if (employee != map_.mainDB_.end()) {
 			result.push_back(employee->second);
+			return result;
 		}
-		break;
-	}
-	case Column::Name:
-		nums = GetEmployeeNums_(map_.fullName_Map_, filter.value);
-		break;
-	case Column::CareerLevel:
-		nums = GetEmployeeNums_(map_.career_Map_, filter.value);
-		break;
-	case Column::PhoneNumber:
-		nums = GetEmployeeNums_(map_.fullPhone_Map_, filter.value);
-		break;
-	case Column::Birthday:
-		nums = GetEmployeeNums_(map_.birth_Map_, filter.value);
-		break;
-	case Column::Certi:
-		nums = GetEmployeeNums_(map_.cert_Map_, filter.value);
-		break;
-	case Column::FirstName:
-		nums =  GetEmployeeNums_(map_.firstName_Map_, filter.value);		
-		break;
-	case Column::LastName:
-		nums = GetEmployeeNums_(map_.lastName_Map_, filter.value);
-		break;
-	case Column::MiddlePhoneNum:
-		nums = GetEmployeeNums_(map_.midPhone_Map_, filter.value);
-		break;
-	case Column::LastPhoneNum:
-		nums = GetEmployeeNums_(map_.lastPhone_Map_, filter.value);
-		break;
-	case Column::BirthdayYear:
-		nums = GetEmployeeNums_(map_.birthYear_Map_, filter.value);
-		break;
-	case Column::BirthdayMonth:
-		nums = GetEmployeeNums_(map_.birthMonth_Map_, filter.value);
-		break;
-	case Column::BirthdayDay:
-		nums = GetEmployeeNums_(map_.birthDay_Map_, filter.value);
-		break;
-	default:
-		break;
 	}
 
-	for (auto num : nums) {
+	for (auto num : GetEmployeeNums_(filter.column, filter.value)) {
 		result.push_back(map_.mainDB_[num]);
 	}
 	return result;
