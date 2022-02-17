@@ -7,7 +7,7 @@
 using namespace std;
 
 enum class Column {
-	EmployeeNum,
+	EmployeeNum = 0,
 	Name,
 	CareerLevel,
 	PhoneNumber,
