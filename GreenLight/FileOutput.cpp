@@ -44,7 +44,7 @@ void FileOutput::Show(const CommandType commandType, const int infoCount)
 	fout_.close();
 }
 
-int FileOutput::GetShrinkEmplyeeNum_(const int employeeNum) {
+int FileOutput::GetShrinkEmployeeNum_(const int employeeNum) {
 	constexpr int TwentyCentry = 1900000000;
 	constexpr int TwentyOneCentry = 2000000000;
 
@@ -59,7 +59,7 @@ string FileOutput::MergeString_(EmployeeInfo info)
 {
 	string result = "";
 	
-	result += (std::to_string(GetShrinkEmplyeeNum_(info.num_)) + ",");
+	result += (std::to_string(GetShrinkEmployeeNum_(info.num_)) + ",");
 	result += (info.GetFullName() + ",");
 	result += (info.cl_ + ",");
 	result += (info.GetFullPhoneNum() + ",");
