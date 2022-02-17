@@ -122,7 +122,7 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const ve
 		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
 			map.firstName_Map_.insert({ iter->second.firstName_,iter->second.num_ });
 			map.lastName_Map_.insert({ iter->second.lastName_,iter->second.num_ });
-			map.firstName_Map_.insert({ iter->second.GetFullName(), iter->second.num_ });
+			map.fullName_Map_.insert({ iter->second.GetFullName(), iter->second.num_ });
 		}
 		break;
 	case Column::Birthday:
@@ -200,9 +200,9 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const ve
 				//SetEmployeeInfo_(map.cert_Map_, num, filter_value1, update.value);
 			}
 		}
-		map.career_Map_.clear();
+		map.cert_Map_.clear();
 		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
-			map.career_Map_.insert({ iter->second.cl_,iter->second.num_ });
+			map.cert_Map_.insert({ iter->second.certi_,iter->second.num_ });
 		}
 		break;
 	case Column::FirstName:
