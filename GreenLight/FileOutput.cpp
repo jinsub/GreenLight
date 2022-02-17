@@ -4,7 +4,7 @@
 
 void FileOutput::Show(const CommandType commandType, const vector<EmployeeInfo>& info)
 {
-	//fout_.open(outputFile_);
+//	fout_.open(outputFile_);
 
 	if (info.size() == 0)
 	{
@@ -26,12 +26,12 @@ void FileOutput::Show(const CommandType commandType, const vector<EmployeeInfo>&
 			}
 		}
 	}
-	//fout_.close();
+//	fout_.close();
 }
 
 void FileOutput::Show(const CommandType commandType, const int infoCount)
 {
-	//fout_.open(outputFile_);
+//	fout_.open(outputFile_);
 
 	fout_ << ConvertCmdTypeToString_(commandType);
 
@@ -43,7 +43,7 @@ void FileOutput::Show(const CommandType commandType, const int infoCount)
 	{
 		fout_ << infoCount << "\n";
 	}
-	//fout_.close();
+//	fout_.close();
 }
 
 int FileOutput::GetShrinkEmployeeNum_(const int employeeNum) {
@@ -57,11 +57,54 @@ int FileOutput::GetShrinkEmployeeNum_(const int employeeNum) {
 	return employeeNum - TwentyCentry;
 }
 
+
+string FileOutput::ConvertEmployeeNumToString_(const int employeeNum)
+{
+	string result;
+
+	if ((employeeNum <= 99999999) && (employeeNum >= 10000000))
+	{
+		result = std::to_string(employeeNum);
+	}
+	else if ((employeeNum < 10000000) && (employeeNum >= 01000000))
+	{
+		result = "0" + std::to_string(employeeNum);
+	}
+	else if ((employeeNum < 01000000) && (employeeNum >= 00100000))
+	{
+		result = "00" + std::to_string(employeeNum);
+	}
+	else if ((employeeNum < 00100000) && (employeeNum >= 00010000))
+	{
+		result = "000" + std::to_string(employeeNum);
+	}
+	else if ((employeeNum < 00010000) && (employeeNum >= 00001000))
+	{
+		result = "0000" + std::to_string(employeeNum);
+	}
+	else if ((employeeNum < 00001000) && (employeeNum >= 00000100))
+	{
+		result = "00000" + std::to_string(employeeNum);
+	}
+	else if ((employeeNum < 00000100) && (employeeNum >= 00000010))
+	{
+		result = "000000" + std::to_string(employeeNum);
+	}
+	else if ((employeeNum < 00000010) && (employeeNum >= 00000001))
+	{
+		result = "0000000" + std::to_string(employeeNum);
+	}
+
+	return result;
+}
+
 string FileOutput::MergeString_(EmployeeInfo info)
 {
 	string result = "";
 	
-	result += (std::to_string(GetShrinkEmployeeNum_(info.num_)) + ",");
+	int employeeNum = GetShrinkEmployeeNum_(info.num_);
+
+	result += (ConvertEmployeeNumToString_(employeeNum) + ",");
 	result += (info.GetFullName() + ",");
 	result += (info.cl_ + ",");
 	result += (info.GetFullPhoneNum() + ",");
