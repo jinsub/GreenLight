@@ -1,5 +1,7 @@
 #include "FileOutput.h"
 
+#define MAX_PRINT_CNT (5)
+
 void FileOutput::Show(const CommandType commandType, const vector<EmployeeInfo>& info)
 {
 	fout_.open(outputFile_);
@@ -19,7 +21,7 @@ void FileOutput::Show(const CommandType commandType, const vector<EmployeeInfo>&
 			fout_ << MergeString_(iter) << "\n";
 			++loopCount;
 
-			if (loopCount == 5) {
+			if (loopCount == MAX_PRINT_CNT) {
 				break;
 			}
 		}
