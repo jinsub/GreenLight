@@ -82,6 +82,21 @@ protected:
 		map.career_Map_.insert({ person.cl_, person.num_ });
 		map.cert_Map_.insert({ person.certi_, person.num_ });
 	}
+
+	int GetDBSizeTotal(MemoryDatabase& db) {
+		return db.GetDBSize(Column::Name) +
+			db.GetDBSize(Column::CareerLevel) +
+			db.GetDBSize(Column::PhoneNumber) +
+			db.GetDBSize(Column::Birthday) +
+			db.GetDBSize(Column::Certi) +
+			db.GetDBSize(Column::FirstName) +
+			db.GetDBSize(Column::LastName) +
+			db.GetDBSize(Column::MiddlePhoneNum) +
+			db.GetDBSize(Column::LastPhoneNum) +
+			db.GetDBSize(Column::BirthdayYear) +
+			db.GetDBSize(Column::BirthdayMonth) +
+			db.GetDBSize(Column::BirthdayDay);
+	}	
 };
 
 //=======================================================
@@ -760,4 +775,6 @@ TEST_F(DatabaseTest, test_create_update_delete_00) {
 	EXPECT_EQ(db.GetDBSize(Column::BirthdayYear), 0);
 	EXPECT_EQ(db.GetDBSize(Column::BirthdayMonth), 0);
 	EXPECT_EQ(db.GetDBSize(Column::BirthdayDay), 0);
+
+	EXPECT_EQ(GetDBSizeTotal(db), 0);
 }
