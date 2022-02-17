@@ -755,10 +755,14 @@ TEST_F(DatabaseTest, test_20input) {
 	result = db.ReadDB({ Column::Name, string("FB NTAWR") });
 	EXPECT_EQ(result.size(), 1);
 
+
+	result = db.ReadDB({ Column::Certi, string("PRO") });
+	EXPECT_EQ(result.size(), 13);
+
 	//DEL, , , ,,certi,PRO
 	//DEL, 13
 	result = db.DeleteDB({ Column::Certi, string("PRO") });
-	EXPECT_EQ(result.size(), 12);
+	EXPECT_EQ(result.size(), 13);
 }
 
 //=======================================================
