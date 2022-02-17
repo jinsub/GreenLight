@@ -210,7 +210,7 @@ vector<EmployeeInfo> MemoryDatabase::UpdateDB(TargetParam filter, TargetParam up
 
 	switch (filter.column) {
 	case Column::EmployeeNum:
-		nums.push_back(stoi(filter.value));
+		nums.push_back(stoul(filter.value, nullptr, 0));
 		result = GetUpdateMainDB_(map_, nums, update);
 		break;
 	case Column::Name:

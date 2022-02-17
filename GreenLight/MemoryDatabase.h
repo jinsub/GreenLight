@@ -35,7 +35,7 @@ public:
 	vector<EmployeeInfo> UpdateDB(TargetParam filter, TargetParam update) override;
 	vector<EmployeeInfo> DeleteDB(TargetParam filter) override;
 
-	int GetDBSize(Column column) {
+	size_t GetDBSize(Column column) {
 		switch (column)
 		{
 		case Column::EmployeeNum:

@@ -83,7 +83,7 @@ protected:
 		map.cert_Map_.insert({ person.certi_, person.num_ });
 	}
 
-	int GetDBSizeTotal(MemoryDatabase& db) {
+	size_t GetDBSizeTotal(MemoryDatabase& db) {
 		return db.GetDBSize(Column::Name) +
 			db.GetDBSize(Column::CareerLevel) +
 			db.GetDBSize(Column::PhoneNumber) +
@@ -806,4 +806,28 @@ TEST_F(DatabaseTest, test_create_update_delete_00) {
 	EXPECT_EQ(db.GetDBSize(Column::BirthdayDay), 0);
 
 	EXPECT_EQ(GetDBSizeTotal(db), 0);
+}
+TEST_F(DatabaseTest, test_create_update_delete_01) {
+	DataBaseMap map;
+
+	Add(map, person01);
+
+	MemoryDatabase db(map);
+	TargetParam oldParam, newParam;
+	vector<EmployeeInfo> result;
+
+	oldParam.column = Column::EmployeeNum;
+	oldParam.value = to_string(person01.num_);
+	newParam.column = Column::EmployeeNum;
+	newParam.value = to_string(person02.num_);
+	result = db.UpdateDB(oldParam, newParam);
+	EXPECT_EQ(result.size(), 1);
+	EXPECT_EQ(result[0].num_, person01.num_);
+
+	oldParam.column = Column::EmployeeNum;
+	oldParam.value = to_string(person01.num_);
+	newParam.column = Column::EmployeeNum;
+	newParam.value = to_string(person03.num_);
+	result = db.UpdateDB(oldParam, newParam);
+	EXPECT_EQ(result.size(), 0);
 }
