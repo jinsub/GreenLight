@@ -142,6 +142,7 @@
     <ClCompile Include="AscendingEmployeeNumber.cpp" />
     <ClCompile Include="CommandParser.cpp" />
     <ClCompile Include="CommandProcessor.cpp" />
+    <ClCompile Include="FileOutput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MemoryDatabase.cpp" />
     <ClCompile Include="Printer.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="CommandParser.h" />
     <ClInclude Include="CommandProcessor.h" />
     <ClInclude Include="ControlTypes.h" />
+    <ClInclude Include="FileOutput.h" />
     <ClInclude Include="IDatabase.h" />
     <ClInclude Include="IPrinter.h" />
     <ClInclude Include="IOutput.h" />

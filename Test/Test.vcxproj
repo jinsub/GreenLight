@@ -41,6 +41,7 @@
     <ClCompile Include="CommandParserTest.cpp" />
     <ClCompile Include="CommandProcessorTest.cpp" />
     <ClCompile Include="MemoryDatabaseTest.cpp" />
+    <ClCompile Include="OutputTest.cpp" />
     <ClCompile Include="PrinterTest.cpp" />
     <ClCompile Include="SorterTest.cpp" />
     <ClCompile Include="test.cpp" />

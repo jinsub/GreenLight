@@ -19,6 +19,9 @@
     <ClCompile Include="AscendingEmployeeNumber.cpp">
       <Filter>Sources\View</Filter>
     </ClCompile>
+    <ClCompile Include="FileOutput.cpp">
+      <Filter>Sources\View</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandParser.h">
@@ -52,6 +55,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="AscendingEmployeeNumber.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="FileOutput.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
