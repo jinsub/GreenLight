@@ -63,11 +63,25 @@ vector<EmployeeInfo> MemoryDatabase::CreateDB(EmployeeInfo info) {
 vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const vector<unsigned int> nums, TargetParam filter, TargetParam update) {
 
 	vector<EmployeeInfo> result;
-	vector<string> split_filter = Split_(filter.value, ' ');
-	vector<string> split_update = Split_(update.value, ' ');
+	vector<string> split_filter;
+	vector<string> split_update;
+
+	string filter_year;
+	string filter_month;
+	string filter_day;
+
+	string update_year;
+	string update_month;
+	string update_day;
+
+	for (auto num : nums) {
+		result.push_back(map.mainDB_[num]);
+	}
 
 	switch (update.column) {
 	case Column::Name:
+		split_filter = Split_(filter.value, ' ');
+		split_update = Split_(update.value, ' ');
 		for (auto num : nums) {
 			map.mainDB_[num].firstName_ = split_update[0];
 			map.mainDB_[num].lastName_ = split_update[1];
@@ -77,17 +91,25 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const ve
 		SetEmployeeInfo_(map.fullName_Map_, nums, filter.value, update.value);
 		break;
 	case Column::Birthday:
+		filter_year = filter.value.substr(0, 4);
+		filter_month = filter.value.substr(4, 2);
+		filter_day = filter.value.substr(6, 2);
+		update_year = update.value.substr(0, 4);
+		update_month = update.value.substr(4, 2);
+		update_day = update.value.substr(6, 2);
 		for (auto num : nums) {
-			map.mainDB_[num].birthYear_ = split_update[0];
-			map.mainDB_[num].birthMonth_ = split_update[1];
-			map.mainDB_[num].birthDay_ = split_update[2];
+			map.mainDB_[num].birthYear_ = update_year;
+			map.mainDB_[num].birthMonth_ = update_month;
+			map.mainDB_[num].birthDay_ = update_day;
 		}
-		SetEmployeeInfo_(map.birthYear_Map_, nums, split_filter[0], split_update[0]);
-		SetEmployeeInfo_(map.birthMonth_Map_, nums, split_filter[1], split_update[1]);
-		SetEmployeeInfo_(map.birthDay_Map_, nums, split_filter[2], split_update[2]);
+		SetEmployeeInfo_(map.birthYear_Map_, nums, filter_year, update_year);
+		SetEmployeeInfo_(map.birthMonth_Map_, nums, filter_month, update_month);
+		SetEmployeeInfo_(map.birthDay_Map_, nums, filter_day, update_day);
 		SetEmployeeInfo_(map.birth_Map_, nums, filter.value, update.value);
 		break;
 	case Column::PhoneNumber:
+		split_filter = Split_(filter.value, '-');
+		split_update = Split_(update.value, '-');
 		for (auto num : nums) {
 			map.mainDB_[num].firstName_ = split_update[0];
 			map.mainDB_[num].lastName_ = split_update[1];
@@ -180,9 +202,6 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const ve
 		break;
 	default:
 		break;
-	}
-	for (auto num : nums) {
-		result.push_back(map.mainDB_[num]);
 	}
 
 	return result;
