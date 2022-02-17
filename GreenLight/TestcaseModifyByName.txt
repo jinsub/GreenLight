@@ -52,3 +52,4 @@ MOD,-p, , ,name,YANG JINSEOB,cl,CL3
 MOD,-p, , ,name,YANG JINSEOB,phoneNum,010-8765-4321
 MOD,-p, , ,name,YANG JINSEOB,birthday,20220215
 MOD,-p, , ,name,YANG JINSEOB,certi,ADV
+MOD,-P, , ,employeeNum,10099955,employeeNum,10099955

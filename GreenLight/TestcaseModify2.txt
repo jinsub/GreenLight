@@ -78,3 +78,4 @@ MOD,-p, , ,certi,ADV,cl,CL2
 MOD,-p, , ,certi,ADV,phoneNum,010-8765-4321
 MOD,-p, , ,certi,ADV,birthday,20220215
 MOD,-p, , ,certi,ADV,certi,PRO
+MOD,-p, , ,employeeNum,10099954,employeeNum,10099954
