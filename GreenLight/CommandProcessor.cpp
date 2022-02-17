@@ -64,7 +64,7 @@ void CommandProcessor::ProcessMod_(const FilterOption filterOption, const PrintO
 
 EmployeeInfo CommandProcessor::MakeEmployeeInfo_(const vector<string>& args) {
 	EmployeeInfo info;
-	info.num_ = atoi(args[0].c_str());
+	info.num_ = GetExtendedEmplyeeNum_(args[0]);
 	info.firstName_ = Split_(args[1], ' ')[0];
 	info.lastName_ = Split_(args[1], ' ')[1];
 	info.cl_ = args[2];
@@ -76,6 +76,19 @@ EmployeeInfo CommandProcessor::MakeEmployeeInfo_(const vector<string>& args) {
 	info.certi_ = args[5];
 
 	return info;
+}
+
+int CommandProcessor::GetExtendedEmplyeeNum_(const string employeeNumStr) {
+	constexpr int YearThreshold = 50000000;
+	constexpr int TwentyCentry = 1900000000;
+	constexpr int TwentyOneCentry = 2000000000;
+	auto employeeNum = atoi(employeeNumStr.c_str());
+	
+	if (employeeNum < YearThreshold)
+	{
+		return employeeNum + TwentyOneCentry;
+	}
+	return employeeNum + TwentyCentry;
 }
 
 Column CommandProcessor::GetColumn_(string columnName) {
