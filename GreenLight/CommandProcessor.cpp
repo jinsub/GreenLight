@@ -34,15 +34,24 @@ void CommandProcessor::ProcessDel_(const FilterOption filterOption, const PrintO
 	filter.column = GetFilterColumn_(filterOption, args[0]);
 	filter.value = args[1];
 
+	if (filter.column == Column::EmployeeNum) {
+		filter.value = to_string(GetExtendedEmplyeeNum_(args[1]));
+	}
+
 	printer_->Print(CommandType::DEL, printOption, database_->DeleteDB(filter));
 
 	return;
 }
 
+
 void CommandProcessor::ProcessSch_(const FilterOption filterOption, const PrintOption printOption, const vector<string>& args) {
 	TargetParam filter;
 	filter.column = GetFilterColumn_(filterOption, args[0]);
 	filter.value = args[1];
+
+	if (filter.column == Column::EmployeeNum) {
+		filter.value = to_string(GetExtendedEmplyeeNum_(args[1]));
+	}
 
 	printer_->Print(CommandType::SCH, printOption, database_->ReadDB(filter));
 
@@ -56,6 +65,13 @@ void CommandProcessor::ProcessMod_(const FilterOption filterOption, const PrintO
 	TargetParam update;
 	update.column = GetColumn_(args[2]);
 	update.value = args[3];
+
+	if (filter.column == Column::EmployeeNum) {
+		filter.value = to_string(GetExtendedEmplyeeNum_(args[1]));
+	}
+	if (update.column == Column::EmployeeNum) {
+		update.value = to_string(GetExtendedEmplyeeNum_(args[3]));
+	}
 
 	printer_->Print(CommandType::MOD, printOption, database_->UpdateDB(filter, update));
 

@@ -11,7 +11,7 @@ protected:
 		fileOutput_ = new FileOutput(outputFile);
 
 		employee_1 = {
-			2019018054,
+			2000018054,
 			string("CHANGHYUN"), string("HYUN"),
 			string("CL2"),
 			string("6606"), string("4404"),
@@ -59,6 +59,46 @@ protected:
 		}
 	}
 
+	string ConvertEmployeeNumToString(const int employeeNum)
+	{
+		string result;
+
+		if ((employeeNum <= 99999999) && (employeeNum >= 10000000))
+		{
+			result = std::to_string(employeeNum);
+		}
+		else if ((employeeNum < 10000000) && (employeeNum >= 01000000))
+		{
+			result = "0" + std::to_string(employeeNum);
+		}
+		else if ((employeeNum < 01000000) && (employeeNum >= 00100000))
+		{
+			result = "00" + std::to_string(employeeNum);
+		}
+		else if ((employeeNum < 00100000) && (employeeNum >= 00010000))
+		{
+			result = "000" + std::to_string(employeeNum);
+		}
+		else if ((employeeNum < 00010000) && (employeeNum >= 00001000))
+		{
+			result = "0000" + std::to_string(employeeNum);
+		}
+		else if ((employeeNum < 00001000) && (employeeNum >= 00000100))
+		{
+			result = "00000" + std::to_string(employeeNum);
+		}
+		else if ((employeeNum < 00000100) && (employeeNum >= 00000010))
+		{
+			result = "000000" + std::to_string(employeeNum);
+		}
+		else if ((employeeNum < 00000010) && (employeeNum >= 00000001))
+		{
+			result = "0000000" + std::to_string(employeeNum);
+		}
+
+		return result;
+	}
+
 	int GetShrinkEmployeeNum(const int employeeNum) {
 		constexpr int TwentyCentry = 1900000000;
 		constexpr int TwentyOneCentry = 2000000000;
@@ -75,8 +115,10 @@ protected:
 	{
 		string result = "";
 
+		int employeeNum = GetShrinkEmployeeNum(info.num_);
+
 		result += (ConvertCmdTypeToString(commandType));
-		result += (std::to_string(GetShrinkEmployeeNum(info.num_)) + ",");
+		result += (ConvertEmployeeNumToString(employeeNum) + ",");
 		result += (info.GetFullName() + ",");
 		result += (info.cl_ + ",");
 		result += (info.GetFullPhoneNum() + ",");
