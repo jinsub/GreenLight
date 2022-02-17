@@ -4,7 +4,7 @@
 
 void FileOutput::Show(const CommandType commandType, const vector<EmployeeInfo>& info)
 {
-	fout_.open(outputFile_);
+	//fout_.open(outputFile_);
 
 	if (info.size() == 0)
 	{
@@ -26,12 +26,12 @@ void FileOutput::Show(const CommandType commandType, const vector<EmployeeInfo>&
 			}
 		}
 	}
-	fout_.close();
+	//fout_.close();
 }
 
 void FileOutput::Show(const CommandType commandType, const int infoCount)
 {
-	fout_.open(outputFile_);
+	//fout_.open(outputFile_);
 
 	fout_ << ConvertCmdTypeToString_(commandType);
 
@@ -43,7 +43,7 @@ void FileOutput::Show(const CommandType commandType, const int infoCount)
 	{
 		fout_ << infoCount << "\n";
 	}
-	fout_.close();
+	//fout_.close();
 }
 
 int FileOutput::GetShrinkEmployeeNum_(const int employeeNum) {

@@ -10,7 +10,13 @@ class FileOutput : public IOutput
 public:
 	FileOutput(string outputFile) :
 		outputFile_(outputFile)
-	{}
+	{
+		fout_.open(outputFile_);
+	}
+	~FileOutput()
+	{
+		fout_.close();
+	}
 
 	void Show(const CommandType commandType, const vector<EmployeeInfo>& info) override;
 	void Show(const CommandType commandType, const int infoCount) override;
