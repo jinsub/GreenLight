@@ -1,6 +1,9 @@
 #include <iostream>
 #include "CommandParser.h"
 #include "CommandProcessor.h"
+#include "Printer.h"
+#include "AscendingEmployeeNumber.h"
+#include "FileOutput.h"
 
 using namespace std;
 
@@ -21,7 +24,7 @@ int main(int argc, char* argv[])
 	cout << argv[2] << endl;
 
 	auto database = new DummyDatabase();
-	auto printer = new DummyPrinter();
+	auto printer = new Printer(new AscendingEmployeeNumber(), new FileOutput(argv[2]));
 	auto parser = CommandParser();
 	auto processor = CommandProcessor(database, printer);
 
