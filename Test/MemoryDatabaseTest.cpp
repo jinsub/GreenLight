@@ -206,6 +206,27 @@ TEST_F(DatabaseTest, test_update_firstName) {
 
 }
 
+TEST_F(DatabaseTest, test_update_Change_Num) {
+	DataBaseMap map;
+	MemoryDatabase db(map);
+	vector<EmployeeInfo> result;
+	db.CreateDB(person01);
+	db.CreateDB(person02);
+	db.CreateDB(person03);
+	db.CreateDB(person04);
+
+	TargetParam oldParam, newParam;
+
+	oldParam.column = Column::EmployeeNum;
+	oldParam.value = "2011263288";
+	newParam.column = Column::EmployeeNum;
+	newParam.value = "2011273288";
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result[0].num_, 2011263288);
+
+}
+
 //=======================================================
 TEST_F(DatabaseTest, test_delete_num){
 	MemoryDatabase db = SetUpForDeleteTest();
