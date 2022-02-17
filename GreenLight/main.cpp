@@ -4,6 +4,7 @@
 #include "Printer.h"
 #include "AscendingEmployeeNumber.h"
 #include "FileOutput.h"
+#include "MemoryDatabase.h"
 
 using namespace std;
 
@@ -23,10 +24,10 @@ int main(int argc, char* argv[])
 	cout << argv[1] << endl;
 	cout << argv[2] << endl;
 
-	auto database = new DummyDatabase();
+	auto database = new MemoryDatabase();
 	auto printer = new Printer(new AscendingEmployeeNumber(), new FileOutput(argv[2]));
 	auto parser = CommandParser();
-	auto processor = CommandProcessor(database, printer);
+	auto processor = CommandProcessor((IDatabase *)database, printer);
 
 	vector<string>&& lines = parser.ParseFile(argv[1]);
 	vector<Command>&& commands = parser.ParseLine(lines);
