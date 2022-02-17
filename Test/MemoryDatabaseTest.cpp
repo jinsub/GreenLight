@@ -242,6 +242,31 @@ TEST_F(DatabaseTest, test_update_Change_Num) {
 
 }
 
+TEST_F(DatabaseTest, test_update_Change_phone_by_name) {
+	DataBaseMap map;
+	MemoryDatabase db(map);
+	vector<EmployeeInfo> result;
+	db.CreateDB(person01);
+	db.CreateDB(person02);
+	
+	TargetParam oldParam, newParam;
+
+	oldParam.column = Column::Name;
+	oldParam.value = person01.GetFullName();
+	newParam.column = Column::PhoneNumber;
+	newParam.value = person02.GetFullPhoneNum();
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result[0].GetFullPhoneNum(), person01.GetFullPhoneNum());
+
+	result = db.DeleteDB({ Column::EmployeeNum, to_string(person01.num_) });
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::EmployeeNum, to_string(person02.num_) });
+	EXPECT_EQ(result.size(), 1);
+	
+	EXPECT_EQ(GetDBSizeTotal(db), 0);
+}
+
 //=======================================================
 TEST_F(DatabaseTest, test_delete_num){
 	MemoryDatabase db = SetUpForDeleteTest();
