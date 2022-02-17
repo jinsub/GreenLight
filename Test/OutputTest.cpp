@@ -145,6 +145,8 @@ TEST_F(OutputTest, FileOutputTest_ShowInfo)
 	CommandType cmdType = CommandType::MOD;
 	fileOutput_->Show(cmdType, info);
 
+	fileOutput_->CloseFile();
+
 	ifstream ifs;
 	ifs.open(outputFile);
 
@@ -169,6 +171,8 @@ TEST_F(OutputTest, FileOutputTest_ShowInfo_NONE)
 	CommandType cmdType = CommandType::MOD;
 	fileOutput_->Show(cmdType, info);
 
+	fileOutput_->CloseFile();
+
 	ifstream ifs;
 	ifs.open(outputFile);
 
@@ -189,6 +193,8 @@ TEST_F(OutputTest, FileOutputTest_ShowCount)
 	CommandType cmdType = CommandType::MOD;
 	fileOutput_->Show(cmdType, info.size());
 
+	fileOutput_->CloseFile();
+
 	ifstream ifs;
 	ifs.open(outputFile);
 
@@ -205,6 +211,8 @@ TEST_F(OutputTest, FileOutputTest_ShowCount_NONE)
 
 	CommandType cmdType = CommandType::MOD;
 	fileOutput_->Show(cmdType, info.size());
+
+	fileOutput_->CloseFile();
 
 	ifstream ifs;
 	ifs.open(outputFile);

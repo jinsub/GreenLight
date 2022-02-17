@@ -15,10 +15,6 @@ class DummyDatabase : public IDatabase {
 	vector<EmployeeInfo> DeleteDB(TargetParam filter) override { return vector<EmployeeInfo>{}; }
 };
 
-class DummyPrinter : public IPrinter {
-	void Print(const CommandType commandType, const PrintOption printOption, const std::vector<EmployeeInfo>& info) override { return; }
-};
-
 int main(int argc, char* argv[])
 {
 	auto database = new MemoryDatabase();
