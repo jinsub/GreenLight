@@ -559,7 +559,6 @@ TEST_F(DatabaseTest, test_20input) {
 	EXPECT_EQ(result.size(), 1);
 	EXPECT_EQ(result[0].GetFullBirthday(), string("19950704"));
 
-	/*
 	//MOD,-p, , ,name,FB NTAWR,birthday,20050520
 	//MOD,17112609,FB NTAWR,CL4,010-5645-6122,19861203,PRO
 	oldParam.column = Column::Name;
@@ -569,7 +568,6 @@ TEST_F(DatabaseTest, test_20input) {
 	result = db.UpdateDB(oldParam, newParam);
 	EXPECT_EQ(result.size(), 1);
 	EXPECT_EQ(result[0].GetFullBirthday(), "19861203");
-	*/
 
 	//SCH, , , ,employeeNum,79110836
 	//SCH,NONE
@@ -580,4 +578,53 @@ TEST_F(DatabaseTest, test_20input) {
 	//DEL, 1
 	result = db.DeleteDB({ Column::EmployeeNum, string("2018115040") });
 	EXPECT_EQ(result.size(), 1);
+
+	//DEL,-p,-l, ,name,MPOSXU
+	//DEL,08117441,BMU MPOSXU,CL3,010-2703-3153,20010215,ADV
+	result = db.DeleteDB({ Column::LastName, string("MPOSXU") });
+	EXPECT_EQ(result.size(), 1);
+
+	//SCH, -p, , , certi, PRO
+	/*
+	SCH, 88114052, NQ LVARW, CL4, 010 - 4528 - 3059, 19911021, PRO
+	SCH, 01122329, DN WD, CL4, 010 - 7174 - 5680, 20071117, PRO
+	SCH, 03113260, HH LTUPF, CL2, 010 - 5798 - 5383, 19791018, PRO
+	SCH, 05101762, VCUHLE HMU, CL4, 010 - 3988 - 9289, 20030819, PRO
+	SCH, 08123556, WN XV, CL1, 010 - 7986 - 5047, 20100614, PRO
+	*/
+	result = db.ReadDB({ Column::Certi, string("PRO") });
+	EXPECT_EQ(result.size(), 12);
+
+	//SCH, , , ,certi,ADV
+	//SCH,6
+	result = db.ReadDB({ Column::Certi, string("ADV") });
+	EXPECT_EQ(result.size(), 6);
+
+	//SCH,-p, , ,cl,CL4
+	/*
+	SCH,88114052,NQ LVARW,CL4,010-4528-3059,19911021,PRO
+	SCH,01122329,DN WD,CL4,010-7174-5680,20071117,PRO
+	SCH,02117175,SBILHUT LDEXRI,CL4,010-2814-1699,19950704,ADV
+	SCH,05101762,VCUHLE HMU,CL4,010-3988-9289,20030819,PRO
+	SCH,08108827,RTAH VNUP,CL4,010-9031-2726,19780417,ADV
+	*/
+	result = db.ReadDB({ Column::CareerLevel, string("CL4") });
+	EXPECT_EQ(result.size(), 9);
+
+	//SCH, ,-m, ,birthday,09
+	//SCH,1
+	result = db.ReadDB({ Column::BirthdayMonth, string("09") });
+	EXPECT_EQ(result.size(), 1);
+
+	//MOD,-p, , ,name,FB NTAWR,cl,CL3
+	//MOD,17112609,FB NTAWR,CL4,010-5645-6122,20050520,PRO
+	oldParam.column = Column::Name;
+	oldParam.value = "FB NTAWR";
+	newParam.column = Column::CareerLevel;
+	newParam.value = "CL3";
+	result = db.UpdateDB(oldParam, newParam);
+	EXPECT_EQ(result.size(), 1);
+	EXPECT_EQ(result[0].cl_, "CL4");
+
+
 }
