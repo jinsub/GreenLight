@@ -12,5 +12,4 @@ protected:
 	Column GetColumn_(string columnName);
 	string GetColumnValue_(Column column, string value);
 	int GetExtendedEmplyeeNum_(const string employeeNum);
-	vector<string> Split_(string str, const char separator);
 };

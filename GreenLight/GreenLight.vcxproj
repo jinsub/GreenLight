@@ -167,6 +167,7 @@
     <ClInclude Include="ModCommandProcessor.h" />
     <ClInclude Include="Printer.h" />
     <ClInclude Include="SchCommandProcessor.h" />
+    <ClInclude Include="StrSplitter.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

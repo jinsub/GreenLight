@@ -23,7 +23,6 @@ public:
 	vector<Command> ParseLine(vector<string>& lines);
 
 private:
-	vector<string> Split_(string str, const char separator);
 	Command MakeCommand_(const vector<string>& str);
 
 	CommandType GetCommandType_(const string& commandType);

@@ -1,5 +1,4 @@
 #include "CommandProcessor.h"
-#include <sstream>
 
 int CommandProcessor::GetExtendedEmplyeeNum_(const string employeeNumStr) {
 	constexpr int YearThreshold = 50000000;
@@ -45,16 +44,4 @@ string CommandProcessor::GetColumnValue_(Column column, string value) {
 		return to_string(GetExtendedEmplyeeNum_(value));
 	}
 	return value;
-}
-
-vector<string> CommandProcessor::Split_(string str, const char separator) {
-	istringstream iss(str);
-	string buffer;
-	vector<string> result;
-
-	while (getline(iss, buffer, separator)) {
-		result.push_back(buffer);
-	}
-
-	return result;
 }
