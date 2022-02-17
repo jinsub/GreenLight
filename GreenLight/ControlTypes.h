@@ -1,14 +1,6 @@
 #pragma once
 #include "IPrinter.h"
 
-enum class CommandType {
-	ADD,
-	DEL,
-	SCH,
-	MOD,
-	INVALID
-};
-
 enum class FilterOption {
 	FirstName,
 	LastName,

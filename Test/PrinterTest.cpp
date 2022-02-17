@@ -48,7 +48,7 @@ TEST_F(PrinterTest, printTestOptionLines)
 	EXPECT_CALL(*mockSorter, Sort(info));
 	EXPECT_CALL(*mockOutput, Show(info));
 
-	printer_->Print(PrintOption::PrintLines, info);
+	printer_->Print(CommandType::DEL, PrintOption::PrintLines, info);
 
 }
 
@@ -62,6 +62,6 @@ TEST_F(PrinterTest, printTestOptionCount)
 	EXPECT_CALL(*mockSorter, Sort(info));
 	EXPECT_CALL(*mockOutput, Show(result.size()));
 
-	printer_->Print(PrintOption::PrintCount, info);
+	printer_->Print(CommandType::DEL, PrintOption::PrintCount, info);
 
 }

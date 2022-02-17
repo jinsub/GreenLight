@@ -21,6 +21,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="DatabaseMock.h">
+      <Filter>Mock</Filter>
+    </ClInclude>
+    <ClInclude Include="PrinterMock.h">
+      <Filter>Mock</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Model">
@@ -31,6 +37,9 @@
     </Filter>
     <Filter Include="View">
       <UniqueIdentifier>{5d37c7b9-3434-4aa4-8943-9f9322a59130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mock">
+      <UniqueIdentifier>{a4737951-5af5-445d-b9bd-062b88366514}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

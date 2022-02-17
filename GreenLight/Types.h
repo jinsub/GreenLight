@@ -2,6 +2,14 @@
 #include <string>
 using namespace std;
 
+enum class CommandType {
+	ADD,
+	DEL,
+	SCH,
+	MOD,
+	INVALID
+};
+
 struct EmployeeInfo {
 	unsigned int num_;
 	string firstName_;
