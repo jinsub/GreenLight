@@ -106,16 +106,23 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const ve
 		split_update = Split_(update.value, ' ');
 		for (auto num : nums) {
 			if (map.mainDB_.count(num) == 1) {
-				filter_value1 = map.mainDB_[num].firstName_;
-				filter_value2 = map.mainDB_[num].lastName_;
-				filter_value3 = filter_value1 + " " + filter_value2;
+				//filter_value1 = map.mainDB_[num].firstName_;
+				//filter_value2 = map.mainDB_[num].lastName_;
+				//filter_value3 = filter_value1 + " " + filter_value2;
 				map.mainDB_[num].firstName_ = split_update[0];
 				map.mainDB_[num].lastName_ = split_update[1];
-				SetEmployeeInfo_(map.firstName_Map_, num, filter_value1, split_update[0]);
-				SetEmployeeInfo_(map.lastName_Map_, num, filter_value2, split_update[1]);
-				SetEmployeeInfo_(map.fullName_Map_, num, filter_value3, update.value);
+				//SetEmployeeInfo_(map.firstName_Map_, num, filter_value1, split_update[0]);
+				//SetEmployeeInfo_(map.lastName_Map_, num, filter_value2, split_update[1]);
+				//SetEmployeeInfo_(map.fullName_Map_, num, filter_value3, update.value);
 			}
-
+		}
+		map.firstName_Map_.clear();
+		map.lastName_Map_.clear();
+		map.fullName_Map_.clear();
+		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
+			map.firstName_Map_.insert({ iter->second.firstName_,iter->second.num_ });
+			map.lastName_Map_.insert({ iter->second.lastName_,iter->second.num_ });
+			map.firstName_Map_.insert({ iter->second.GetFullName(), iter->second.num_ });
 		}
 		break;
 	case Column::Birthday:
@@ -124,143 +131,186 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const ve
 		update_day = update.value.substr(6, 2);
 		for (auto num : nums) {
 			if (map.mainDB_.count(num) == 1) {
-				filter_value1 = map.mainDB_[num].birthYear_;
-				filter_value2 = map.mainDB_[num].birthMonth_;
-				filter_value3 = map.mainDB_[num].birthDay_;
-				filter_value4 = filter_value1 + filter_value2 + filter_value3;
+				//filter_value1 = map.mainDB_[num].birthYear_;
+				//filter_value2 = map.mainDB_[num].birthMonth_;
+				//filter_value3 = map.mainDB_[num].birthDay_;
+				//filter_value4 = filter_value1 + filter_value2 + filter_value3;
 				map.mainDB_[num].birthYear_ = update_year;
 				map.mainDB_[num].birthMonth_ = update_month;
 				map.mainDB_[num].birthDay_ = update_day;
-				SetEmployeeInfo_(map.birthYear_Map_, num, filter_value1, update_year);
-				SetEmployeeInfo_(map.birthMonth_Map_, num, filter_value2, update_month);
-				SetEmployeeInfo_(map.birthDay_Map_, num, filter_value3, update_day);
-				SetEmployeeInfo_(map.birth_Map_, num, filter_value4, update.value);
+				//SetEmployeeInfo_(map.birthYear_Map_, num, filter_value1, update_year);
+				//SetEmployeeInfo_(map.birthMonth_Map_, num, filter_value2, update_month);
+				//SetEmployeeInfo_(map.birthDay_Map_, num, filter_value3, update_day);
+				//SetEmployeeInfo_(map.birth_Map_, num, filter_value4, update.value);
 			}
-
+		}
+		map.birthYear_Map_.clear();
+		map.birthMonth_Map_.clear();
+		map.birthDay_Map_.clear();
+		map.birth_Map_.clear();
+		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
+			map.birthYear_Map_.insert({ iter->second.birthYear_,iter->second.num_ });
+			map.birthMonth_Map_.insert({ iter->second.birthMonth_,iter->second.num_ });
+			map.birthDay_Map_.insert({ iter->second.birthDay_, iter->second.num_ });
+			map.birth_Map_.insert({ iter->second.GetFullBirthday(), iter->second.num_ });
 		}
 		break;
 	case Column::PhoneNumber:
 		split_update = Split_(update.value, '-');
 		for (auto num : nums) {
 			if (map.mainDB_.count(num) == 1) {
-				filter_value1 = split_update[0];
-				filter_value2 = map.mainDB_[num].midPhoneNum_;
-				filter_value3 = map.mainDB_[num].lastPhoneNum_;
-				filter_value4 = filter_value1 + "-" + filter_value2 + "-" + filter_value3;
+				//filter_value1 = split_update[0];
+				//filter_value2 = map.mainDB_[num].midPhoneNum_;
+				//filter_value3 = map.mainDB_[num].lastPhoneNum_;
+				//filter_value4 = filter_value1 + "-" + filter_value2 + "-" + filter_value3;
 				map.mainDB_[num].midPhoneNum_ = split_update[1];
 				map.mainDB_[num].lastPhoneNum_ = split_update[2];
-				SetEmployeeInfo_(map.midPhone_Map_, num, filter_value2, split_update[1]);
-				SetEmployeeInfo_(map.lastPhone_Map_, num, filter_value3, split_update[2]);
-				SetEmployeeInfo_(map.fullPhone_Map_, num, filter_value4, update.value);
+				//SetEmployeeInfo_(map.midPhone_Map_, num, filter_value2, split_update[1]);
+				//SetEmployeeInfo_(map.lastPhone_Map_, num, filter_value3, split_update[2]);
+				//SetEmployeeInfo_(map.fullPhone_Map_, num, filter_value4, update.value);
 			}
+		}
+		map.midPhone_Map_.clear();
+		map.lastPhone_Map_.clear();
+		map.fullPhone_Map_.clear();
+		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
+			map.midPhone_Map_.insert({ iter->second.midPhoneNum_,iter->second.num_ });
+			map.lastPhone_Map_.insert({ iter->second.lastPhoneNum_,iter->second.num_ });
+			map.fullPhone_Map_.insert({ iter->second.GetFullPhoneNum(), iter->second.num_});
 		}
 		break;
 	case Column::CareerLevel:
 		for (auto num : nums) {
 			if (map.mainDB_.count(num) == 1) {
-				filter_value1 = map.mainDB_[num].cl_;
+				//filter_value1 = map.mainDB_[num].cl_;
 				map.mainDB_[num].cl_ = update.value;
-				SetEmployeeInfo_(map.career_Map_, num, filter_value1, update.value);
+				//SetEmployeeInfo_(map.career_Map_, num, filter_value1, update.value);
 			}
+		}
+		map.career_Map_.clear();
+		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
+			map.career_Map_.insert({ iter->second.cl_,iter->second.num_ });
 		}
 		break;
 	case Column::Certi:
 		for (auto num : nums) {
 			if (map.mainDB_.count(num) == 1) {
-				filter_value1 = map.mainDB_[num].certi_;
+				//filter_value1 = map.mainDB_[num].certi_;
 				map.mainDB_[num].certi_ = update.value;
-				SetEmployeeInfo_(map.cert_Map_, num, filter_value1, update.value);
+				//SetEmployeeInfo_(map.cert_Map_, num, filter_value1, update.value);
 			}
+		}
+		map.career_Map_.clear();
+		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
+			map.career_Map_.insert({ iter->second.cl_,iter->second.num_ });
 		}
 		break;
 	case Column::FirstName:
 		for (auto num : nums) {
 			if (map.mainDB_.count(num) == 1) {
-				filter_value1 = map.mainDB_[num].firstName_;
+				//filter_value1 = map.mainDB_[num].firstName_;
 				map.mainDB_[num].firstName_ = update.value;
-				SetEmployeeInfo_(map.firstName_Map_, num, filter_value1, update.value);
+				//SetEmployeeInfo_(map.firstName_Map_, num, filter_value1, update.value);
 			}
 		}
+		/*map.fullName_Map_.clear();
+		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
+			map.fullName_Map_.insert({ iter->second.GetFullName(), iter->second.num_ });
+		}*/
+		map.firstName_Map_.clear();//
 		map.fullName_Map_.clear();
 		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
+			map.firstName_Map_.insert({ iter->second.firstName_, iter->second.num_ });//
 			map.fullName_Map_.insert({ iter->second.GetFullName(), iter->second.num_ });
 		}
 		break;
 	case Column::LastName:
 		for (auto num : nums) {
 			if (map.mainDB_.count(num) == 1) {
-				filter_value1 = map.mainDB_[num].lastName_;
+				//filter_value1 = map.mainDB_[num].lastName_;
 				map.mainDB_[num].lastName_ = update.value;
-				SetEmployeeInfo_(map.lastName_Map_, num, filter_value1, update.value);
+				//SetEmployeeInfo_(map.lastName_Map_, num, filter_value1, update.value);
 			}
 		}
+		map.lastName_Map_.clear();
 		map.fullName_Map_.clear();
 		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
+			map.lastName_Map_.insert({ iter->second.lastName_, iter->second.num_ });//
 			map.fullName_Map_.insert({ iter->second.GetFullName(), iter->second.num_ });
 		}
 		break;
 	case Column::MiddlePhoneNum:
 		for (auto num : nums) {
 			if (map.mainDB_.count(num) == 1) {
-				filter_value1 = map.mainDB_[num].midPhoneNum_;
+				//filter_value1 = map.mainDB_[num].midPhoneNum_;
 				map.mainDB_[num].midPhoneNum_ = update.value;
-				SetEmployeeInfo_(map.midPhone_Map_, num, filter_value1, update.value);
+				//SetEmployeeInfo_(map.midPhone_Map_, num, filter_value1, update.value);
 			}
 		}
+		map.midPhone_Map_.clear();
 		map.fullPhone_Map_.clear();
 		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
+			map.midPhone_Map_.insert({ iter->second.midPhoneNum_, iter->second.num_ });//
 			map.fullPhone_Map_.insert({ iter->second.GetFullPhoneNum(), iter->second.num_ });
 		}
 		break;
 	case Column::LastPhoneNum:
 		for (auto num : nums) {
 			if (map.mainDB_.count(num) == 1) {
-				filter_value1 = map.mainDB_[num].lastPhoneNum_;
+				//filter_value1 = map.mainDB_[num].lastPhoneNum_;
 				map.mainDB_[num].lastPhoneNum_ = update.value;
-				SetEmployeeInfo_(map.lastPhone_Map_, num, filter_value1, update.value);
+				//SetEmployeeInfo_(map.lastPhone_Map_, num, filter_value1, update.value);
 			}
 		}
+		map.lastPhone_Map_.clear();//
 		map.fullPhone_Map_.clear();
 		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
+			map.lastPhone_Map_.insert({ iter->second.lastPhoneNum_, iter->second.num_ });//
 			map.fullPhone_Map_.insert({ iter->second.GetFullPhoneNum(), iter->second.num_ });
 		}
 		break;
 	case Column::BirthdayYear:
 		for (auto num : nums) {
 			if (map.mainDB_.count(num) == 1) {
-				filter_value1 = map.mainDB_[num].birthYear_;
+				//filter_value1 = map.mainDB_[num].birthYear_;
 				map.mainDB_[num].birthYear_ = update.value;
-				SetEmployeeInfo_(map.birthYear_Map_, num, filter_value1, update.value);
+				//SetEmployeeInfo_(map.birthYear_Map_, num, filter_value1, update.value);
 			}
 		}
+		map.birthYear_Map_.clear();//
 		map.birth_Map_.clear();
 		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
+			map.birthYear_Map_.insert({ iter->second.birthYear_, iter->second.num_ });//
 			map.birth_Map_.insert({ iter->second.GetFullBirthday(), iter->second.num_ });
 		}
 		break;
 	case Column::BirthdayMonth:
 		for (auto num : nums) {
 			if (map.mainDB_.count(num) == 1) {
-				filter_value1 = map.mainDB_[num].birthMonth_;
+				//filter_value1 = map.mainDB_[num].birthMonth_;
 				map.mainDB_[num].birthMonth_ = update.value;
-				SetEmployeeInfo_(map.birthMonth_Map_, num, filter_value1, update.value);
+				//SetEmployeeInfo_(map.birthMonth_Map_, num, filter_value1, update.value);
 			}
 		}
+		map.birthMonth_Map_.clear();//
 		map.birth_Map_.clear();
 		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
+			map.birthMonth_Map_.insert({ iter->second.birthMonth_, iter->second.num_ });//
 			map.birth_Map_.insert({ iter->second.GetFullBirthday(), iter->second.num_ });
 		}
 		break;
 	case Column::BirthdayDay:
 		for (auto num : nums) {
 			if (map.mainDB_.count(num) == 1) {
-				filter_value1 = map.mainDB_[num].birthDay_;
+				//filter_value1 = map.mainDB_[num].birthDay_;
 				map.mainDB_[num].birthDay_ = update.value;
-				SetEmployeeInfo_(map.birthDay_Map_, num, filter_value1, update.value);
+				//SetEmployeeInfo_(map.birthDay_Map_, num, filter_value1, update.value);
 			}
 		}
+		map.birthDay_Map_.clear();//
 		map.birth_Map_.clear();
 		for (auto iter = map.mainDB_.begin(); iter != map.mainDB_.end(); iter++) {
+			map.birthDay_Map_.insert({ iter->second.birthDay_, iter->second.num_ });//
 			map.birth_Map_.insert({ iter->second.GetFullBirthday(), iter->second.num_ });
 		}
 		break;
