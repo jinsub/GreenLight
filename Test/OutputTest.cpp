@@ -67,31 +67,31 @@ protected:
 		{
 			result = std::to_string(employeeNum);
 		}
-		else if ((employeeNum < 10000000) && (employeeNum >= 01000000))
+		else if ((employeeNum < 10000000) && (employeeNum >= 1000000))
 		{
 			result = "0" + std::to_string(employeeNum);
 		}
-		else if ((employeeNum < 01000000) && (employeeNum >= 00100000))
+		else if ((employeeNum < 1000000) && (employeeNum >= 100000))
 		{
 			result = "00" + std::to_string(employeeNum);
 		}
-		else if ((employeeNum < 00100000) && (employeeNum >= 00010000))
+		else if ((employeeNum < 100000) && (employeeNum >= 10000))
 		{
 			result = "000" + std::to_string(employeeNum);
 		}
-		else if ((employeeNum < 00010000) && (employeeNum >= 00001000))
+		else if ((employeeNum < 10000) && (employeeNum >= 1000))
 		{
 			result = "0000" + std::to_string(employeeNum);
 		}
-		else if ((employeeNum < 00001000) && (employeeNum >= 00000100))
+		else if ((employeeNum < 1000) && (employeeNum >= 100))
 		{
 			result = "00000" + std::to_string(employeeNum);
 		}
-		else if ((employeeNum < 00000100) && (employeeNum >= 00000010))
+		else if ((employeeNum < 100) && (employeeNum >= 10))
 		{
 			result = "000000" + std::to_string(employeeNum);
 		}
-		else if ((employeeNum < 00000010) && (employeeNum >= 00000001))
+		else if ((employeeNum < 10) && (employeeNum >= 1))
 		{
 			result = "0000000" + std::to_string(employeeNum);
 		}
