@@ -63,7 +63,7 @@ protected:
 		constexpr int TwentyCentry = 1900000000;
 		constexpr int TwentyOneCentry = 2000000000;
 
-		if (employeeNum > TwentyOneCentry)
+		if (employeeNum >= TwentyOneCentry)
 		{
 			return employeeNum - TwentyOneCentry;
 		}
