@@ -50,16 +50,12 @@ protected:
 		{
 		case CommandType::DEL:
 			return "DEL,";
-			break;
 		case CommandType::MOD:
 			return "MOD,";
-			break;
 		case CommandType::SCH:
 			return "SCH,";
-			break;
 		default:
 			return "ERROR,";
-			break;
 		}
 	}
 
