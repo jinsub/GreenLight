@@ -24,7 +24,7 @@ struct DataBaseMap {
 	multimap<string, unsigned int> cert_Map_;
 };
 
-class MemoryDatabase : IDatabase {
+class MemoryDatabase : public IDatabase {
 public:
 	MemoryDatabase() {}
 	MemoryDatabase(DataBaseMap map) :map_(map) {

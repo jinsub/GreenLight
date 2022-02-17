@@ -38,11 +38,14 @@
     <ClInclude Include="PrinterMock.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddCommandProcessorTest.cpp" />
     <ClCompile Include="CommandParserTest.cpp" />
-    <ClCompile Include="CommandProcessorTest.cpp" />
+    <ClCompile Include="DelCommandProcessorTest.cpp" />
     <ClCompile Include="MemoryDatabaseTest.cpp" />
+    <ClCompile Include="ModCommandProcessorTest.cpp" />
     <ClCompile Include="OutputTest.cpp" />
     <ClCompile Include="PrinterTest.cpp" />
+    <ClCompile Include="SchCommandProcessorTest.cpp" />
     <ClCompile Include="SorterTest.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="pch.cpp">
