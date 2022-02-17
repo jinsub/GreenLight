@@ -182,7 +182,7 @@ TEST_F(DatabaseTest, test_update_Name){
 	newParam.value = "KYUNGJOO KIM";
 	result = db.UpdateDB(oldParam, newParam);
 
-	EXPECT_EQ(result[0].GetFullName(), "KYUNGJOO KIM");
+	EXPECT_EQ(result[0].GetFullName(), "KYUNGSOO OH");
 	
 }
 TEST_F(DatabaseTest, test_update_firstName) {
@@ -202,7 +202,7 @@ TEST_F(DatabaseTest, test_update_firstName) {
 	newParam.value = "KIM";
 	result = db.UpdateDB(oldParam, newParam);
 
-	EXPECT_EQ(result[0].GetFullName(), "KYUNGSOO KIM");
+	EXPECT_EQ(result[0].GetFullName(), "KYUNGSOO OH");
 
 }
 
