@@ -18,6 +18,9 @@
     <ClCompile Include="SorterTest.cpp">
       <Filter>View</Filter>
     </ClCompile>
+    <ClCompile Include="OutputTest.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
