@@ -79,6 +79,8 @@ private:
 	void EraseEmployee_(multimap<string, unsigned int>& map, const string key, const unsigned int num);
 	void SetEmployeeInfo_(multimap<string, unsigned int>& map, const unsigned int num, string oldParam, string newParam);
 	vector<EmployeeInfo> GetUpdateMainDB_(const vector<unsigned int> nums, TargetParam update);
+	void DeleteEmploy_(const EmployeeInfo& info, const Column column = Column::None);
+	void CreateEmploy_(const EmployeeInfo& info, const Column column = Column::None);
 
 	DataBaseMap map_;	
 };
