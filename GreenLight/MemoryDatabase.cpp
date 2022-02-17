@@ -336,6 +336,7 @@ void MemoryDatabase::EraseEmployee_(multimap<string, unsigned int>& map, const s
 		}
 	}
 }
+
 vector<EmployeeInfo> MemoryDatabase::DeleteDB(TargetParam filter) {
 	vector<EmployeeInfo> target = ReadDB(filter);
 	if (target.size() == 0) {
