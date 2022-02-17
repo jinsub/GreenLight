@@ -107,10 +107,10 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(DataBaseMap& map, const ve
 	case Column::PhoneNumber:
 		split_update = Split_(update.value, '-');
 		for (auto num : nums) {
-			map.mainDB_[num].midPhoneNum_ = split_update[0];
-			map.mainDB_[num].lastPhoneNum_ = split_update[1];
-			SetEmployeeInfo_(map.midPhone_Map_, num, split_update[0]);
-			SetEmployeeInfo_(map.lastPhone_Map_, num, split_update[1]);
+			map.mainDB_[num].midPhoneNum_ = split_update[1];
+			map.mainDB_[num].lastPhoneNum_ = split_update[2];
+			SetEmployeeInfo_(map.midPhone_Map_, num, split_update[1]);
+			SetEmployeeInfo_(map.lastPhone_Map_, num, split_update[2]);
 			SetEmployeeInfo_(map.fullPhone_Map_, num, update.value);
 		}
 		break;
