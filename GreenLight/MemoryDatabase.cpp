@@ -313,6 +313,9 @@ vector<EmployeeInfo> MemoryDatabase::UpdateDB(TargetParam filter, TargetParam up
 		return result;
 	}
 
+	if (update.column == Column::EmployeeNum && filter.column != Column::EmployeeNum) {
+		return result;
+	}
 
 	vector<unsigned int> nums = GetEmployeeNums_(filter.column, filter.value);
 	if (nums.size()) {

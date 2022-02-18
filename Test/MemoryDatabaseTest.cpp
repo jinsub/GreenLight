@@ -181,68 +181,161 @@ TEST_F(DatabaseTest, test_read_career) {
 }
 
 //=======================================================
-TEST_F(DatabaseTest, test_update_Name){
+TEST_F(DatabaseTest, test_update_num_by_num) {
+	//사번을 변경하는 경우, 기존에 없던 사번은 가능하지만, 기존에 등록된 사번으로 변경을 시도하는 경우, empty 리턴
 	DataBaseMap map;
 	MemoryDatabase db(map);
 	vector<EmployeeInfo> result;
 	db.CreateDB(person01);
 	db.CreateDB(person02);
-	db.CreateDB(person03);
-	db.CreateDB(person04);
-
-	TargetParam oldParam, newParam;
-	oldParam.column = Column::Name;
-	oldParam.value = "KYUNGSOO OH";
-	newParam.column = Column::Name;
-	newParam.value = "KYUNGJOO KIM";
-	result = db.UpdateDB(oldParam, newParam);
-
-	EXPECT_EQ(result[0].GetFullName(), "KYUNGSOO OH");
 	
+	TargetParam oldParam, newParam;
+
+	oldParam.column = Column::EmployeeNum;
+	oldParam.value = to_string(person01.num_);
+	newParam.column = Column::EmployeeNum;
+	newParam.value = to_string(person03.num_);
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result[0].num_, person01.num_);
+
+
+	oldParam.column = Column::EmployeeNum;
+	oldParam.value = to_string(person03.num_);
+	newParam.column = Column::EmployeeNum;
+	newParam.value = to_string(person04.num_);
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result[0].num_, person03.num_);
+
+	oldParam.column = Column::EmployeeNum;
+	oldParam.value = to_string(person04.num_);
+	newParam.column = Column::EmployeeNum;
+	newParam.value = to_string(person02.num_);
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result.size(), 0);
 }
-TEST_F(DatabaseTest, test_update_firstName) {
+TEST_F(DatabaseTest, test_update_num_by_name) {
+	//name으로 사번을 변경하는 경우, 사번이 중복될 수 있기 때문에 empty 리턴
 	DataBaseMap map;
 	MemoryDatabase db(map);
 	vector<EmployeeInfo> result;
 	db.CreateDB(person01);
 	db.CreateDB(person02);
-	db.CreateDB(person03);
-	db.CreateDB(person04);
 
 	TargetParam oldParam, newParam;
 
-	oldParam.column = Column::FirstName;
-	oldParam.value = "KYUNGSOO";
-	newParam.column = Column::LastName;
-	newParam.value = "KIM";
+	oldParam.column = Column::Name;
+	oldParam.value = person01.GetFullName();
+	newParam.column = Column::EmployeeNum;
+	newParam.value = to_string(person03.num_);
 	result = db.UpdateDB(oldParam, newParam);
 
-	EXPECT_EQ(result[0].GetFullName(), "KYUNGSOO OH");
-
+	EXPECT_EQ(result.size(), 0);
 }
-
-TEST_F(DatabaseTest, test_update_Change_Num) {
+TEST_F(DatabaseTest, test_update_name_by_num) {
+	//사번으로 name를 변경하는 경우, 해당 사번이 존재하면 변경, 아니면 empty리턴
 	DataBaseMap map;
 	MemoryDatabase db(map);
 	vector<EmployeeInfo> result;
 	db.CreateDB(person01);
 	db.CreateDB(person02);
-	db.CreateDB(person03);
-	db.CreateDB(person04);
 
 	TargetParam oldParam, newParam;
 
 	oldParam.column = Column::EmployeeNum;
-	oldParam.value = "2011263288";
-	newParam.column = Column::EmployeeNum;
-	newParam.value = "2011273288";
+	oldParam.value = to_string(person01.num_);
+	newParam.column = Column::Name;
+	newParam.value = person02.GetFullName();
 	result = db.UpdateDB(oldParam, newParam);
 
-	EXPECT_EQ(result[0].num_, 2011263288);
+	EXPECT_EQ(result[0].GetFullName(), person01.GetFullName());
 
+	oldParam.column = Column::EmployeeNum;
+	oldParam.value = to_string(person03.num_);
+	newParam.column = Column::Name;
+	newParam.value = person02.GetFullName();
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result.size(), 0);	
 }
+TEST_F(DatabaseTest, test_update_name_by_name){
+	//name으로 name을 변경하는 경우, filter name이 존재하는 경우,변경하고 없다면 empty 리턴
+	DataBaseMap map;
+	MemoryDatabase db(map);
+	vector<EmployeeInfo> result;
+	db.CreateDB(person01);
+	db.CreateDB(person02);
+	db.CreateDB(person03);
 
-TEST_F(DatabaseTest, test_update_Change_phone_by_name) {
+	TargetParam oldParam, newParam;
+	oldParam.column = Column::Name;
+	oldParam.value = person03.GetFullName();
+	newParam.column = Column::Name;
+	newParam.value = person04.GetFullName();
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result[0].GetFullName(), person03.GetFullName());
+
+	oldParam.column = Column::Name;
+	oldParam.value = person03.GetFullName();
+	newParam.column = Column::Name;
+	newParam.value = person04.GetFullName();
+	result = db.UpdateDB(oldParam, newParam);
+	
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_update_firstName_by_certi) {
+	DataBaseMap map;
+	MemoryDatabase db(map);
+	vector<EmployeeInfo> result;
+	db.CreateDB(person01);
+
+	TargetParam oldParam, newParam;
+
+	oldParam.column = Column::Certi;
+	oldParam.value = person01.certi_;
+	newParam.column = Column::FirstName;
+	newParam.value = person03.firstName_;
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result[0].firstName_, person01.firstName_);
+
+	oldParam.column = Column::Certi;
+	oldParam.value = person02.certi_;
+	newParam.column = Column::FirstName;
+	newParam.value = person03.firstName_;
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_update_lastName_by_firstName) {
+	DataBaseMap map;
+	MemoryDatabase db(map);
+	vector<EmployeeInfo> result;
+	db.CreateDB(person01);
+	db.CreateDB(person02);
+	
+	TargetParam oldParam, newParam;
+
+	oldParam.column = Column::FirstName;
+	oldParam.value = person01.firstName_;
+	newParam.column = Column::LastName;
+	newParam.value = person03.lastName_;
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result[0].lastName_, person01.lastName_);
+
+	oldParam.column = Column::FirstName;
+	oldParam.value = person03.firstName_;
+	newParam.column = Column::LastName;
+	newParam.value = person03.lastName_;
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result.size(), 0);
+}
+TEST_F(DatabaseTest, test_update_phone_by_name) {
 	DataBaseMap map;
 	MemoryDatabase db(map);
 	vector<EmployeeInfo> result;
@@ -258,6 +351,14 @@ TEST_F(DatabaseTest, test_update_Change_phone_by_name) {
 	result = db.UpdateDB(oldParam, newParam);
 
 	EXPECT_EQ(result[0].GetFullPhoneNum(), person01.GetFullPhoneNum());
+
+	oldParam.column = Column::Name;
+	oldParam.value = person03.GetFullName();
+	newParam.column = Column::PhoneNumber;
+	newParam.value = person02.GetFullPhoneNum();
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result.size(), 0);
 
 	result = db.DeleteDB({ Column::EmployeeNum, to_string(person01.num_) });
 	EXPECT_EQ(result.size(), 1);
