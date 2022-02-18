@@ -1,6 +1,5 @@
 #include "FileOutput.h"
 
-#define MAX_PRINT_CNT (5)
 
 void FileOutput::Show(const CommandType commandType, const vector<EmployeeInfo>& info)
 {
