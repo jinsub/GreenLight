@@ -184,8 +184,8 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(const vector<unsigned int>
 			EmployeeInfo info = map_.mainDB_[num];
 			DeleteEmploy_(info, update.column);
 
-			info.firstName_ = Split_(update.value, ' ')[0];
-			info.lastName_ = Split_(update.value, ' ')[1];
+			info.firstName_ = StrSplitter::Split(update.value, ' ')[0];
+			info.lastName_ = StrSplitter::Split(update.value, ' ')[1];
 
 			CreateEmploy_(info, update.column);
 		}
@@ -257,8 +257,8 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(const vector<unsigned int>
 			EmployeeInfo info = map_.mainDB_[num];
 			DeleteEmploy_(info, update.column);
 
-			info.midPhoneNum_ = Split_(update.value, '-')[1];
-			info.lastPhoneNum_ = Split_(update.value, '-')[2];
+			info.midPhoneNum_ = StrSplitter::Split(update.value, '-')[1];
+			info.lastPhoneNum_ = StrSplitter::Split(update.value, '-')[2];
 
 			CreateEmploy_(info, update.column);
 		}
