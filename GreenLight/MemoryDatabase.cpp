@@ -137,18 +137,9 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(const vector<unsigned int>
 			if (map_.mainDB_.count(num) == 1) {
 				map_.mainDB_[num].num_ = stoi(update.value);
 
-				info.num_ = map_.mainDB_[num].num_;
-				info.firstName_ = map_.mainDB_[num].firstName_;
-				info.lastName_ = map_.mainDB_[num].lastName_;
-				info.midPhoneNum_ = map_.mainDB_[num].midPhoneNum_;
-				info.lastPhoneNum_ = map_.mainDB_[num].lastPhoneNum_;
-				info.birthYear_ = map_.mainDB_[num].birthYear_;
-				info.birthMonth_ = map_.mainDB_[num].birthMonth_;
-				info.birthDay_ = map_.mainDB_[num].birthDay_;
-				info.cl_ = map_.mainDB_[num].cl_;
-				info.certi_ = map_.mainDB_[num].certi_;
+        info = map_.mainDB_[num];
 
-				map_.mainDB_.insert({ stoi(update.value), info });
+        map_.mainDB_.insert({ stoi(update.value), info });
 				map_.mainDB_.erase(num);
 			}
 		}
@@ -336,6 +327,7 @@ vector<EmployeeInfo> MemoryDatabase::UpdateDB(TargetParam filter, TargetParam up
 		return result;
 	}
 
+
 	vector<unsigned int> nums = GetEmployeeNums_(filter.column, filter.value);
 	if (nums.size()) {
 		return GetUpdateMainDB_(nums, update);
@@ -346,7 +338,6 @@ vector<EmployeeInfo> MemoryDatabase::UpdateDB(TargetParam filter, TargetParam up
 
 vector<EmployeeInfo> MemoryDatabase::ReadDB(TargetParam filter) {
 	vector<EmployeeInfo> result;
-	
 
 	if (filter.column >= Column::None) {
 		return result;
