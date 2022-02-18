@@ -43,10 +43,11 @@ TEST_F(PrinterTest, printTestOptionLines)
 {
 	const vector<EmployeeInfo> info;
 	vector<EmployeeInfo> result;
+	const int MAX_PRINT_COUNT = 5;
 
 	ON_CALL(*mockSorter, Sort(info)).WillByDefault(Return(result));
 
-	EXPECT_CALL(*mockSorter, Sort(info));
+	EXPECT_CALL(*mockSorter, Sort_partial(info, MAX_PRINT_COUNT));
 	EXPECT_CALL(*mockOutput, Show(_, info));
 
 	printer_->Print(CommandType::DEL, PrintOption::PrintLines, info);
@@ -60,7 +61,6 @@ TEST_F(PrinterTest, printTestOptionCount)
 
 	ON_CALL(*mockSorter, Sort(info)).WillByDefault(Return(result));
 
-	EXPECT_CALL(*mockSorter, Sort(info));
 	EXPECT_CALL(*mockOutput, Show(_, result.size()));
 
 	printer_->Print(CommandType::DEL, PrintOption::PrintCount, info);
