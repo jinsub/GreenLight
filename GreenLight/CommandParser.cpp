@@ -1,6 +1,6 @@
 #include "CommandParser.h"
 #include <fstream>
-#include <sstream>
+#include "StrSplitter.h"
 
 using namespace std;
 
@@ -20,21 +20,9 @@ vector<Command> CommandParser::ParseLine(vector<string>& lines) {
     vector<Command> result;
 
     for (auto line : lines) {
-        auto strs = Split_(line, ',');
+        auto strs = StrSplitter::Split(line, ',');
         auto command = MakeCommand_(strs);
         result.push_back(command);
-    }
-
-    return result;
-}
-
-vector<string> CommandParser::Split_(string str, const char separator) {
-    istringstream iss(str);
-    string buffer;
-    vector<string> result;
-
-    while (getline(iss, buffer, separator)) {
-        result.push_back(buffer);
     }
 
     return result;

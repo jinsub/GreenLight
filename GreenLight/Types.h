@@ -3,10 +3,15 @@
 using namespace std;
 
 enum class CommandType {
-	ADD,
+	Start = 0,
+
+	ADD = Start,
 	DEL,
 	SCH,
 	MOD,
+
+	End,
+	Count = End - Start,
 	INVALID
 };
 

@@ -24,7 +24,7 @@ struct DataBaseMap {
 	multimap<string, unsigned int> cert_Map_;
 };
 
-class MemoryDatabase : IDatabase {
+class MemoryDatabase : public IDatabase {
 public:
 	MemoryDatabase() {}
 	MemoryDatabase(DataBaseMap map) :map_(map) {
@@ -78,7 +78,6 @@ private:
 	vector<unsigned int> GetEmployeeNums_(const Column column, const string key);
 	void EraseEmployee_(multimap<string, unsigned int>& map, const string key, const unsigned int num);
 	void SetEmployeeInfo_(multimap<string, unsigned int>& map, const unsigned int num, string oldParam, string newParam);
-	vector<string> Split_(string str, char delimiter);
 	vector<EmployeeInfo> GetUpdateMainDB_(const vector<unsigned int> nums, TargetParam update);
 
 	DataBaseMap map_;	

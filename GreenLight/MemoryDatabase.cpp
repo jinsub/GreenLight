@@ -1,4 +1,5 @@
 #include "MemoryDatabase.h"
+#include "StrSplitter.h"
 #include <vector>
 #include <string>
 using namespace std;
@@ -82,16 +83,6 @@ void MemoryDatabase::SetEmployeeInfo_(multimap<string, unsigned int>& map, unsig
 	}
 }
 
-vector<string> MemoryDatabase::Split_(string str, char delimiter) {
-	vector<string> answer;
-	stringstream ss(str);
-	string buffer;
-	while (getline(ss, buffer, delimiter)) {
-		answer.push_back(buffer);
-	}
-	return answer;
-}
-
 vector<EmployeeInfo> MemoryDatabase::CreateDB(EmployeeInfo info) {
 	vector<EmployeeInfo> result;
 
@@ -145,7 +136,7 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(const vector<unsigned int>
 		}
 		break;
 	case Column::Name:
-		split_update = Split_(update.value, ' ');
+		split_update = StrSplitter::Split(update.value, ' ');
 		for (auto num : nums) {
 			if (map_.mainDB_.count(num) == 1) {
 				map_.mainDB_[num].firstName_ = split_update[0];
@@ -184,7 +175,7 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(const vector<unsigned int>
 		}
 		break;
 	case Column::PhoneNumber:
-		split_update = Split_(update.value, '-');
+		split_update = StrSplitter::Split(update.value, '-');
 		for (auto num : nums) {
 			if (map_.mainDB_.count(num) == 1) {
 				map_.mainDB_[num].midPhoneNum_ = split_update[1];

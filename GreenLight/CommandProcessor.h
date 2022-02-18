@@ -5,22 +5,11 @@
 
 class CommandProcessor {
 public:
-	CommandProcessor(void) = delete;
-	CommandProcessor(IDatabase* database, IPrinter* printer);
-	void Process(Command& command);
+	virtual void Process(Command& command) = 0;
 
-private:
-	void ProcessAdd_(const vector<string>& args);
-	void ProcessDel_(const FilterOption filterOption, const PrintOption printOption, const vector<string>& args);
-	void ProcessSch_(const FilterOption filterOption, const PrintOption printOption, const vector<string>& args);
-	void ProcessMod_(const FilterOption filterOption, const PrintOption printOption, const vector<string>& args);
-
-	EmployeeInfo MakeEmployeeInfo_(const vector<string>& args);
-	int GetExtendedEmplyeeNum_(const string employeeNum);
+protected:
 	Column GetFilterColumn_(FilterOption filterOption, string columnName);
 	Column GetColumn_(string columnName);
-	vector<string> Split_(string str, const char separator);
-
-	IDatabase* const database_;
-	IPrinter* const printer_;
+	string GetColumnValue_(Column column, string value);
+	int GetExtendedEmplyeeNum_(const string employeeNum);
 };

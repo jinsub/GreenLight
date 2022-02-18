@@ -1,98 +1,4 @@
 #include "CommandProcessor.h"
-#include <sstream>
-
-CommandProcessor::CommandProcessor(IDatabase* database, IPrinter* printer)
-	: database_(database), printer_(printer)
-{
-}
-
-void CommandProcessor::Process(Command& command) {
-	switch (command.type_) {
-	case CommandType::ADD:
-		ProcessAdd_(command.arguments_);
-		break;
-	case CommandType::DEL:
-		ProcessDel_(command.filterOption_, command.printOption_, command.arguments_);
-		break;
-	case CommandType::SCH:
-		ProcessSch_(command.filterOption_, command.printOption_, command.arguments_);
-		break;
-	case CommandType::MOD:
-		ProcessMod_(command.filterOption_, command.printOption_, command.arguments_);
-		break;
-	}
-	return;
-}
-
-void CommandProcessor::ProcessAdd_(const vector<string>& args) {
-	auto result = database_->CreateDB(MakeEmployeeInfo_(args));
-	return;
-}
-
-void CommandProcessor::ProcessDel_(const FilterOption filterOption, const PrintOption printOption, const vector<string>& args) {
-	TargetParam filter;
-	filter.column = GetFilterColumn_(filterOption, args[0]);
-	filter.value = args[1];
-
-	if (filter.column == Column::EmployeeNum) {
-		filter.value = to_string(GetExtendedEmplyeeNum_(args[1]));
-	}
-
-	printer_->Print(CommandType::DEL, printOption, database_->DeleteDB(filter));
-
-	return;
-}
-
-
-void CommandProcessor::ProcessSch_(const FilterOption filterOption, const PrintOption printOption, const vector<string>& args) {
-	TargetParam filter;
-	filter.column = GetFilterColumn_(filterOption, args[0]);
-	filter.value = args[1];
-
-	if (filter.column == Column::EmployeeNum) {
-		filter.value = to_string(GetExtendedEmplyeeNum_(args[1]));
-	}
-
-	printer_->Print(CommandType::SCH, printOption, database_->ReadDB(filter));
-
-	return;
-}
-
-void CommandProcessor::ProcessMod_(const FilterOption filterOption, const PrintOption printOption, const vector<string>& args) {
-	TargetParam filter;
-	filter.column = GetFilterColumn_(filterOption, args[0]);
-	filter.value = args[1];
-	TargetParam update;
-	update.column = GetColumn_(args[2]);
-	update.value = args[3];
-
-	if (filter.column == Column::EmployeeNum) {
-		filter.value = to_string(GetExtendedEmplyeeNum_(args[1]));
-	}
-	if (update.column == Column::EmployeeNum) {
-		update.value = to_string(GetExtendedEmplyeeNum_(args[3]));
-	}
-
-	printer_->Print(CommandType::MOD, printOption, database_->UpdateDB(filter, update));
-
-	return;
-}
-
-EmployeeInfo CommandProcessor::MakeEmployeeInfo_(const vector<string>& args) {
-	EmployeeInfo info;
-	info.num_ = GetExtendedEmplyeeNum_(args[0]);
-	info.firstName_ = Split_(args[1], ' ')[0];
-	info.lastName_ = Split_(args[1], ' ')[1];
-	info.cl_ = args[2];
-	info.midPhoneNum_ = Split_(args[3], '-')[1];
-	info.lastPhoneNum_ = Split_(args[3], '-')[2];
-	info.birthYear_ = args[4].substr(0, 4);
-	info.birthMonth_ = args[4].substr(4, 2);
-	info.birthDay_ = args[4].substr(6, 2);
-	info.certi_ = args[5];
-
-	return info;
-}
 
 int CommandProcessor::GetExtendedEmplyeeNum_(const string employeeNumStr) {
 	constexpr int YearThreshold = 50000000;
@@ -133,14 +39,9 @@ Column CommandProcessor::GetFilterColumn_(FilterOption filterOption, string colu
 	return Column::Invalid;
 }
 
-vector<string> CommandProcessor::Split_(string str, const char separator) {
-	istringstream iss(str);
-	string buffer;
-	vector<string> result;
-
-	while (getline(iss, buffer, separator)) {
-		result.push_back(buffer);
+string CommandProcessor::GetColumnValue_(Column column, string value) {
+	if (column == Column::EmployeeNum) {
+		return to_string(GetExtendedEmplyeeNum_(value));
 	}
-
-	return result;
+	return value;
 }

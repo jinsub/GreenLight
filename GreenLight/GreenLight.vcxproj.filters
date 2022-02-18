@@ -22,6 +22,18 @@
     <ClCompile Include="FileOutput.cpp">
       <Filter>Sources\View</Filter>
     </ClCompile>
+    <ClCompile Include="AddCommandProcessor.cpp">
+      <Filter>Sources\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="DelCommandProcessor.cpp">
+      <Filter>Sources\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="SchCommandProcessor.cpp">
+      <Filter>Sources\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="ModCommandProcessor.cpp">
+      <Filter>Sources\Control</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandParser.h">
@@ -58,6 +70,21 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="FileOutput.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AddCommandProcessor.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="DelCommandProcessor.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SchCommandProcessor.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ModCommandProcessor.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="StrSplitter.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
