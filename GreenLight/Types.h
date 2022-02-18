@@ -2,6 +2,8 @@
 #include <string>
 using namespace std;
 
+#define MAX_PRINT_CNT (5)
+
 enum class CommandType {
 	Start = 0,
 

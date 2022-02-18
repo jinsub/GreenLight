@@ -9,6 +9,7 @@ using namespace testing;
 class MockSorter : public ISorter {
 public:
 	MOCK_METHOD(vector<EmployeeInfo>, Sort, (const vector<EmployeeInfo>& info), (override));
+	MOCK_METHOD(vector<EmployeeInfo>, Sort_partial, (const vector<EmployeeInfo>& info, const int max), (override));
 };
 
 class MockOutput : public IOutput
