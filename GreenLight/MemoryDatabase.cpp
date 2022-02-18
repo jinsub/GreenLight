@@ -173,7 +173,7 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(const vector<unsigned int>
 			EmployeeInfo info = map_.mainDB_[num];
 			DeleteEmploy_(info);
 			info.num_ = stoul(update.value);
-			CreateDB(info);
+			CreateEmploy_(info);
 		}
 		return result;
 	}
