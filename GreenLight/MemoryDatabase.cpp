@@ -137,9 +137,7 @@ void MemoryDatabase::CreateEmploy_(const EmployeeInfo& info, const Column column
 	}
 }
 vector<EmployeeInfo> MemoryDatabase::CreateDB(EmployeeInfo info) {
-	//cout << "CreateDB" << endl;
 	vector<EmployeeInfo> result;
-
 
 	CreateEmploy_(info);
 
@@ -309,7 +307,6 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(const vector<unsigned int>
 }
 
 vector<EmployeeInfo> MemoryDatabase::UpdateDB(TargetParam filter, TargetParam update) {
-	//cout << "UpdateDB" << endl;
 	vector<EmployeeInfo> result;
 
 	if (filter.column >= Column::None) {
@@ -326,7 +323,6 @@ vector<EmployeeInfo> MemoryDatabase::UpdateDB(TargetParam filter, TargetParam up
 }
 
 vector<EmployeeInfo> MemoryDatabase::ReadDB(TargetParam filter) {
-	//cout << "ReadDB" << endl;
 	vector<EmployeeInfo> result;
 
 
@@ -413,7 +409,6 @@ void MemoryDatabase::DeleteEmploy_(const EmployeeInfo& info, const Column column
 	}
 }
 vector<EmployeeInfo> MemoryDatabase::DeleteDB(TargetParam filter) {
-	//cout << "DeleteDB" << endl;
 	vector<EmployeeInfo> target = ReadDB(filter);
 	if (target.size() == 0) {
 		return target;
