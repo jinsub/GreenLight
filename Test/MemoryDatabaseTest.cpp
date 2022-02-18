@@ -367,6 +367,39 @@ TEST_F(DatabaseTest, test_update_phone_by_name) {
 	
 	EXPECT_EQ(GetDBSizeTotal(db), 0);
 }
+TEST_F(DatabaseTest, test_update_phoneMiddle_by_name) {
+	DataBaseMap map;
+	MemoryDatabase db(map);
+	vector<EmployeeInfo> result;
+	db.CreateDB(person01);
+	db.CreateDB(person02);
+
+	TargetParam oldParam, newParam;
+
+	oldParam.column = Column::Name;
+	oldParam.value = person01.GetFullName();
+	newParam.column = Column::MiddlePhoneNum;
+	newParam.value = person02.midPhoneNum_;
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result[0].midPhoneNum_, person01.midPhoneNum_);
+	EXPECT_EQ(GetDBSizeTotal(db), 24);
+
+	oldParam.column = Column::Name;
+	oldParam.value = person03.GetFullName();
+	newParam.column = Column::MiddlePhoneNum;
+	newParam.value = person02.midPhoneNum_;
+	result = db.UpdateDB(oldParam, newParam);
+
+	EXPECT_EQ(result.size(), 0);
+
+	result = db.DeleteDB({ Column::EmployeeNum, to_string(person01.num_) });
+	EXPECT_EQ(result.size(), 1);
+	result = db.DeleteDB({ Column::EmployeeNum, to_string(person02.num_) });
+	EXPECT_EQ(result.size(), 1);
+
+	EXPECT_EQ(GetDBSizeTotal(db), 0);
+}
 
 //=======================================================
 TEST_F(DatabaseTest, test_delete_num){
