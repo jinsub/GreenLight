@@ -136,8 +136,10 @@ vector<EmployeeInfo> MemoryDatabase::GetUpdateMainDB_(const vector<unsigned int>
 		for (auto num : nums) {
 			if (map_.mainDB_.count(num) == 1) {
 				map_.mainDB_[num].num_ = stoi(update.value);
-				info = map_.mainDB_[num];
-				map_.mainDB_.insert({ stoi(update.value), info });
+
+        info = map_.mainDB_[num];
+
+        map_.mainDB_.insert({ stoi(update.value), info });
 				map_.mainDB_.erase(num);
 			}
 		}
@@ -325,10 +327,7 @@ vector<EmployeeInfo> MemoryDatabase::UpdateDB(TargetParam filter, TargetParam up
 		return result;
 	}
 
-	if (filter.column == update.column && filter.value.compare(update.value) == 0) {
-		return result;
-	}
-		
+
 	vector<unsigned int> nums = GetEmployeeNums_(filter.column, filter.value);
 	if (nums.size()) {
 		return GetUpdateMainDB_(nums, update);
